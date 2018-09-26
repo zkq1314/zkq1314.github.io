@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="区块链," />
 
 
 
@@ -81,12 +81,13 @@
 
 
 
-<meta name="description" content="chaincode(可以用Go,java开发) Ledger整个区块结构分为文件系统存储的Block结构和数据库维护的State状态，其中state的存储结构是可以替换的，可选的实现包括各种KV数据库（LevelDB，CouchDB等） node有三种： client或submitting-client：负责向背书人（endorsers）提交实际的事务调用，并将交易提议广播到订阅服务 peer：负">
+<meta name="description" content="调研了一下HyperLedger Fabric的架构，因为它的官网文档并没有及时更新，所以有的内容参考的还是以前版本的文档。">
+<meta name="keywords" content="区块链">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HyperLedger Fabric架构篇">
 <meta property="og:url" content="http://yoursite.com/2018/09/26/HyperLedger-Fabric架构篇/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="chaincode(可以用Go,java开发) Ledger整个区块结构分为文件系统存储的Block结构和数据库维护的State状态，其中state的存储结构是可以替换的，可选的实现包括各种KV数据库（LevelDB，CouchDB等） node有三种： client或submitting-client：负责向背书人（endorsers）提交实际的事务调用，并将交易提议广播到订阅服务 peer：负">
+<meta property="og:description" content="调研了一下HyperLedger Fabric的架构，因为它的官网文档并没有及时更新，所以有的内容参考的还是以前版本的文档。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric1.png">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric2.png">
@@ -95,10 +96,10 @@
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric5.png">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric6.png">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric7.png">
-<meta property="og:updated_time" content="2018-09-26T02:34:00.422Z">
+<meta property="og:updated_time" content="2018-09-26T02:42:26.569Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HyperLedger Fabric架构篇">
-<meta name="twitter:description" content="chaincode(可以用Go,java开发) Ledger整个区块结构分为文件系统存储的Block结构和数据库维护的State状态，其中state的存储结构是可以替换的，可选的实现包括各种KV数据库（LevelDB，CouchDB等） node有三种： client或submitting-client：负责向背书人（endorsers）提交实际的事务调用，并将交易提议广播到订阅服务 peer：负">
+<meta name="twitter:description" content="调研了一下HyperLedger Fabric的架构，因为它的官网文档并没有及时更新，所以有的内容参考的还是以前版本的文档。">
 <meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric1.png">
 
 
@@ -302,6 +303,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/区块链/" itemprop="url" rel="index">
+                    <span itemprop="name">区块链</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -329,7 +352,8 @@
       
 
       
-        <h2 id="chaincode-可以用Go-java开发"><a href="#chaincode-可以用Go-java开发" class="headerlink" title="chaincode(可以用Go,java开发)"></a>chaincode(可以用Go,java开发)</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric1.png" alt="Fabric1"></p>
+        <p>调研了一下HyperLedger Fabric的架构，因为它的官网文档并没有及时更新，所以有的内容参考的还是以前版本的文档。<br><a id="more"></a></p>
+<h2 id="chaincode-可以用Go-java开发"><a href="#chaincode-可以用Go-java开发" class="headerlink" title="chaincode(可以用Go,java开发)"></a>chaincode(可以用Go,java开发)</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric1.png" alt="Fabric1"></p>
 <h2 id="Ledger"><a href="#Ledger" class="headerlink" title="Ledger"></a>Ledger</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric2.png" alt="Fabric2"><br>整个区块结构分为文件系统存储的<strong>Block结构</strong>和数据库维护的<strong>State状态</strong>，其中state的存储结构是可以替换的，可选的实现包括各种KV数据库（LevelDB，CouchDB等）</p>
 <h2 id="node有三种："><a href="#node有三种：" class="headerlink" title="node有三种："></a>node有三种：</h2><ul>
 <li>client或submitting-client：负责向背书人（endorsers）提交实际的事务调用，并将交易提议广播到订阅服务</li>
@@ -372,6 +396,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/区块链/" rel="tag"># 区块链</a>
+          
+        </div>
+      
 
       
       
@@ -390,10 +420,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/26/docs/15379278708905/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -470,7 +496,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
