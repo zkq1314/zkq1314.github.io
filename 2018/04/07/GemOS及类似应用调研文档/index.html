@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="区块链," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="面临问题发展现状电子病历( Electronic Medical Records, EMR)的广泛使用给医疗领域带来非常大的便利，使得数据的存储复制非常简单。但随着社会发展目前的电子病历系统已经无法满足人们的需求。">
+<meta name="keywords" content="区块链">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GemOS及类似应用调研文档">
+<meta property="og:url" content="http://yoursite.com/2018/04/07/GemOS及类似应用调研文档/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="面临问题发展现状电子病历( Electronic Medical Records, EMR)的广泛使用给医疗领域带来非常大的便利，使得数据的存储复制非常简单。但随着社会发展目前的电子病历系统已经无法满足人们的需求。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A81.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A82.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A83.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A84.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A85.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A86.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A87.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A88.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A89.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A810.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A811.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A812.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A813.jpg">
+<meta property="og:updated_time" content="2018-04-07T09:07:55.768Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GemOS及类似应用调研文档">
+<meta name="twitter:description" content="面临问题发展现状电子病历( Electronic Medical Records, EMR)的广泛使用给医疗领域带来非常大的便利，使得数据的存储复制非常简单。但随着社会发展目前的电子病历系统已经无法满足人们的需求。">
+<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A81.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/07/GemOS及类似应用调研文档/"/>
+
+
+
+
+
+  <title>GemOS及类似应用调研文档 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/07/GemOS及类似应用调研文档/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GemOS及类似应用调研文档</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-07T10:27:25+08:00">
+                2018-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/区块链/" itemprop="url" rel="index">
+                    <span itemprop="name">区块链</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="面临问题"><a href="#面临问题" class="headerlink" title="面临问题"></a>面临问题</h1><h2 id="发展现状"><a href="#发展现状" class="headerlink" title="发展现状"></a>发展现状</h2><p>电子病历( Electronic Medical Records, EMR)的广泛使用给医疗领域带来非常大的便利，使得数据的存储复制非常简单。但随着社会发展目前的电子病历系统已经无法满足人们的需求。<br><a id="more"></a></p>
+<ol>
+<li>现有体系下，患者的个人健康数据是由不同的医院或企业来进行管理的，患者的个人数据是分散的，数据难以交互，互操作性差，难以协调管理；</li>
+<li>患者个人健康数据是有价值的，本质上归患者所有，但是管理数据的企业往往因为经济利益将这些数据占为己有，患者无法掌控和管理自己的个人医疗数据，无法对自己的数据进行访问控制、权限设定；</li>
+<li>医疗数据的安全性和有效性完全依赖于企业，一旦企业的数据库遭受破坏，医疗数据就会损失，难以恢复，且企业很可能会为自身利益，泄露医疗数据，对患者隐私造成危害。<br>显然，这种中心化的管理方式和分散的数据存储方式已经不是医疗行业的最佳选择。<h2 id="医疗数据泄露案例"><a href="#医疗数据泄露案例" class="headerlink" title="医疗数据泄露案例"></a>医疗数据泄露案例</h2></li>
+<li>据2017年8月《每日邮报》披露，在过去的一年中，超过10万名患者的隐私资料被英国国家保健医疗系统（NHS，National Health Service）泄露。2016年7月，NHS的一家信托公司向未名的“第三方”私人公司错误地发送了约10万名患者的信息资料。2016年6月，NHS的管理人员向一家“外部组织”错误地发送了一份关于288名患者的电子表格。2017年3月，一批医疗数据不适当地分享给了部分全科医师，并对外泄露。此外，NHS还曾错误地将包含有关患者的敏感信息文档上传到其网站上，严重泄漏了病人隐私。</li>
+<li>2016年，深圳某医院，上千名接受产检和分娩照护的女性，接到月嫂和婴儿产品公司的骚扰电话和短信。据称，涉事受害者的信息，被明码标价售卖。由已经泄露出来的孕妇信息显示，疑是卖方通过医院内部存储孕检信息的电脑取得。</li>
+<li>2016年7月，全国超过330位艾滋病感染者称接到了诈骗电话信息，诈骗者自称是政府人员，通知患者领取疾病补助，并以此索要手续费。因在电话中直称其名，对艾滋病感染者近期的就诊时间、在哪里拿过药、身份证号码，以及工作单位等等信息都掌握精准。因此不少感染者上当受骗。</li>
+</ol>
+<p>医疗数据通常包含了患者的身份信息、治疗方案、治疗费用等敏感信息，然后医药行业又是个门槛很高的行业，一旦数据泄露，不法人员利用信息很容易对患者造成健康财产上的伤害。</p>
+<h1 id="方案提出"><a href="#方案提出" class="headerlink" title="方案提出"></a>方案提出</h1><p>区块链技术通过去中心化的方式维护一个可靠数据库，是一个自带信任化、防篡改及能进行多签名复杂权限管理的分布式记录系统。如果将这些敏感的医疗数据加密后写入区块链，不仅可以通过时间戳来确保数据精度，而且能确保数据安全，不会被没有权限的人看到，并且不会轻易被黑客攻击篡改。利用区块链还可以集成不同数据库中的医疗信息，实现互操作性、数据共享。本文介绍区块链技术在医疗保健领域的应用前景和可行的解决方案，以期为医学研究和医疗行业的发展提供参考。</p>
+<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p>智能合约的本质是编写在区块链上的一段代码，它可以实现一定的功能。比特币内置的脚本程序可以在一定的程度上实现“智能合约”，但是这套脚本语言有非常大的局限性，缺少图灵完备性，无法实现复杂的多阶段合约。为克服比特币脚本语言的局限性，支持更强大多功能的智能合约，出现一种全新开放的区块链平台—以太坊，它提供图灵完备的编程语言以及编写平台，开发者可以在上面实现任意复杂的智能合约。<br>在以太坊中，包括两种类型的账户，外部账户和合约账户。外部账户由用户控制，即由用户私钥控制，里面不含代码；合约账户包含智能合约代码，由代码控制，不能被用户控制，除非合约里指定可以由某个用户私钥控制，这样就保证智能合约照着既定的规则运行。一份智能合约被参与者签署后，会由一个外部账户将其发送到区块链中，经过网络中的节点验证之后永久保存在区块链中。智能合约由从其他合约账户或外部账户接收到的消息或交易触发，一旦触发，它会自动执行特定的代码片段，代码可以读写自己的内部存储，发送和接收存储消息和价值。智能合约也被称为第2代区块链技术，将区块链技术与智能合约技术结合，将在金融、保险、医疗保健、电子商务、物联网和社交通讯领域展示广阔的应用前景。</p>
+<h1 id="设计原则及框架"><a href="#设计原则及框架" class="headerlink" title="设计原则及框架"></a>设计原则及框架</h1><h2 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a>设计原理</h2><p>白皮书中这样描述GemOS的设计原则：</p>
+<blockquote>
+<p>Use well-defined and well-managed microservices to encapsulate functionality, isolate sensitive data, enable responsive and efficient scaling, and provide a framework for future improvements.<br>Speed matters, but so does ease. Favor event-driven architecture to construct fast, responsive systems, but provide support for alternate modes of operation.<br>Expose high-level abstractions of the foundationalelements of distributed applications in a powerful, well-understood programming environment to simplify development of extensions, adapters, and applications.</p>
+</blockquote>
+<p>总结一下，就是：</p>
+<ul>
+<li>使用微服务（microservices）来封装功能，隔离敏感数据。</li>
+<li>事件驱动。</li>
+<li>功能强大且易于理解。<h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2>遵循这些原则，GemOS被构建为以事件驱动的基于微服务的平台，并将不同微服务的关注点加以区分。目前，GemOS核心由4个关键组件组成，简称为数据层，身份层，网络层和业务层。个体微服务间通过事件（消息）进行通信。GemOS平台为实时和历史事件处理提供了明确的机制。</li>
+<li>数据层是一种数据持久性微服务，为应用程序提供安全的数据存储服务。区块链对于大多数类型的数据来说都不是理想的存储方式。数据层可以与用户现有的私人存储集成，允许与现有系统进行数据库级集成。它支持多个后端数据存储驱动程序，模式验证，规范序列化，加密和文档散列。</li>
+<li>身份层提供安全的密钥管理和签名功能。它支持多种格式和协议，并可以选择与现有的身份管理解决方案集成。</li>
+<li>网络层是区块链未知的服务，它提供了一个通用接口，用于创建一个或多个区块链上的任意资源并与其交互。它管理区块链节点，处理来自网络的事件，并将高级指令转换为本地链上代码。</li>
+<li>业务层可以访问其他GemOS微服务。程序可以通过智能合约在链上执行，也可以响应和控制脱链事件以及执行或响应自动化流程所需的任何其他业务功能。外部服务也可以访问。<br>基于微服务架构的简化视图:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A81.jpg" alt="此处输入图片的描述"><br>业务层服务提供了自动化业务流程所需的处理能力。它可以通过回调机制实时访问来自其他微服务的事件。任务默认在Logic的私有执行环境中脱链执行，但可以通过网络服务创建并与链上资源进行交互。<br>脱链和在线执行-用于平台间通信的区块链:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A82.jpg" alt="此处输入图片的描述"><h1 id="技术原理"><a href="#技术原理" class="headerlink" title="技术原理"></a>技术原理</h1><h2 id="访问控制和权限许可"><a href="#访问控制和权限许可" class="headerlink" title="访问控制和权限许可"></a>访问控制和权限许可</h2>在GemOS白皮书和网站是都没有提到安全存储和访问控制的细节，在此引用麻省理工MedRec系统的存储原理。<br>为实现数据权限管理，MedRec提出3类智能合约，分别是登记合约（Register Contract，RC），患者－提供商关系合约（Patient-Provider Relationship Contact，PPR），总结合约（Summary Contract，SC）。合约的结构和其相互关系，见下图 。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A83.jpg" alt="此处输入图片的描述"><br>登记合约。用于管理账户身份。区块链账户的身份信息都是由用户私钥生成的公钥作为身份， 这可能与现有的ID形式不相符合，KC就将用户真实身份和其以太坊账号做映射，合约中的编码可以允许新身份的注册及现有映射的改变。此外，RC也将用户身份与相应的SC做映射。<br>患者－提供商关系合约。用于实现访问控制。患者的医疗记录可能会由不同的提供商进行管理， 每个提供商也会管理不同患者的医疗数据，PPR就是对提供商和患者一对一关系进行说明的合约，里面定义一系列数据指针和相关访问权限。通过数据指针可以访问到数据库中的数据，数据的访问权限主要通过数据库检索指令来约束，不同权限的人可使用的数据检索指令不相同。具体实现时会为患者设计一个简单的图形界面工具， 由患者在此界面上对自身数据进行权限管理。<br>总结合约。用于管理用户和其所有PPR的映射。一个患者其所有的提供商都会为其制定PPR，SC拥有一张列表，里面存有PPR地址，只要访问患者的SC，就可以链接到患者的PPR，除此之外，SC中还存有PPR的状态，用来表示该PPR中的权限是否被患者确认。<br>MedRec系统的工作流程，见下图：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A84.jpg" alt="此处输入图片的描述"><br>MedRec为一个新患者增添记录的步骤为：<ol>
+<li>提供商为一个新患者添加医疗记录到本地数据库。</li>
+<li>MedRec以太坊客户端使用RC识别患者身份信息，无法识别则为患者制定新的RC并链接到SC，提供商为患者制定新的PPR，将该PPR加入SC中，其状态处于待确认状态。这一步中3个合约都可能得到更新，提交到区块链等待验证。</li>
+<li>矿工挖矿，对合约进行验证。</li>
+<li>验证成功之后，SC得到更新。</li>
+<li>患者得到其医疗记录元数据已被写入区块链的通知后，对其数据权限进行管理，选择数据共享，更新相应的PPR与第３方地址和查询字符串。</li>
+<li>更新SC中PPR的状态，表示权限已被患者确认。<br>7,8,9是MedRec系统根据用户的身份来判断其是否有权访问患者数据。MedRec系统在区块链上存储患者记录的索引，通过索引将不同数据库的数据集成，实现医疗数据的互操作性，同时通过在以太坊区块链上为用户编写智能合约，使得用户可以对自己的数据进行权限管理并在一定程度上保护用户数据隐私。<h2 id="安全存储"><a href="#安全存储" class="headerlink" title="安全存储"></a>安全存储</h2>直接将区块链用作数据库的结果是极糟糕的，根据传统的数据库标准衡量：其工作量仅仅是每秒（tps）几笔交易，单个确认写入之前的延迟时间是10分钟，容量为几十GB。此外，添加节点导致了更多的问题：随着节点加倍，网络流量增加了四倍，工作量、延迟时间或容量无法得到改善。此外，区块链本质上没有查询功能。<br>在MedRec系统中，患者数据存在供应商自己的数据库中，区块链上并没有存储数据， 而是通过智能合约中数据指针与供应商数据库相链接，所以它并不能保证供应商数据库的安全性。<br>如果将数据存储在区块链上，将没有任何实体会掌握这些数据，各方需协作负责维护数据的安全性和完整性，这为医疗提供了唯一的真实性来源，除此之外区块链通过对之前发生的任何变化创造永久的记录来保护在线健康档案，区块链上患者的历史医疗记录会形成永久的日志。下一节将讨论如何使用区块链构建数据库。<h1 id="使用区块链构建数据库"><a href="#使用区块链构建数据库" class="headerlink" title="使用区块链构建数据库"></a>使用区块链构建数据库</h1>针对上一节提出的直接将区块链作数据库存在的问题，BigChainDB已经解决了这个问题，完全改变了其工作模式：他们采取了启用单独的数据库并为该数据库添加区块链功能的模式，而不是使用区块链作为数据库。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A85.jpg" alt="此处输入图片的描述"><br>以下内容摘自BigChainDB的论文。</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>我们在企业级分布式数据库之上构建了BigchainDB，BigchainDB从中继承了高吞吐量，高容量，全功能的NoSQL查询语言，高效的查询和许可。鉴于大数据数据库具有内在的共识算法，能容忍一些故障型错误，我们的方案直接使用了这一技术。我们增加了一些算法来决定写什么样的交易，按照什么顺序写入区块。我们不鼓励使用私有的，节点间点到点通信的方式，鼓励使用数据库的内在通信机制。我们认为这样可以减少系统的复杂性，降低安全风险。这一假设意味着攻击节点不能向网络的一部分发送一条消息，同时向网络的另外一部分发送另外一条消息。简单讲，在这个模型中，每次一个节点“说话”，所有其它节点都可以收到。</p>
+</blockquote>
+<p>主要增加了以下区块链特性到数据库中。</p>
+<ol>
+<li>分布式控制：“没有人”拥有或者控制一个网络；</li>
+<li>不可修改：写入（区块）的数据是（永久）防篡改的；<br>3.（有价值）：可以不依赖中心实体通过网络生成和转移资产。<br>分布式控制通过具有投票权限的联盟节点实现。其它节点可以读取和提交交易。投票是在数据库内在的共识机制之上完成的。多数人的投票意见作为仲裁依据。（区块生成与投票操作是分开的），每一个区块都可以在投票和验证之前生成并写入数据库。但是区块链的实际形成却是通过投票完成的。每一个区块的id是该区块的交易，时间戳，投票人，生成节点公钥的哈希值（特别注意不包括前一个区块的哈希）。每一个区块还附有一个签名和一系列的投票。这一系列的投票由投票人在区块生成之后生成。投票中包含该区块的前一个区块的哈希值！不可修改性涉及以下机制：分区、复制、恢复不允许的更新和删除，常规的数据库备份，交易的数字签名，区块和投票。（关于有价值），任意有资产发行权限的实体都可以发行资产。资产转移的时候必须满足交易的密码条件。这意味这攻击者或者恶意的系统管理员不能任意修改数据，不存在单点失败的风险。<h2 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h2>图3展示了BigChainDB的体系结构。尽管该系统向客户提供API时类似一个单独的数据库，但实际上有两个数据库（表）：交易集合S库和区块链C库。这两个库通过BigchainDB共识算法（BCA）连接。BCA运行在每一个投票节点中。非投票客户端根据权限的不同，可以读取，生成资产，转移资产等。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A86.jpg" alt="此处输入图片的描述"><br>S 库和C库本身是两个单独的商业数据库，例如ReThinkDB数据库。我们不改动数据库内部的工作机制。好处是提升了数据库的可扩展性，还有例如版本控制和良好测试的代码等。每一个数据库运行其内部的类似Paxos的一种共识算法来达到数据的一致性。<br>S库存放未排序的交易。当一个交易到达某个节点之后，如果该节点认为该交易是有效的，就把该交易放到S库。同时把该交易随机的分配给一个其它节点。（注意S库会在多个节点之间同步数据，所以这里的随机分配给一个节点是为了让该随机节点打包交易，以图3为例，S库中是有所有7个交易的，但是S1节点只负责其中的三个，其它两个节点各负责两个）。<br>签名节点可以投票决定区块是否有效。签名节点检查区块中每一个交易的的有效性，如果存在无效交易，则投出区块无效的选票；否则，给出有效的选票。<br>每一个区块一开始都是不确定的状态，没有选票。当多数选票认为区块有效后，进入确定有效状态；多数选票认为区块无效后，进入确定无效状态。进入确定状态后，区块及其交易不可再修改。<br>完整的一个区块包含区块id，时间戳，交易，投票信息等。<h2 id="行为描述"><a href="#行为描述" class="headerlink" title="行为描述"></a>行为描述</h2>本节描述一个客户端生成一个交易发给一个服务器节点的过程。每个服务器节点都有关于S库和C库的视图。<br>图4中每个卡片代表一个物理设备。客户端设备在左侧。客户端连接到右侧的BigchainDB服务器节点（即投票节点，也就是说客户端需要连接投票节点）。任意客户端可以向任意服务器节点发送交易。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A87.jpg" alt="此处输入图片的描述"><br>图4左侧，客户端生成了一个有载荷的交易，ID是#A。BigchainDB数据库的S库是空的，C库只有一个创世区块。其它客户端类似操作。<br>当客户端发出交易以后，接收节点（译者：注意是投票节点）把该交易分配给联盟节点中的某个投票节点，并存入S库（译者：这里存入S库之后，由底层数据库确保所有投票节点都可以看到）。图4右侧展示了一个示例状态。我们看到节点1被分配了三个交易，节点2两个交易，节点1一个交易。C库还是空的。<br>图5左侧显示了节点1处理完分配给它的交易的状态。节点1把分给它的3个交易从S库中取出，生成一个区块，写入C库（<strong>注意区块的结构中不包含前一个区块的ID，与一般的区块链不同，这里的区块结构中并没有前一个区块的指针。相反的，一个区块中包含一些投票，每一个投票中包含一个前一个区块的指针，所以说这里是投票时才链化。</strong>）。新的区块排在C库的末尾。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A88.jpg" alt="此处输入图片的描述"><br>图5右侧显示节点3也处理完了分配给它的交易，写入了新的区块到C库。<br>当一个区块首次写入C库时，其状态是未确定的（译者：注意到底层数据库同步了写入C库的数据，所以所有投票节点都可以见到新区块）。每个投票节点投出支持或者反对的票。如果一个区块之前的所有区块都是确定的（包括判定无效），并且该区块内所有的交易是有效的，该区块才可以投票为有效。当有效或者无效投票达到多数之后，该区块进入确定有效或无效的状态。<br>在这个例子中，节点1的区块经过投票成为确定有效状态。节点3的区块在后续投票中判为无效。在图5中有阴影的区块表示确定为无效的区块。<br>当出现无效区块的时候，区块内的一些交易可能依旧是有效的，BigchainDB数据库给这些交易第二次机会。图6展示了这个过程：无效区块中的交易#B和#E重新写入了S库，以等待写入区块的下一次机会（下一次，交易会由不同的节点验证，打包）。图6还展示了BigchainDB是如何处理无效区块的。无效区块并没有从C中移除，而只是标记为无效，这样不管它整个系统会更简单些，存储空间在BigchainDB中并不是一个问题。类似的，投票也是流水操作的，并不会在一个区块确定之后就停止一下（意思是有区块就一直投）。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A89.jpg" alt="此处输入图片的描述"><br>图7强调了上述过程是多个设备并行操作的。左侧显示一个节点可能与多个客户端有连接。右侧显示节点数量不止一个，尽管这些节点关于S和C库有一致的视图（由底层数据库技术保证）。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A810.jpg" alt="此处输入图片的描述"><h2 id="应用Datum"><a href="#应用Datum" class="headerlink" title="应用Datum"></a>应用Datum</h2><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A811.jpg" alt="此处输入图片的描述"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A812.jpg" alt="此处输入图片的描述"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Gemos%E5%8F%8A%E5%BA%94%E7%94%A813.jpg" alt="此处输入图片的描述"><br>参考文献<br>GemOS白皮书<br>《区块链在医疗行业的应用前景》黄建华等<br>《MedRec: Using Blockchain for Medical Data Access and Permission Management》<br>《如何使用区块链构建数据库解决方案》：<a href="http://www.sohu.com/a/128428883_531054" target="_blank" rel="noopener">http://www.sohu.com/a/128428883_531054</a><br>BigChainDB开源地址：<a href="https://github.com/bigchaindb/bigchaindb" target="_blank" rel="noopener">https://github.com/bigchaindb/bigchaindb</a><br>BigChainDB官网：<a href="https://www.bigchaindb.com/" target="_blank" rel="noopener">https://www.bigchaindb.com/</a><br>BigChainDB白皮书：<br><a href="https://github.com/blockchain-university/databank/blob/master/docs/bigchaindb-whitepaper.pdf" target="_blank" rel="noopener">https://github.com/blockchain-university/databank/blob/master/docs/bigchaindb-whitepaper.pdf</a><br>Datum官网：<a href="https://datum.org/?locale=zh_cn.com" target="_blank" rel="noopener">https://datum.org/?locale=zh_cn.com</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/区块链/" rel="tag"># 区块链</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/07/区块链调研文档/" rel="next" title="区块链调研文档">
+                <i class="fa fa-chevron-left"></i> 区块链调研文档
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/07/KNN/" rel="prev" title="KNN">
+                KNN <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KaiQiang Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#面临问题"><span class="nav-number">1.</span> <span class="nav-text">面临问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发展现状"><span class="nav-number">1.1.</span> <span class="nav-text">发展现状</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#医疗数据泄露案例"><span class="nav-number">1.2.</span> <span class="nav-text">医疗数据泄露案例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方案提出"><span class="nav-number">2.</span> <span class="nav-text">方案提出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#智能合约"><span class="nav-number">2.1.</span> <span class="nav-text">智能合约</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计原则及框架"><span class="nav-number">3.</span> <span class="nav-text">设计原则及框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计原理"><span class="nav-number">3.1.</span> <span class="nav-text">设计原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架"><span class="nav-number">3.2.</span> <span class="nav-text">框架</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#技术原理"><span class="nav-number">4.</span> <span class="nav-text">技术原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#访问控制和权限许可"><span class="nav-number">4.1.</span> <span class="nav-text">访问控制和权限许可</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全存储"><span class="nav-number">4.2.</span> <span class="nav-text">安全存储</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用区块链构建数据库"><span class="nav-number">5.</span> <span class="nav-text">使用区块链构建数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#体系结构"><span class="nav-number">5.1.</span> <span class="nav-text">体系结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行为描述"><span class="nav-number">5.2.</span> <span class="nav-text">行为描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用Datum"><span class="nav-number">5.3.</span> <span class="nav-text">应用Datum</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KaiQiang Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="区块链," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="区块链技术概述区块链是什么区块链区块链技术，简称BT（Blockchain technology），本质上是一个去中心化的分布式账本数据库，是一串通过密码学相关联的数据块互相连接起来的数据链，每一个数据块中包含了多次比特币网络交易有效确认的信息。">
+<meta name="keywords" content="区块链">
+<meta property="og:type" content="article">
+<meta property="og:title" content="区块链调研文档">
+<meta property="og:url" content="http://yoursite.com/2018/04/07/区块链调研文档/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="区块链技术概述区块链是什么区块链区块链技术，简称BT（Blockchain technology），本质上是一个去中心化的分布式账本数据库，是一串通过密码学相关联的数据块互相连接起来的数据链，每一个数据块中包含了多次比特币网络交易有效确认的信息。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E4%BE%8B%E5%AD%90.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E5%8C%BA%E5%9D%97.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E9%93%BE.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AE%B0%E5%BD%95%E6%9C%AC.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E9%9A%BE%E5%BA%A6%E7%B3%BB%E6%95%B0.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E9%9A%BE%E5%BA%A6%E7%B3%BB%E6%95%B0%E5%85%AC%E5%BC%8F.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E5%8C%BA%E5%9D%97%E5%88%86%E5%8F%89.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E5%8C%BA%E5%9D%97%E5%88%86%E5%8F%89%E4%BA%8C.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/merkle%E6%A0%91.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/merkle%E6%A0%91%E4%BA%8C.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/BitMassage1.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/BitMassage2.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/GemOS.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/GemOS1.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/GemOS2.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/GemOS3.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Storj.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Tierion.jpg">
+<meta property="og:updated_time" content="2018-04-07T09:07:43.361Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="区块链调研文档">
+<meta name="twitter:description" content="区块链技术概述区块链是什么区块链区块链技术，简称BT（Blockchain technology），本质上是一个去中心化的分布式账本数据库，是一串通过密码学相关联的数据块互相连接起来的数据链，每一个数据块中包含了多次比特币网络交易有效确认的信息。">
+<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E4%BE%8B%E5%AD%90.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/07/区块链调研文档/"/>
+
+
+
+
+
+  <title>区块链调研文档 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/07/区块链调研文档/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">区块链调研文档</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-07T09:18:55+08:00">
+                2018-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/区块链/" itemprop="url" rel="index">
+                    <span itemprop="name">区块链</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="区块链技术概述"><a href="#区块链技术概述" class="headerlink" title="区块链技术概述"></a>区块链技术概述</h2><h3 id="区块链是什么"><a href="#区块链是什么" class="headerlink" title="区块链是什么"></a>区块链是什么</h3><h4 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h4><p>区块链技术，简称BT（Blockchain technology），本质上是一个<strong>去中心化</strong>的分布式账本数据库，是一串通过密码学相关联的数据块互相连接起来的数据链，每一个数据块中包含了多次比特币网络交易有效确认的信息。<br><a id="more"></a><br>区块链是由一串使用密码学方法产生的数据块组成的，每一个区块都包含了上一个区块的<strong>哈希值</strong>（hash），从创始区块（genesis block）开始连接到当前区块，形成块链。每一个区块都确保按照时间顺序在上一个区块之后产生，否则前一个区块的哈希值是未知的。区块链是比特币的核心创新。<br>区块链概念的出现，首先是在<strong>中本聪</strong>的比特币白皮书中提到的，但是以工作量证明链（proof-of-work chain）的形式而存在，以下是中本聪对区块链概念的描述：</p>
+<blockquote>
+<p>时间戳服务器通过对以区块(block)形式存在的一组数据，实施随机散列而加上时间戳，并将该随机散列进行广播，就像在新闻或世界性新闻组网络（Usenet）的发帖一样<br>。显然，该时间戳能够证实特定数据必然于某特定时间是的确存在的，因为只有在该时刻存在了才能获取相应的随机散列值。每个时间戳应当将前一个时间戳纳入其随机散列值中，每一个随后的时间戳都对之前的一个时间戳进行增强(reinforcing)，这样就形成了一条链（Chain）。<br>节点始终都将最长的链视为正确链，并持续工作和延长它。如果有两个节点同时广播不同版本的新区块，那么其他节点在接收到该区块的时间上，将存在先后差别。当此情形，他们将在率先收到的区块基础上进行工作，但也会保留另外一条链，以防后者变成最长链。该僵局（tie）的打破，要等到下一个工作量证明被发现，而其中的一条链被证实为是较长的一条，那么在另一条分支链上工作的节点将转换阵营，开始在较长的链上工作。</p>
+</blockquote>
+<p>区块链的概念源于数字货币——比特币，也是众多加密数字货币的核心，包括以太坊、莱特币、狗狗币等。 </p>
+<h4 id="比特币交易"><a href="#比特币交易" class="headerlink" title="比特币交易"></a>比特币交易</h4><p>一个流程的例子：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E4%BE%8B%E5%AD%90.jpg" alt=""></p>
+<ul>
+<li>在张三点击完发币按钮之后，首先，此交易会发给全球所有矿工（图中深蓝色所示），矿工们一边验证这笔交易是否合法，一边为获得将第20014号区块加入到主链的权力而努力着（因为可以获得比特币奖励）。20014号区块包含着一道非常复杂的数学题，此数学题的代号也为“20014”，即第20014道数学题。一旦第一位矿工得出答案，并且其他矿工发现他确实没错，于是此矿工便获得了将20014号区块加入到主链的权利。</li>
+<li>于是，当红色矿工获得20014号加入主链权利之后，便把张三和李四的交易打包到20014区块中，整理好区块，将此区块发给全球所有矿工，让其他矿工将此区块连到每个矿工自己所保存的主链上。</li>
+<li>此时，钱包同步了一下全网的信息，发现此交易确实已经被保存在各个矿工的主链上了，于是在手机app上，给李四展示“10比特币已到账”的提示，李四便知道比特币到账了。给张三银行卡转账之后，此笔交易就完成了。<h3 id="区块链的基本原理"><a href="#区块链的基本原理" class="headerlink" title="区块链的基本原理"></a>区块链的基本原理</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><strong>交易</strong>（Transaction）：一次操作，导致账本状态的一次改变，如添加一条记录；<br><strong>区块</strong>（Block）：记录一段时间内发生的交易和状态结果，是对当前账本状态的一次共识；新的区块会被添加到记录（区块链）的末端，而且一旦书写就很难修改或移除。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E5%8C%BA%E5%9D%97.jpg" alt="区块"><br>每个区块包含两个部分。</li>
+<li>区块头（Head）：记录当前区块的特征值</li>
+<li>区块体（Body）：实际数据<br>区块头包含了当前区块的多项特征值。</li>
+<li>生成时间 </li>
+<li>实际数据（即区块体）的哈希 </li>
+<li>上一个区块的哈希等。</li>
+</ul>
+<p>所谓”哈希”就是计算机可以对任意内容，计算出一个长度相同的特征值。区块链的 哈希长度是256位，这就是说，不管原始内容是什么，最后都会计算出一个256位的二进制数字。而且可以保证，只要原始内容不同，对应的哈希一定是不同的。<br>区块头包含很多内容，其中有当前区块体的哈希，还有上一个区块的哈希。这意味着，如果当前区块体的内容变了，或者上一个区块的哈希变了，一定会引起当前区块的哈希改变。<br>这一点对区块链有重大意义。如果有人修改了一个区块，该区块的哈希就变了。为了让后面的区块还能连到它（因为下一个区块包含上一个区块的哈希），该人必须依次修改后面所有的区块，否则被改掉的区块就脱离区块链了。由于后面要提到的原因，哈希的计算很耗时，短时间内修改多个区块几乎不可能发生，除非有人掌握了全网51%以上的计算能力。<br>正是通过这种联动机制，区块链保证了自身的可靠性，数据一旦写入，就无法被篡改。这就像历史一样，发生了就是发生了，从此再无法改变。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E9%93%BE.jpg" alt="此处输入图片的描述"><br>链（Chain）：由一个个区块按照发生顺序串联而成，是整个状态变化的日志记录。<br>如果把区块链作为一个状态机，则每次交易就是试图改变一次状态，而每次共识生成的区块，就是参与者对于区块中所有交易内容导致状态改变的结果进行确认。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AE%B0%E5%BD%95%E6%9C%AC.jpg" alt="此处输入图片的描述"><br>在实现上，首先假设存在一个分布式的数据记录本（这方面的技术相对成熟），这个记录本只允许添加、不允许删除。其结构是一个线性的链表，由一个个“区块”串联组成，这也是其名字“区块链”的来源。新的数据要加入，必须放到一个新的区块中。而这个块（以及块里的交易）是否合法，可以通过一些手段快速检验出来。维护节点都可以提议一个新的区块，然而必须经过一定的共识机制来对最终选择的区块达成一致。<br>具体以比特币为例来看如何使用了区块链技术？客户端发起一项交易后，会广播到网络中并等待确认。网络中的节点会将一些等待确认的交易记录打包在一起（此外还要包括此前区块的哈希值等信息），组成一个候选区块。然后，试图找到一个 nonce 串放到区块里，使得候选区块的 hash 结果满足一定条件（比如小于某个值）。一旦算出来这个区块在格式上就合法了，就可以进行全网广播。大家拿到提案区块，进行验证，发现确实符合约定条件了，就承认这个区块是一个合法的新区块，被添加到链上。当然，在实现上还会有很多的细节。<br>比特币的这种基于算力的共识机制被称为 Proof of Work（PoW）。目前，要让 hash 结果满足一定条件并无已知的启发式算法，只能进行暴力尝试。尝试的次数越多，算出来的概率越大。通过调节对 hash 结果的限制，比特币网络控制约 10 分钟平均算出来一个合法区块。算出来的节点将得到区块中所有交易的管理费和协议固定发放的奖励费，也即俗称的挖矿。</p>
+<h4 id="挖矿"><a href="#挖矿" class="headerlink" title="挖矿"></a>挖矿</h4><p>由于必须保证节点之间的同步，所以新区块的添加速度不能太快。试想一下，你刚刚同步了一个区块，准备基于它生成下一个区块，但这时别的节点又有新区块生成，你不得不放弃做了一半的计算，再次去同步。因为每个区块的后面，只能跟着一个区块，你永远只能在最新区块的后面，生成下一个区块。所以，你别无选择，一听到信号，就必须立刻同步。<br>所以，区块链的发明者中本聪（这是假名，真实身份至今未知）故意让添加新区块，变得很困难。他的设计是，平均每10分钟，全网才能生成一个新区块，一小时也就六个。<br>这种产出速度不是通过命令达成的，而是故意设置了海量的计算。也就是说，只有通过极其大量的计算，才能得到当前区块的有效哈希，从而把新区块添加到区块链。由于计算量太大，所以快不起来。<br>这个过程就叫做挖矿（mining），因为计算有效哈希的难度，好比在全世界的沙子里面，找到一粒符合条件的沙子。计算哈希的机器就叫做矿机，操作矿机的人就叫做矿工。</p>
+<h4 id="难度系数"><a href="#难度系数" class="headerlink" title="难度系数"></a>难度系数</h4><p>并不是计算出的任意一个哈希都可以，只有满足条件的哈希才会被区块链接受。这个条件特别苛刻，使得绝大部分哈希都不满足要求，必须重算。这是因为区块头包含一个难度系数（difficulty），这个值决定了计算哈希的难度。举例来说，第100000个区块的难度系数是 14484.16236122。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E9%9A%BE%E5%BA%A6%E7%B3%BB%E6%95%B0.jpg" alt="难度系数"><br>区块链协议规定，使用一个常量除以难度系数，可以得到目标值（target）。显然，难度系数越大，目标值就越小。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E9%9A%BE%E5%BA%A6%E7%B3%BB%E6%95%B0%E5%85%AC%E5%BC%8F.jpg" alt="难度系数公式"><br>哈希的有效性跟目标值密切相关，只有小于目标值的哈希才是有效的，否则哈希无效，必须重算。由于目标值非常小，哈希小于该值的机会极其渺茫，可能计算10亿次，才算中一次。这就是挖矿如此之慢的根本原因。<br>前面说过，当前区块的哈希由区块头唯一决定。如果要对同一个区块反复计算哈希，就意味着，区块头必须不停地变化，否则不可能算出不一样的哈希。区块头里面所有的特征值都是固定的，为了让区块头产生变化，中本聪故意增加了一个随机项，叫做 Nonce。<br>Nonce 是一个随机值，矿工的作用其实就是猜出 Nonce 的值，使得区块头的哈希可以小于目标值，从而能够写入区块链。Nonce 是非常难猜的，目前只能通过穷举法一个个试错。根据协议，Nonce 是一个32位的二进制值，即最大可以到21.47亿。第 100000 个区块的 Nonce 值是274148111，可以理解成，矿工从0开始，一直计算了 2.74 亿次，才得到了一个有效的 Nonce 值，使得算出的哈希能够满足条件。运气好的话，也许一会就找到了 Nonce。运气不好的话，可能算完了21.47亿次，都没有发现 Nonce，即当前区块体不可能算出满足条件的哈希。这时，协议允许矿工改变区块体，开始新的计算。</p>
+<h4 id="难度系数的动态调节"><a href="#难度系数的动态调节" class="headerlink" title="难度系数的动态调节"></a>难度系数的动态调节</h4><p>正如上一节所说，挖矿具有随机性，没法保证正好十分钟产出一个区块，有时一分钟就算出来了，有时几个小时可能也没结果。总体来看，随着硬件设备的提升，以及矿机的数量增长，计算速度一定会越来越快。<br>为了将产出速率恒定在十分钟，中本聪还设计了难度系数的动态调节机制。他规定，难度系数每两周（2016个区块）调整一次。如果这两周里面，区块的平均生成速度是9分钟，就意味着比法定速度快了10%，因此接下来的难度系数就要调高10%；如果平均生成速度是11分钟，就意味着比法定速度慢了10%，因此接下来的难度系数就要调低10%。难度系数越调越高（目标值越来越小），导致了挖矿越来越难。</p>
+<h4 id="区块链的分叉"><a href="#区块链的分叉" class="headerlink" title="区块链的分叉"></a>区块链的分叉</h4><p>即使区块链是可靠的，现在还有一个问题没有解决：如果两个人同时向区块链写入数据，也就是说，同时有两个区块加入，因为它们都连着前一个区块，就形成了分叉。这时应该采纳哪一个区块呢？<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E5%8C%BA%E5%9D%97%E5%88%86%E5%8F%89.jpg" alt="区块链分叉一"><br>现在的规则是，新节点总是采用最长的那条区块链。如果区块链有分叉，将看哪个分支在分叉点后面，先达到6个新区块（称为”六次确认”）。按照10分钟一个区块计算，一小时就可以确认。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E5%8C%BA%E5%9D%97%E5%88%86%E5%8F%89%E4%BA%8C.jpg" alt="区块链分叉二"><br>由于新区块的生成速度由计算能力决定，所以这条规则就是说，拥有大多数计算能力的那条分支，就是正宗的区块链。</p>
+<h4 id="区块链的分类"><a href="#区块链的分类" class="headerlink" title="区块链的分类"></a>区块链的分类</h4><p>根据参与者的不同，可以分为公开（Public）链、联盟（Consortium）链和私有（Private）链。<br>公开链，顾名思义，任何人都可以参与使用和维护，典型的如比特币区块链，信息是完全公开的。如果引入许可机制，包括私有链和联盟链两种。私有链，则是集中管理者进行限制，只能得到内部少数人可以使用，信息不公开。联盟链则介于两者之间，由若干组织一起合作维护一条区块链，该区块链的使用必须是有权限的管理，相关信息会得到保护，典型如银联组织。目前来看，公开链将会更多的吸引社区和媒体的眼球，但更多的商业价值应该在联盟链和私有链上。<br>根据使用目的和场景的不同，又可以分为以数字货币为目的的货币链，以记录产权为目的的产权链，以众筹为目的的众筹链等。</p>
+<h4 id="Merkle树"><a href="#Merkle树" class="headerlink" title="Merkle树"></a>Merkle树</h4><p>在比特币网络中，Merkle树被用来归纳一个区块中的所有交易，同时生成整个交易集合的数字指纹，且提供了一种校验区块是否存在某交易的高效途径。生成一棵完整的Merkle树需要递归地对哈希节点对进行哈希，并将新生成的哈希节点插入到Merkle树中，直到只剩一个哈希节点，该节点就是Merkle树的根。在比特币的Merkle树中两次使用到了SHA256算法，因此其加密哈希算法也被称为double-SHA256。<br>当N个数据元素经过加密后插入Merkle树时，你至多计算2log2(N)次就能检查出任意某数据元素是否在该树中，这使得该数据结构非常高效。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/merkle%E6%A0%91.jpg" alt="Merkle树"><br>为了证明区块中存在某个特定的交易，一个节点只需要计算log2(N)个32字节的哈希值，形成一条从特定交易到树根的认证路径或者Merkle路径即可。随着交易数量的急剧增加，这样的计算量就显得异常重要，因为相对于交易数量的增长，以基底为2的交易数量的对数的增长会缓慢许多。这使得比特币节点能够高效地产生一条10或者12个哈希值（320-384字节）的路径，来证明了在一个巨量字节大小的区块中上千交易中的某笔交易的存在。<br>在下图中，一个节点能够通过生成一条仅有4个32字节哈希值长度（总128字节）的Merkle路径，来证明区块中存在一笔交易K。该路径有4个哈希值（在图中由蓝色标注）HL、HIJ、HMNOP和HABCDEFGH。由这4个哈希值产生的认证路径，再通过计算另外四对哈希值HKL、HIJKL、HIJKLMNOP和Merkle树根（在图中由虚线标注），任何节点都能证明HK（在图中由绿色标注）包含在Merkle根中。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/merkle%E6%A0%91%E4%BA%8C.jpg" alt="Merkle树二"></p>
+<h3 id="发展及应用："><a href="#发展及应用：" class="headerlink" title="发展及应用："></a>发展及应用：</h3><p>区块链最近几年炒得很热，国内已有大量与之相关的企业，有些企业已经结合已有业务摸索出了自己的应用场景，但仍有不少企业处于不断试探和反复迷惑状态。<br>实际上，要找到合适的应用场景，还是要从区块链自身的特性出发进行分析。区块链在不引入第三方中介机构的前提下，可以提供去中心化、不可篡改、安全可靠等特性保证。因此，所有直接或间接依赖于第三方担保信任机构的活动，均可能从区块链技术中获益。<br>区块链技术指南中认为，未来几年内，可能深入应用区块链的场景将包括：</p>
+<ul>
+<li>金融服务：主要是降低交易成本，减少跨组织交易风险等。该领域的区块链应用将最快成熟起来，银行和金融交易机构将是主力推动者。</li>
+<li>征信和权属管理：这是大型社交平台和保险公司都梦寐以求的，目前还缺乏足够的数据来源、可靠的平台支持和有效的数据分析和管理。该领域创业的门槛极高，需要自上而下的推动。</li>
+<li>资源共享：airbnb 为代表的公司将欢迎这类应用，极大降低管理成本。这个领域创业门槛低，主题集中，会受到投资热捧。</li>
+<li>投资管理：无论公募还是私募基金，都可以应用区块链技术降低管理成本和管控风险。虽然有 DAO 这样的试水，谨慎认为该领域的需求还未成熟。</li>
+<li>物联网与供应链：物联网是很适合的一个领域，短期内会有大量应用出现，特别是租赁、物流等特定场景。但物联网自身的发展局限将导致短期内较难出现规模应用。<br>当然，短期内部分场景可能还难以实现，但区块链技术的正确应用会促进这些行业的进一步发展。  <h4 id="金融服务"><a href="#金融服务" class="headerlink" title="金融服务"></a>金融服务</h4>自有人类社会以来，金融交易就是必不可少的经济活动。交易角色和内容的不同，反映出来就是不同的生产关系。通过交易，可以优化社会的效率，实现价值的最大化。人类社会的发展，离不开交易形式的演变。可见，交易在人类社会中的地位有多重要。<br>交易本质上交换的是价值的所属权。现在为了完成交易（例如房屋、车辆的所属权），往往需要一些中间环节，特别是中介担保角色。这是因为，交易双方往往存在着不充分信任的情况，要证实价值所属权并不容易，而且往往彼此的价值不能直接进行交换。合理的中介担保，确保了交易的正常运行，提高了经济活动的效率，但已有的第三方中介机制往往存在成本高、时间周期长、流程复杂、容易出错等缺点。正是因为这些，金融服务成为区块链最为火热的应用领域之一。<br>区块链技术可以为金融服务提供有效可靠的所属权证明和相当强的中介担保机制。<br>金融服务涉及的领域包括货币、证券、保险、捐赠等。<br><strong>银行金融管理</strong><br>银行分为中央银行和普通银行。<br>中央银行的两大职能是“促进宏观经济稳定”和“维护金融稳定”（《金融的本质》，伯克南），主要手段就是管理各种证券和利率。央行的存在，为整个社会的金融体系提供了最终的信用担保。普通银行则往往基于央行的信用，实际作为中介担保，来协助完成多方的金融交易。<br>银行的活动包括发行货币，完成存款、贷款等大量的交易内容。银行必须能够确保交易的确定性，必须通过诸多手段确立自身的信用地位。<br>传统的金融系统为了完成上述功能，开发了极为复杂的软件和硬件方案，不仅消耗了昂贵的成本，还需要大量的维护成本。即便如此，这些系统仍然存在诸多缺陷，例如很多交易都不能在短时间内完成，每年发生大量的利用银行相关金融漏洞进行的犯罪。<br>此外，在目前金融系统流程情况下，大量商家为了完成交易，还常常需要额外的组织（如支付宝）进行处理，这些实际上都增加了目前金融交易的成本。<br>区块链技术被认为是有可能促使这一行业发生革命性变化的“奇点”。除了众所周知的比特币等数字货币之外，还有诸多金融机构进行了有意义的尝试。<br><strong>欧洲央行评估区块链在证券交易后结算的应用</strong><br>目前，全球交易后的对账和处理费用超过 200 亿美金。欧洲央行的 报告 显示，区块链作为分布式账本技术，可以节约对账的成本，同时让证券所有权的变更可能变得近乎实时。<br><strong>中国中央银行投入区块链研究</strong><br>央行行长周小川曾表示央行数字货币可能将采用区块链模式，彻底改变传统货币流通模式。据悉，已有专门的团队在进行评估和实践。<br>2016 年 1 月 20 日，专门组织了“数字货币研讨会”，邀请了花旗、德勤等公司的区块链专家就数字货币发行的总体框架、演进、国家加密货币等话题进行了研讨。会后，发布对我国银行业数字货币的战略性发展思路，提出要早日发行数字货币，并利用数字货币相关技术来打击金融犯罪活动。<br><strong>加拿大银行提出新的数字货币</strong><br>加拿大央行正在开发基于区块链技术的数字版加拿大元（名称为 CAD 币），以允许用户可以使用加元来兑换该数字货币。经过验证的对手方将会处理交易，如果需要，银行将保留销毁CAD币的权利。<br>发行 CAD 币是更大的一个探索型科技项目 Jasper 的一部分。据悉，除了加拿大央行外，蒙特利尔银行、加拿大帝国商业银行、加拿大皇家银行、加拿大丰业银行、多伦多道明银行等多家机构也都参与了该项目。<br><strong>英国银行实现 RSCoin</strong><br>英国银行在数字化货币方面进展十分突出，已经实现了基于分布式账本平台的数字化货币系统，RSCoin。RSCoin 目标是提供一个由中央银行控制的数字货币，采用了双层链架构、改进版的 2PC 提交，以及多链条之间的交叉验证机制。因为主要是央行和下属银行之间使用，通过提前建立一定的信任基础，可以提供较好的处理性能。<br><strong>中国邮储银行将区块链技术应用到核心业务系统</strong><br>2016年10月，中国邮储银行宣布携手 IBM 推出基于区块链技术的资产托管系统，为中国银行业首次将区块链技术应成功用于核心业务系统。新的业务系统免去了重复的信用校验过程，将原有业务环节缩短了约60-80%，提高了信用交易的效率。<br>各种新型支付业务<br>基于区块链技术，出现了大量的创新支付企业。</li>
+<li>Abra：区块链数字钱包，无需银行账户，实现不同币种的兑换。</li>
+<li>Bitwage：基于比特币区块链的跨境工资支付平台。</li>
+<li>BitPOS：低成本的快捷线上支付。</li>
+<li>Circle：由区块链充当支付网络，允许用户快速进行跨币种的快速汇款。</li>
+<li>Ripple：实现跨境的多币种低成本实时交易，引入了网关概念（类似银行）。<br><strong>证券交易</strong><br>证券交易包括交易执行和确认环节。交易本身相对简单，主要是由交易系统（极为复杂的软硬件系统）完成电子数据库中内容的变更。中心的验证系统极为复杂和昂贵；交易指令执行后的结算和清算环节也十分复杂，往往需要较多人力成本和大量的时间，并且容易出错。<br>目前来看，基于区块链的处理系统还难以实现海量交易系统所需要的性能（每秒一万笔以上成交，日处理能力超过五千万笔委托、三千万笔成交）。但在交易的审核和清算环节，区块链技术存在诸多的优势，可以避免人工的参与。<br>咨询公司 Oliver Wyman 给 SWIFT(环球同业银行金融电讯协会)提供的研究报告预计全球清算行为成本约 50~100 亿美元,结算成本、托管成本和担保物管理成本 400~450 亿美元(390 亿美元为托管链的市场主体成本)，而交易后流程数据及分析花费 200~250 亿美元。<br>2015 年 10 月，美国纳斯达克（Nasdaq）证券交易所推出区块链平台 Nasdaq Linq，实现主要面向一级市场的股票交易流程。通过该平台进行股票发行的的发行者将享有“数字化”的所有权。<br>其它相关企业还包括：</li>
+<li>BitShare 推出基于区块链的证券发行平台，号称每秒达到 10 万笔交易。</li>
+<li>DAH 为金融市场交易提供基于区块链的交易系统。获得澳洲证交所项目。</li>
+<li>Symbiont 帮助金融企业创建存储于区块链的智能债券，当条件符合时，清算立即执行。</li>
+<li>Overstock.com 推出基于区块链的私有和公开股权交易“T0”平台，提出“交易即结算”(The trade is the settlement)的理念，主要目标是建立证券交易实时清算结算的全新系统。</li>
+<li>高盛为一种叫做“SETLcoin”的新虚拟货币申请专利，用于为股票和债券等资产交易提供“近乎立即执行和结算”的服务。<h4 id="征信和权属管理"><a href="#征信和权属管理" class="headerlink" title="征信和权属管理"></a>征信和权属管理</h4><strong>征信管理</strong><br>征信管理是一个巨大的潜在市场，据称超过千亿规模（平安证券报告，美国富国银行报告），也是目前大数据应用最有前途的方向之一。目前的征信相关的大量有效数据主要集中在少数机构手中。由于这些数据太过敏感，并且是商业命脉，往往会被严密保护起来，进而形成很高的行业门槛。<br>虽然现在大量的互联网企业（最成功的应该属 facebook）尝试从各种维度都获取了海量的用户信息，但从征信角度看，这些数据仍然存在若干问题。</li>
+<li>数据量不足：数据量越大，能获得的价值自然越高，而数据产生有效价值存在一个下限。低于下限的数据量无法产生有效价值；</li>
+<li>相关度较差：最核心的数据也往往是最敏感的，在隐私高度敏感的今天，用户都不希望暴露过多数据给第三方，因此企业获取到数据中有效成分其实很少；</li>
+<li>时效性不足：企业可以从明面上获取到的用户数据往往是过时的，甚至存在虚假信息，对相关分析的可信度造成严重干扰。<br>而区块链存在着天然无法篡改、不可抵赖的特性。同时，区块链将可能提供前所未有规模的相关性极高的数据，这些数据可以在时空中准确定位，并严格关联到用户。因此，基于区块链提供数据进行征信管理，将让信用评估的准确率大大提高，并且降低进行评估的成本。<br>另外，跟传统依靠人工的审核不同，区块链技术完全依靠数学成果，基于区块链的信用机制将天然具备稳定性和中立性。包括 IDG、腾讯、安永、普华永道等都纷纷投资或进入基于区块链的征信管理领域，特别是跟保险和互助经济相关的应用场景。<br><strong>权属管理</strong><br>用于产权、版权等所有权管理和追踪。包括汽车、房屋、艺术品等各种贵重物品的交易等。也包括数字出版物，以及可以标记实体物品的数字标记。<br>目前最大的几个难题是：</li>
+<li>物品所有权的确认和管理；</li>
+<li>交易的安全可靠；</li>
+<li>一定的隐私保护。<br>比如，目前要交易房屋，如果买卖双方互相不认识的话，往往需要依托中介机构来确保交易的进行，通过纸质的材料证明房屋所有权。但实际上，很多时候中介机构也无法确保交易的正常进行。<br>而利用区块链技术，物品的所有权是写在数字链上的，谁都无法修改，并且一旦出现合同中约定情况，区块链技术将确保合同能得到准确执行。<br>公正通（Factom）尝试使用区块链技术来革新商业社会和政府部门的数据管理和数据记录方式。包括审计系统、医疗信息记录、供应链管理、投票系统、财产契据、法律应用、金融系统等。它将待确权数据的指纹存放到基于区块链的分布式账本中，可以提供资产所有权的追踪服务。<br><strong>其它项目</strong><br>在教育领域，MIT 研究员朱莉安娜·纳扎雷（Juliana Nazaré）和学术创新部主管菲利普·施密特（Philipp Schmidt）发表了文章，介绍基于区块链的学历认证系统。基于该系统，用人单位可以确认求职者的学历信息是真实可靠的。<br>此外，还包括：</li>
+<li>BitShare：自由贸易的资产交易所。</li>
+<li>Everledger：基于区块链的贵重资产检测系统，将钻石或者艺术品加上哈希值记录在区块链上。</li>
+<li>Mycelia：区块链产权保护项目，为音乐人实现音乐的自由交易。</li>
+<li>Monegraph：通过区块链保障图片版权的透明交易。</li>
+<li>Mediachain：通过 metadata 协议，将内容创造者与作品唯一对应。<h4 id="资源共享"><a href="#资源共享" class="headerlink" title="资源共享"></a>资源共享</h4>资源共享目前面临的问题主要包括：</li>
+<li>共享过程成本过高；</li>
+<li>用户身份评分难</li>
+<li>共享服务管理难<br><strong>短租共享</strong><br>大量提供短租服务的公司已经开始尝试用区块链来解决共享中的难题。<br>一份来着 高盛的报告 中宣称：<br>Airbnb 等 P2P 住宿平台已经开始通过利用私人住所打造公开市场来变革住宿行业，但是这种服务的接受程度可能会因人们对人身安全以及财产损失的担忧而受到限制。而如果通过引入安全且无法篡改的数字化资质和信用管理系统，我们认为区块链就能有助于提升P2P住宿的接受度。<br>该报告还指出，可能采用区块链技术的企业 Airbnb、HomeAway 以及 OneFineStay 等，市场规模为 30-90 亿美元。<br><strong>社区能源共享</strong><br>案例主要包括家庭太阳能发电后通过社区的电力网络进行买卖，例如纽约的 微型电网。ConsenSys 和微电网开发商 LO3 共建光伏发电交易网络，实现点对点的能源交易。而通过区块链技术打造的平台主要解决交易系统问题，可以很容易实现社区内低成本的可靠交易系统。<br><strong>电商平台</strong><br>OpenBazaar 试图在无中介的情形下，实现安全电商交易。传统情况下，电商平台起到了中介的作用，一旦发生纠纷，会作为第三方机构进行审判。这种模式存在着周期长、缺乏公证、成本高等缺点。<br>OpenBazaar 通过多方签名机制和信誉评分机制，让众多参与者合作进行评估，零成本解决纠纷问题。<br><strong>大数据共享</strong><br>大数据时代里，价值来自于对数据的挖掘，数据维度越多，体积越大，潜在价值也就越高。一直以来，比较让人头疼的问题是如何评估数据的价值，如何利用数据进行交换和交易，以及如何避免宝贵的数据在未经许可的情况下泄露出去。区块链技术为解决这些问题提供了潜在的可能。利用区块链构成的统一账本，数据在多方之间的流动将得到实时地追踪和管理，并且通过对访问权限的管控，可以有效降低对数据共享过程的管理成本。<h4 id="投资管理"><a href="#投资管理" class="headerlink" title="投资管理"></a>投资管理</h4><strong>跨境贸易</strong><br>在国际贸易活动中，买卖双方可能互不信任。因此需要两家银行作为买卖双方的保证人，代为收款交单，并以银行信用代替商业信用。区块链可以为信用证交易参与方提供共同账本，允许银行和其它参与方拥有经过确认的共同交易记录并据此履约，从而降低风险和成本。<br><strong>一带一路</strong><br>一带一路中对区块链技术的探索应用，能让原先无法交易的双方（例如，不存在都认可的国际货币情况下）完成交易，并且降低贸易风险、减少成本。<br><strong>众筹投资</strong><br>以 DAO（Decentralized Autonomous Organization）为代表的众筹管理，DAO 曾创下历史最高的融资记录，超过 1.6 亿美金。<h4 id="物联网与供应链"><a href="#物联网与供应链" class="headerlink" title="物联网与供应链"></a>物联网与供应链</h4><strong>应用场景分析</strong><br>一种可能的应用场景为：通过 Transaction 产生对应的行为，为每一个设备分配地址 Address，给该地址注入一定的费用，可以执行相关动作，从而达到物联网的应用。类似于：PM2.5监测点数据获取，服务器 租赁，网络摄像头 数据调用，DNS服务器 等。</li>
+</ul>
+<p>另外，随着物联网设备的增多，Edge 计算需求的增强，大量设备之间需要通过分布式自组织的管理模式，并且对容错性要求很高。区块链自身分布式和抗攻击的特点可以很好地试用到这一场景中。<br><strong>IBM</strong><br>IBM 在物联网领域已经持续投入了几十年的研发，目前正在探索使用区块链技术来降低物联网应用的成本。2015 年初，IBM 与三星宣布合作研发 ADEPT 系统。<br><strong>物流供应链</strong><br>供应链行业往往涉及到诸多实体，包括物流、资金流、信息流等，这些实体之间存在大量复杂的协作和沟通。传统模式下，不同实体各自保存各自的供应链信息，严重缺乏透明度，造成了较高的时间成本和金钱成本，而且一旦出现问题（冒领、货物假冒等）难以追查和处理。<br>通过区块链各方可以获得一个透明可靠的统一信息平台，可以实时查看状态，降低物流成本，追溯物品的生产和运送整个过程，从而提高供应链管理的效率。当发生纠纷时，举证和追查也变得更加清晰和容易。<br>该领域被认为是区块链一个很有前景的应用方向。例如运送方通过扫描二维码来证明货物到达指定区域，并自动收取提前约定的费用，可以参考 区块链如何变革供应链金融 和 区块链给供应链带来透明。<br>Skuchain 创建基于区块链的新型供应链解决方案，实现商品流与资金流的同步，同时缓解假货问题。<br><strong>公共网络服务</strong><br>现有的互联网能正常运行，离不开很多近乎免费的网络服务，例如域名服务（DNS）。任何人都可以免费查询到域名，没有 DNS，现在的各种网站基本就无法访问了。因此，对于网络系统来说，类似的基础服务必须要能做到安全可靠，并且低成本。<br>区块链技术恰好具备这些特点，基于区块链打造的 DNS 系统，将不再会出现各种错误的查询结果，并且可以稳定可靠的提供服务。</p>
+<h4 id="其他场景"><a href="#其他场景" class="headerlink" title="其他场景"></a>其他场景</h4><p>还有一些很有趣的应用场景。主要包括：</p>
+<h5 id="BitMessage：一个由比特币启发的P2P通讯软件"><a href="#BitMessage：一个由比特币启发的P2P通讯软件" class="headerlink" title="BitMessage：一个由比特币启发的P2P通讯软件"></a>BitMessage：一个由比特币启发的P2P通讯软件</h5><p>Bitmessage是一个去中心化的通讯软件，他能允许你在匿名的情况下传输任何信息给接收者或者从一个发布者那里订阅信息。这一切都是建立在P2P网络上的，也就说没有一个中心服务器可以控制和窥探使用者的行为。<br>Bitmessage会为用户生成一对公钥和私钥，公钥就是bitmessage地址，私钥就是该能证明对该地址上信息有所有权的密码。<br>如果 A 要给 B 发信息 。 A 会用 B 的bitmessage地址（公钥）给信息加密，而只有 B 才能用自己的私钥解密，这样就保证了信息的安全性。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/BitMassage1.jpg" alt="Bitmassage一"><br>如果 A 想发布信息给一群订阅者 。 A 会用自己的私钥给信息加密，订阅者会用A的bitmessage地址（公钥）来解密信息，这样就实现了信息的发布。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/BitMassage2.jpg" alt="Bitmassage二"><br>工作量证明（proof of work）<br>像比特币一样，为了防止有人利用bitmessage发送大量垃圾信息冲击P2P网络，bitmessage采用proof of work机制，即你的bitmessage必须进行一定量的运算后才能进行信息发送，一般运算时间为4分钟。<br><a href="http://8btc.com/doc-view-29.html" target="_blank" rel="noopener">BitMessage白皮书</a></p>
+<h5 id="GemOS：医疗数据的安全管理"><a href="#GemOS：医疗数据的安全管理" class="headerlink" title="GemOS：医疗数据的安全管理"></a>GemOS：医疗数据的安全管理</h5><p>通过智能合约以及一个统一的网络来管理数据，致力于创建一套透明的跨机构网络，其中医疗公司以及合作组织能够在一个受保护的生态中共享敏感信息，并且各方参与者都能按贡献同享数据红利。用户通过智能硬件等所产生的数据，将借助于GemOS系统进行确权，并对用户医疗数据进行脱敏处理，以确保用户的隐私安全。同时，帮助用户盘活自身的数据资产，链接有需求的医疗机构、药企、保险商，在获取应有数据收益的同时还能免受骚扰地享受到优质的精准医疗服务。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/GemOS.jpg" alt="此处输入图片的描述"><br>数据产生：智能硬件、医护团队、APP、管理后台等<br>数据存储：先缓存至各企业自身的数据库中，然后由本地节点进行数据脱敏、加密、分层<br>节点校验：本地节点负责校验数据加解密、数据脱敏分层，可信节点负责数据打包校验<br>身份管理：通过创建数字身份的方式（借助用户唯一的身份信息来建立映射）来建立全网通用ID，并经由身份管理池与用户的一般账户建立关联，提供安全的密钥管理和签名功能<br>身份授权：用户通过私钥签名形式（可转化为传统账户管理模式）进行授权</p>
+<p>流程介绍：</p>
+<ol>
+<li>不同机构所搜集的用户数据先临时缓存到自身的后台数据库中，并根据用户特有的身份信息帮助其创建独有的数字身份及相应的公私密钥对。</li>
+<li>之后本地节点按照数据脱敏分层的规则先将所有的用户身份信息抽离出来，敏感数据打包加密存储至身份管理池中，脱敏数据通过安全多方计算密码技术，分往不同的服务器，此时没有机器可以提取基本信息，但是节点仍然可以共同计算数据的授权功能，而身份管理池由系统随机选定的可信节点来确保用户身份数据的合法写入及不同用户帐号体系间的互联互通及数据关联建立，包括身份管理、数据清洗及数据贡献证明，等等。</li>
+<li>药企在后台管理系统提交自身所要售卖的药品、服务，向系统发出分析请求。系统收到请求后抽取出其相应受众可能具备的病理特征，再据此向目标用户群体（根据系统中的病理特征池来做初步判定）发出授权请求，用户同意且药企支付电子货币后（此时触发分红智能合约），系统将目标用户病理特征与授权群体中的病理特征（已脱敏）进行比对，并将比对结果及相似度反馈至药企。药企查阅后可选择相似度达60%以上（或其它数额）的筛选条件作为门槛来向目标用户推送定制化服务。</li>
+<li>保险商在后台管理系统提交自身所要售卖的服务，并通过系统向用户群体发出授权请求，用户同意后且保险商支付电子货币后（此时触发分红智能合约），系统评估授权群体中患有某种疾病风险的概率，并将相关结果反馈至药企。保险商查阅后可根据用户群体患有某种疾病的概率进行智能定价，并将不同的定制化服务推送至用户。<br>以下为GemOS的技术架构介绍：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/GemOS1.jpg" alt="此处输入图片的描述"><br>一个以事件驱动的基于微服务的平台：数据层，身份层，网络层和业务层。在业务层中，程序既可以通过智能合同在链上执行，也可以响应和控制脱销事件，以及执行或响应自动化流程所需的任何其他业务功能，外部服务也可以访问。API网关作为系统与外部的超链接世界之间的接口。微服务器通过消息总线相互通信。它允许索引单个消息，并可以通过数据库进行搜索。业务层提供自动化业务流程所需的处理能力。它可以访问其他的事件，通过回调机制实时地实现微服务，并通过事件按需查询服务，支持自定义事件的持久化。<br>脱链和在线执行-用于平台间通信的区块链：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/GemOS2.jpg" alt="此处输入图片的描述"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/GemOS3.jpg" alt="此处输入图片的描述"><br>这是一个简单的例子来显示系统中多个实例之间的身份共享。实例1通过身份微服务创建它管理的身份，并通过网络微服务将其记录存储在区块链的分布式注册表中。实例2可以通过察看对区块链的更新来访问相同的身份。实例1也可以通过数据微服务来存储有关的私有身份数据，系统还提供了对与此相关的数据进行访问控制的能力。身份实例2可以请求访问由实例1存储的私有数据，但是必须经由实例1授权。<br>系统作为中间件：模块化框架允许不同的客户端选择最佳的组件和构建他们的分布式应用程序。管理区块链基础设施并提供更多高级服务（身份管理、数据持久性、数据加密、商业智能和规则管理）。除了这些服务之外，它还提供必要的抽象以泛化应用程序Alliance利用任何区块链底层服务，如Ethereum、Hyperledger服务。这种模块化和可扩展的区块链平台使合作伙伴能够构建分布式应用程序来解决行业具体用例。<br><a href="https://gem.co/wp-content/uploads/2016/10/GemOSPlatformWhitepaper.pdf" target="_blank" rel="noopener">GemOS白皮书</a><h5 id="Storj：基于区块链的去中心化的云存储方案"><a href="#Storj：基于区块链的去中心化的云存储方案" class="headerlink" title="Storj：基于区块链的去中心化的云存储方案"></a>Storj：基于区块链的去中心化的云存储方案</h5>Storj是一个致力于成为免审查，免监控且不会停机的云存储平台。Storj平台通过加密和一系列分散的应用程序，允许用户以安全和分散的方式存储数据。它使用块交易功能，如交易分类帐，公共/私人密钥加密和加密散列函数以实现安全性。此外，与传统的云存储服务相比，它将更便宜，更快，更安全。Storj正在努力通过自己的Web应用程序，MetaDisk和客户端应用程序DriveShare的帮助来解决数据安全问题。它是一种分散的端对端加密云存储，它使用块链技术和加密技术来保护在线文件。你无需信任一家公司，或者易受攻击的服务器，或掌握您信息的其他人。<br>Storj交付模式是开源的，旨在从根本上改变人们和设备拥有数据的方式。 该公司由一个点对点网络和社区的“农民”支持（用户将其硬盘空间出租给其他用户进行付费），为现有云存储提供了安全，经济高效的高性能替代品解决方案。 Storj用户的数据以去中心化的方式进行管理，并通过密码学和以太坊区块链技术安全存储。<br>所有这一切都突显了Storj的主要价值主张，即促进云存储环境比传统云存储快10倍，便宜50％，同时使所有Storj用户更加去中心化，易访问和安全。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Storj.jpg" alt="此处输入图片的描述"><br>文件以Shard的形式存储在该网络中。Shard在安全性，隐私性，性能和可用性方面具有许多优势。在分片之前，文件首先在客户端加密，使用AES256-CTR实现。数据所有者保留对加密密钥的完全控制权，并因此保留对数据的访问权。<br>1.加密文件。<br>2.加密的文件被分成Shard，或者多个文件合并形成一个Shard。<br>3.对每个Shard执行审计预处理。<br>4.Shard传输到网络。<br><a href="https://storj.io/storj.pdf" target="_blank" rel="noopener">Storj白皮书</a><h5 id="Tierion：确保数据安全记录"><a href="#Tierion：确保数据安全记录" class="headerlink" title="Tierion：确保数据安全记录"></a>Tierion：确保数据安全记录</h5>Tierion正在建立一个通用的数据验证平台。Tierion的工作原理简单来说就算创建一个证明用该证明把数据和某一区块链上的交易相关联。这一过程被叫做“锚定” 具有此证明的任何人都可以验证数据的完整性和时间戳，而无需依赖任何可信机构。简单的说 Tierion 是一个利用比特币，以太坊网络来证明电子数据完整性和有效性的一个平台，通过 Tierion 可以让你的文件，数据具有非常强的可信任性，从而达到存证的效果。<br>Tierion于2015年推出，通过Chainpoint协议的创造，Tierion 可以把将几乎无限量的数据锚定到单个区块链交易中这件事情变得非常简单，主要通过三个核心功能：<br><strong>信任锚：</strong><br>在加密系统中，信任锚是一个权威实体，比特币区块链非常适合作为信任锚。没有任何权限去控制比特币区块链。一旦交易被确认，它就成为分布在全球网络节点上的不可分割的分类帐的一部分。想要擦除或修改此数据实际上是不可能的。Tierion提供了一种可扩展的方式来使用多个区块链作为信任锚点。也就是说，比特币网络是一条高度可信的网络，将比特币作为数据锚定的基石是非常稳固的。<br><strong>数据完整性：</strong><br>数据完整性是数据准确性和一致性的保证。具有敏感数据的组织需要证明它的数据没有被内部威胁或外部黑客破坏或操纵。Tierion提供了一种验证数据完整性的全局机制来保证数据的完整性。<br><strong>时间戳：</strong><br>由于公共区块链时间准确度太低而导致时间戳的权威性不足。例如，比特币的区块时间精度约为±2小时。受信任的时间戳是准确的，Chainpoint通过在每个证明中包含多个可信时间戳和多个信任锚来化解这一困境。这能让Chainpoint证明能够同时处理准确无误的、去信任化的时间证明。<br>Chainpoint服务架构图：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Tierion.jpg" alt="此处输入图片的描述"><br>通俗的讲，就是通过在比特币及其他可信主链上建立一层可拓展的协议，用于处理大量的数据量，并在时间戳的见证下将关键点锚定到比特币主链上，从而达到数据证明的效果，通过以上三大技术特别非常完美的解决的电子数据的易篡改性和不完整性，这在实际商业中具有非常实际的意义，如电子合同，数据存证等。可以为企业节省大量的成本，也可以为电子数据提供法律依据。<br>Tierion 的商业应用：<br>Tierion 目前提供一个开放的 SaaS 平台，可以通过其开放的 API 进行数据验证，通过使用所锚定的 Hash 数量所产生的费用计费，开发人员可以通过对接这个平台进行一定的数据验证，主要的应用有几个方面。<br>合同票据的证明：<br>任何关于交易，比如股票，保险索赔，购买记录等的数据和票据都可以通过通过 Tierion 平台加盖时间戳和锚定来证明其客观存在。<br>审计追踪：<br>通过将审计的过程不断上传到 Tierion 平台上，达到对整个审计过程可信的记录和溯源，减少信任成本和审计成本。<br>软件集成：<br>可以把 Tierion 集成到客户自己的软件中，达到个性化的数据验证，比如可以内嵌至社交网络中，对某些场景下的对话等进行记录。<br>其他不可变的记录：<br>如医疗记录，财务记录，库房存管，公司规则等较为重要的数据，可以通过 Tierion 进行保全及存证，让这些重要的数据不能轻易更改。<br>Tierion通过比特币，以太坊网络的可信任性，成功的利用区块链的不可篡改性为电子数据这一特殊的标的进行保全存证，解决了电子数据在很多领域很难对其证明的难题，可以说开阔了区块链在商业上的又一应用场景，电子合同，数字存证等都将是区块链技术大放异彩的场景。<br><a href="https://tokensale.tierion.com/TierionTokenSaleWhitePaper.pdf" target="_blank" rel="noopener">Tierion白皮书</a><h5 id="Twister：去中心化的“微博”系统"><a href="#Twister：去中心化的“微博”系统" class="headerlink" title="Twister：去中心化的“微博”系统"></a>Twister：去中心化的“微博”系统</h5>Twister使用了比特币的协议，虽然它内部没有货币。这一协议用于处理Twister用户注册和登陆验证问题。就像比特币矿工确认每笔交易，保证没人可以进行双花和每个人只能花费自己的币一样，Twister用户计算机组成的网络用于确认一个用户名不会被注册两次和用户发的微博（post）确实来自该用户。<br>用户发送的微博（post）使用了BitTorrent协议。该协议使得系统可以通过网络快速高效地发布大量微博，这使得用户可以近乎同步地接收到新的微博和信息-这一切不需要中心化的服务器。<br>为什么用户会进行挖矿呢？在比特币系统中，矿工争夺记账权，获得比特币奖励。Twister采用类似的方案，但不是奖励货币，而是向其它用户发送推广消息-也就是广告-的权力。目前，按照Twister的设计，用户每天收到的推广信息不会超过一条。“这一机制实际上十分民主，这是可以到达所有的Twister用户的高效的广告系统。”Freitas写道。他指出该推广机制不仅可以用于商业，也可以用非营利组织推广公益事业。<br><a href="https://arxiv.org/pdf/1312.7152v1.pdf" target="_blank" rel="noopener">论文</a><br><a href="https://arxiv.org/pdf/1312.7152v1.pdf" target="_blank" rel="noopener">Twister白皮书</a><br>这篇白皮书提出了一种新的基于P2P网络覆盖层的微博架构。该平台由三种完全独立的网络覆盖层组成。 第一个网络覆盖层提供分布式的用户注册和验证，基于比特币协议。第二个是分布式的哈希表网络覆盖层，用 来存储第三个网络覆盖层中用到的用户资源和tracker位置的键值。最后一层网络层是粉丝swarms的可能的解体， 基于BT协议，这个可以用来实现向多用户有效地发送近点通知。通过融合一些已经存在和验证过的技术，twister提供了一种新的微博平台，能够提供安全，可伸缩和私密的特性。并有一种机制能给贡献处理时间来运行用户注册的网络实体以激励，奖励它们向整个网络发送一条推送（“广告”）消息的特权。一天推送消息的数量以不使用户厌烦为基准。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/区块链/" rel="tag"># 区块链</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/02/md书写规范/" rel="next" title="md书写规范">
+                <i class="fa fa-chevron-left"></i> md书写规范
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/07/GemOS及类似应用调研文档/" rel="prev" title="GemOS及类似应用调研文档">
+                GemOS及类似应用调研文档 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KaiQiang Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#区块链技术概述"><span class="nav-number">1.</span> <span class="nav-text">区块链技术概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区块链是什么"><span class="nav-number">1.1.</span> <span class="nav-text">区块链是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#区块链"><span class="nav-number">1.1.1.</span> <span class="nav-text">区块链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比特币交易"><span class="nav-number">1.1.2.</span> <span class="nav-text">比特币交易</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区块链的基本原理"><span class="nav-number">1.2.</span> <span class="nav-text">区块链的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#挖矿"><span class="nav-number">1.2.2.</span> <span class="nav-text">挖矿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#难度系数"><span class="nav-number">1.2.3.</span> <span class="nav-text">难度系数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#难度系数的动态调节"><span class="nav-number">1.2.4.</span> <span class="nav-text">难度系数的动态调节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区块链的分叉"><span class="nav-number">1.2.5.</span> <span class="nav-text">区块链的分叉</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区块链的分类"><span class="nav-number">1.2.6.</span> <span class="nav-text">区块链的分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Merkle树"><span class="nav-number">1.2.7.</span> <span class="nav-text">Merkle树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发展及应用："><span class="nav-number">1.3.</span> <span class="nav-text">发展及应用：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#金融服务"><span class="nav-number">1.3.1.</span> <span class="nav-text">金融服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#征信和权属管理"><span class="nav-number">1.3.2.</span> <span class="nav-text">征信和权属管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源共享"><span class="nav-number">1.3.3.</span> <span class="nav-text">资源共享</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#投资管理"><span class="nav-number">1.3.4.</span> <span class="nav-text">投资管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#物联网与供应链"><span class="nav-number">1.3.5.</span> <span class="nav-text">物联网与供应链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他场景"><span class="nav-number">1.3.6.</span> <span class="nav-text">其他场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BitMessage：一个由比特币启发的P2P通讯软件"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">BitMessage：一个由比特币启发的P2P通讯软件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GemOS：医疗数据的安全管理"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">GemOS：医疗数据的安全管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Storj：基于区块链的去中心化的云存储方案"><span class="nav-number">1.3.6.3.</span> <span class="nav-text">Storj：基于区块链的去中心化的云存储方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tierion：确保数据安全记录"><span class="nav-number">1.3.6.4.</span> <span class="nav-text">Tierion：确保数据安全记录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Twister：去中心化的“微博”系统"><span class="nav-number">1.3.6.5.</span> <span class="nav-text">Twister：去中心化的“微博”系统</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KaiQiang Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

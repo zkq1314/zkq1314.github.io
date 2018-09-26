@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="tensorflow," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="记载一些tensorflow常用方法，方便以后查找。">
+<meta name="keywords" content="tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tensorflow常用方法">
+<meta property="og:url" content="http://yoursite.com/2018/04/21/tensorflow常用方法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="记载一些tensorflow常用方法，方便以后查找。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-23T06:41:24.999Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tensorflow常用方法">
+<meta name="twitter:description" content="记载一些tensorflow常用方法，方便以后查找。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/21/tensorflow常用方法/"/>
+
+
+
+
+
+  <title>tensorflow常用方法 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/21/tensorflow常用方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">tensorflow常用方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-21T09:47:36+08:00">
+                2018-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>记载一些tensorflow常用方法，方便以后查找。<br><a id="more"></a></p>
+<h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><p>激活函数不会更改输入数据的维度，也就是输入和输出的维度是相同的。TensorFlow 中有如下激活函数，它们定义在tensorflow-1.1.0/tensorflow/python/ops/nn.py 文件中。加粗的是常用的函数。</p>
+<h3 id="tf-nn-relu"><a href="#tf-nn-relu" class="headerlink" title="tf.nn.relu()"></a><strong>tf.nn.relu()</strong></h3><p>图片3</p>
+<script type="math/tex; mode=display">y=
+\begin{cases}
+0& (x\le0)\\
+x& (x>0)
+\end{cases}</script><p>relu 在x<0 时硬饱和。由于x="">0 时导数为1，所以，relu 能够在x&gt;0 时保持梯度不衰减，从而缓解梯度消失问题，还能够更很地收敛，并提供了神经网络的稀疏表达能力。但是，随着训练的进行，部分输入会落到硬饱和区，导致对应的权重无法更新，称为“神经元死亡”。softplus可以看作是ReLU 的平滑版本.</0></p>
+<h3 id="tf-nn-sigmoid"><a href="#tf-nn-sigmoid" class="headerlink" title="tf.nn.sigmoid()"></a><strong>tf.nn.sigmoid()</strong></h3><p>图片1</p>
+<script type="math/tex; mode=display">f(x)=\frac{1}{1+e^{-x}}</script><p>sigmoid 函数的优点在于，它的输出映射在$(0,1)$内，单调连续，非常适合用作输出层，并且求导比较容易。但是，它也有缺点，因为软饱和性(软饱和是指激活函数$h(x)$在取值趋于无穷大时，它的一阶导数趋于0。硬饱和是指当$|x| &gt; c$时，其中$c$ 为常数，$f ‘(x)=0$。relu 就是一类左侧硬饱和激活函数)，一旦输入落入饱和区，$f ‘(x)$就会变得接近于0，很容易产生梯度消失。</p>
+<h3 id="tf-nn-tanh"><a href="#tf-nn-tanh" class="headerlink" title="tf.nn.tanh()"></a><strong>tf.nn.tanh()</strong></h3><p>图片2</p>
+<script type="math/tex; mode=display">tanh(x)=\frac{1-e^{-2x}}{1+e^{-2x}}</script><p>tanh 函数也具有软饱和性。因为它的输出以0 为中心，收敛速度比sigmoid 要很。但是仍<br>无法解决梯度消失的问题。</p>
+<h3 id="tf-nn-elu"><a href="#tf-nn-elu" class="headerlink" title="tf.nn.elu()"></a>tf.nn.elu()</h3><h3 id="tf-nn-bias-add"><a href="#tf-nn-bias-add" class="headerlink" title="tf.nn.bias_add()"></a>tf.nn.bias_add()</h3><h3 id="tf-nn-crelu"><a href="#tf-nn-crelu" class="headerlink" title="tf.nn.crelu()"></a>tf.nn.crelu()</h3><h3 id="tf-nn-relu6"><a href="#tf-nn-relu6" class="headerlink" title="tf.nn.relu6()"></a>tf.nn.relu6()</h3><h3 id="tf-nn-softplus"><a href="#tf-nn-softplus" class="headerlink" title="tf.nn.softplus()"></a><strong>tf.nn.softplus()</strong></h3><script type="math/tex; mode=display">f(x)=log(e^x+1)</script><h3 id="tf-nn-softsign"><a href="#tf-nn-softsign" class="headerlink" title="tf.nn.softsign()"></a>tf.nn.softsign()</h3><script type="math/tex; mode=display">f(x)=\frac{x}{|x|+1}</script><h3 id="tf-nn-dropout"><a href="#tf-nn-dropout" class="headerlink" title="tf.nn.dropout()"></a>tf.nn.dropout()</h3><p>防止过拟合，用来舍弃某些神经元</p>
+<h3 id="选择策略"><a href="#选择策略" class="headerlink" title="选择策略"></a>选择策略</h3><p>当输入数据特征相差明显时，用tanh 的效果会很好，且在循环过程中会不断扩大特征效果并显示出来。当特征相差不明显时，sigmoid 效果比较好。同时，用sigmoid 和tanh 作为激活函数时，需要对输入进行规范化，否则激活后的值全部都进入平坦区，隐层的输出会全部趋同，丧失原有的特征表达。而relu 会好很多，有时可以不需要输入规范化来避免上述情况。<br>因此，现在大部分的卷积神经网络都采用relu 作为激活函数。我估计大概有85%～90%的神经网络会采用ReLU，10%～15%的神经网络会采用tanh，尤其用在自然语言处理上。</p>
+<h2 id="分类函数"><a href="#分类函数" class="headerlink" title="分类函数"></a>分类函数</h2><h3 id="sigmoid-cross-entropy-with-logits"><a href="#sigmoid-cross-entropy-with-logits" class="headerlink" title="sigmoid_cross_entropy_with_logits"></a>sigmoid_cross_entropy_with_logits</h3><h3 id="softmax"><a href="#softmax" class="headerlink" title="softmax"></a>softmax</h3><h3 id="log-softmax"><a href="#log-softmax" class="headerlink" title="log_softmax"></a>log_softmax</h3><h3 id="softmax-cross-entropy-with-logits"><a href="#softmax-cross-entropy-with-logits" class="headerlink" title="softmax_cross_entropy_with_logits"></a>softmax_cross_entropy_with_logits</h3><h3 id="sparse-softmax-cross-entropy-with-logits"><a href="#sparse-softmax-cross-entropy-with-logits" class="headerlink" title="sparse_softmax_cross_entropy_with_logits"></a>sparse_softmax_cross_entropy_with_logits</h3><h2 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法"></a>优化方法</h2><p>BGD、SGD、Momentum 和Nesterov Momentum 是手动指定学习率的，其余算法能够自动调节学习率。</p>
+<h3 id="梯度下降法（BGD-和SGD）"><a href="#梯度下降法（BGD-和SGD）" class="headerlink" title="梯度下降法（BGD 和SGD）"></a>梯度下降法（BGD 和SGD）</h3><p>class tf.train.GradientDescentOptimizer<br>BGD 的全称是batch gradient descent，即批梯度下降。这种方法是利用现有参数对训练集中的每一个输入生成一个估计输出$y_i$，然后跟实际输出$y_i$ 比较，统计所有误差，求平均以后得到平均误差，以此作为更新参数的依据。它的迭代过程为：<br>（1）提取训练集中的所有内容${x_1, …, x_n}$，以及相关的输出$y_i$；<br>（2）计算梯度和误差并更新参数。<br>这种方法的优点是，使用所有训练数据计算，能够保证收敛，并且不需要逐渐减少学习率；缺点是，每一步都需要使用所有的训练数据，随着训练的进行，速度会越来越慢。那么，如果将训练数据拆分成一个个批次（batch），每次抽取一批数据来更新参数，是不是会加速训练呢？这就是最常用的SGD。<br>SGD 的全称是stochastic gradient descent，即随机梯度下降。因为这种方法的主要思想是将数据集拆分成一个个批次（batch），随机抽取一个批次来计算并更新参数，所以也称为MBGD（minibatch gradient descent）。SGD 在每一次迭代计算mini-batch 的梯度，然后对参数进行更新。与BGD 相比，SGD 在训练数据集很大时，仍能以较很的速度收敛。但是，它仍然会有下面两个缺点。<br>（1）由于抽取不可避免地梯度会有误差，需要手动调整学习率（learning rate），但是选择合适的学习率又比较困难。尤其在训练时，我们常常想对常出现的特征更新速度很一些，而对不常出现的特征更新速度慢一些，而SGD 在更新参数时对所有参数采用一样的学习率，因此无法满足要求。<br>（2）SGD 容易收敛到局部最优，并且在某些情况下可能被困在鞍点。为了解决学习率固定的问题，又引入了Momentum 法。</p>
+<h3 id="Momentum法（Momentum-和Nesterov-Momentum）"><a href="#Momentum法（Momentum-和Nesterov-Momentum）" class="headerlink" title="Momentum法（Momentum 和Nesterov Momentum）"></a>Momentum法（Momentum 和Nesterov Momentum）</h3><p>class tf.train.MomentumOptimizer<br>Momentum 是模拟物理学中动量的概念，更新时在一定程度上保留之前的更新方向，利用当前的批次再微调本次的更新参数，因此引入了一个新的变量v（速度），作为前几次梯度的累加。因此，Momentum 能够更新学习率，在下降初期，前后梯度方向一致时，能够加速学习；在下降的中后期，在局部最小值的附近来回震荡时，能够抑制震荡，加很收敛。<br>Nesterov Momentum 法由Ilya Sutskever 在Nesterov 工作的启发下提出的，是对传统Momentum法的一项改进，其基本思路如图所示。<br>图片4<br>标准Momentum 法首先计算一个梯度（短的1 号线），然后在加速更新梯度的方向进行一个大的跳跃（长的1 号线）；Nesterov 项首先在原来加速的梯度方向进行一个大的跳跃（2 号线），然后在该位置计算梯度值（3 号线），然后用这个梯度值修正最终的更新方向（4 号线）。</p>
+<h3 id="Adagrad法（Adagrad-和AdagradDAO）"><a href="#Adagrad法（Adagrad-和AdagradDAO）" class="headerlink" title="Adagrad法（Adagrad 和AdagradDAO）"></a>Adagrad法（Adagrad 和AdagradDAO）</h3><p>class tf.train.AdagradOptimizer<br>class tf.train.AdagradDAOptimizer<br>Adagrad 法能够自适应地为各个参数分配不同的学习率，能够控制每个维度的梯度方向。这种方法的优点是能够实现学习率的自动更改：如果本次更新时梯度大，学习率就衰减得很一些；如果这次更新时梯度小，学习率衰减得就慢一些。</p>
+<h3 id="Adadelta法"><a href="#Adadelta法" class="headerlink" title="Adadelta法"></a>Adadelta法</h3><p>class tf.train.AdadeltaOptimizer<br>Adagrad 法仍然存在一些问题：其学习率单调递减，在训练的后期学习率非常小，并且需要手动设置一个全局的初始学习率。Adadelta 法用一阶的方法，近似模拟二阶牛顿法，解决了这些问题。</p>
+<h3 id="RMSProp-法"><a href="#RMSProp-法" class="headerlink" title="RMSProp 法"></a>RMSProp 法</h3><p>class tf.train.RMSPropOptimizer<br>RMSProp 法与Momentum 法类似，通过引入一个衰减系数，使每一回合都衰减一定比例。在实践中，对循环神经网络（RNN）效果很好。</p>
+<h3 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h3><p>class tf.train.AdamOptimizer<br>Adam 的名称来源于自适应矩估计（adaptive moment estimation）。Adam 法根据损失函数针对每个参数的梯度的一阶矩估计和二阶矩估计动态调整每个参数的学习率。</p>
+<h3 id="Ftrl法"><a href="#Ftrl法" class="headerlink" title="Ftrl法"></a>Ftrl法</h3><p>class tf.train.FtrlOptimizer</p>
+<h2 id="模型存储与加载"><a href="#模型存储与加载" class="headerlink" title="模型存储与加载"></a>模型存储与加载</h2><h3 id="模型存储"><a href="#模型存储" class="headerlink" title="模型存储"></a>模型存储</h3><p>模型存储主要是建立一个tf.train.Saver()来保存变量，并且指定保存的位置，一般模型的扩展名为<strong>.ckpt</strong>。<br><a href="https://github.com/zkq1314/CodeReading/blob/master/10_save_restore_net.py" target="_blank" rel="noopener">使用样例</a></p>
+<h3 id="加载模型"><a href="#加载模型" class="headerlink" title="加载模型"></a>加载模型</h3><p>如果有已经训练好的模型变量文件，可以用saver.restore 来进行模型加载：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    tf.initialize_all_variables().run()</span><br><span class="line">    ckpt = tf.train.get_checkpoint_state(ckpt_dir)</span><br><span class="line">    <span class="keyword">if</span> ckpt <span class="keyword">and</span> ckpt.model_checkpoint_path:</span><br><span class="line">    print(ckpt.model_checkpoint_path)</span><br><span class="line">    saver.restore(sess, ckpt.model_checkpoint_path) <span class="comment"># 加载所有的参数</span></span><br><span class="line">    <span class="comment"># 从这里开始就可以直接使用模型进行预测，或者接着继续训练了</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="图的存储与加载"><a href="#图的存储与加载" class="headerlink" title="图的存储与加载"></a>图的存储与加载</h3><p>当仅保存图模型时，才将图写入二进制协议文件中，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">v = tf.Variable(<span class="number">0</span>, name=<span class="string">'my_variable'</span>)</span><br><span class="line">sess = tf.Session()</span><br><span class="line">tf.train.write_graph(sess.graph_def, <span class="string">'/tmp/tfmodel'</span>, <span class="string">'train.pbtxt'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>当读取时，又从协议文件中读取出来：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> _sess:</span><br><span class="line">    <span class="keyword">with</span> gfile.FastGFile(<span class="string">"/tmp/tfmodel/train.pbtxt"</span>,<span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read())</span><br><span class="line">        _sess.graph.as_default()</span><br><span class="line">        tf.import_graph_def(graph_def, name=<span class="string">'tfgraph'</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="加载数据"><a href="#加载数据" class="headerlink" title="加载数据"></a>加载数据</h2><p>TensorFlow 作为符号编程框架，需要先构建数据流图，再读取数据，随后进行模型训练。TensorFlow 官方网站给出了以下读取数据3 种方法。</p>
+<ul>
+<li>预加载数据（preloaded data）：在TensorFlow 图中定义常量或变量来保存所有数据。</li>
+<li>填充数据（feeding）：Python 产生数据，再把数据填充后端。</li>
+<li>从文件读取数据（reading from file）：从文件中直接读取，让队列管理器从文件中读取数据。</li>
+</ul>
+<h3 id="预加载数据"><a href="#预加载数据" class="headerlink" title="预加载数据"></a>预加载数据</h3><p>预加载数据的示例如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x1 = tf.constant([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">x2 = tf.constant([<span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">y = tf.add(x1, x2)</span><br></pre></td></tr></table></figure></p>
+<p>这种方式的缺点在于，将数据直接嵌在数据流图中，当训练数据较大时，很消耗内存。</p>
+<h3 id="填充数据"><a href="#填充数据" class="headerlink" title="填充数据"></a>填充数据</h3><p>使用sess.run()中的feed_dict 参数，将Python 产生的数据填充给后端。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 设计图</span></span><br><span class="line">a1 = tf.placeholder(tf.int16)</span><br><span class="line">a2 = tf.placeholder(tf.int16)</span><br><span class="line">b = tf.add(x1, x2)</span><br><span class="line"><span class="comment"># 用Python 产生数据</span></span><br><span class="line">li1 = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">li2 = [<span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line"><span class="comment"># 打开一个会话，将数据填充给后端</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"><span class="keyword">print</span> sess.run(b, feed_dict=&#123;a1: li1, a2: li2&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>填充的方式也有数据量大、消耗内存等缺点，并且数据类型转换等中间环节增加了不小开销。这时最好用第三种方法，在图中定义好文件读取的方法，让TensorFlow 自己从文件中读取数据，并解码成可使用的样本集。</p>
+<h3 id="从文件读取数据"><a href="#从文件读取数据" class="headerlink" title="从文件读取数据"></a>从文件读取数据</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/19/AdaBoost/" rel="next" title="AdaBoost">
+                <i class="fa fa-chevron-left"></i> AdaBoost
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/03/word2vec/" rel="prev" title="word2vec">
+                word2vec <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KaiQiang Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数"><span class="nav-number">1.</span> <span class="nav-text">激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-nn-relu"><span class="nav-number">1.1.</span> <span class="nav-text">tf.nn.relu()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-nn-sigmoid"><span class="nav-number">1.2.</span> <span class="nav-text">tf.nn.sigmoid()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-nn-tanh"><span class="nav-number">1.3.</span> <span class="nav-text">tf.nn.tanh()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-nn-elu"><span class="nav-number">1.4.</span> <span class="nav-text">tf.nn.elu()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-nn-bias-add"><span class="nav-number">1.5.</span> <span class="nav-text">tf.nn.bias_add()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-nn-crelu"><span class="nav-number">1.6.</span> <span class="nav-text">tf.nn.crelu()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-nn-relu6"><span class="nav-number">1.7.</span> <span class="nav-text">tf.nn.relu6()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-nn-softplus"><span class="nav-number">1.8.</span> <span class="nav-text">tf.nn.softplus()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-nn-softsign"><span class="nav-number">1.9.</span> <span class="nav-text">tf.nn.softsign()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-nn-dropout"><span class="nav-number">1.10.</span> <span class="nav-text">tf.nn.dropout()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择策略"><span class="nav-number">1.11.</span> <span class="nav-text">选择策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类函数"><span class="nav-number">2.</span> <span class="nav-text">分类函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid-cross-entropy-with-logits"><span class="nav-number">2.1.</span> <span class="nav-text">sigmoid_cross_entropy_with_logits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#softmax"><span class="nav-number">2.2.</span> <span class="nav-text">softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#log-softmax"><span class="nav-number">2.3.</span> <span class="nav-text">log_softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#softmax-cross-entropy-with-logits"><span class="nav-number">2.4.</span> <span class="nav-text">softmax_cross_entropy_with_logits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sparse-softmax-cross-entropy-with-logits"><span class="nav-number">2.5.</span> <span class="nav-text">sparse_softmax_cross_entropy_with_logits</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化方法"><span class="nav-number">3.</span> <span class="nav-text">优化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度下降法（BGD-和SGD）"><span class="nav-number">3.1.</span> <span class="nav-text">梯度下降法（BGD 和SGD）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Momentum法（Momentum-和Nesterov-Momentum）"><span class="nav-number">3.2.</span> <span class="nav-text">Momentum法（Momentum 和Nesterov Momentum）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adagrad法（Adagrad-和AdagradDAO）"><span class="nav-number">3.3.</span> <span class="nav-text">Adagrad法（Adagrad 和AdagradDAO）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adadelta法"><span class="nav-number">3.4.</span> <span class="nav-text">Adadelta法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RMSProp-法"><span class="nav-number">3.5.</span> <span class="nav-text">RMSProp 法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adam"><span class="nav-number">3.6.</span> <span class="nav-text">Adam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ftrl法"><span class="nav-number">3.7.</span> <span class="nav-text">Ftrl法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型存储与加载"><span class="nav-number">4.</span> <span class="nav-text">模型存储与加载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型存储"><span class="nav-number">4.1.</span> <span class="nav-text">模型存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载模型"><span class="nav-number">4.2.</span> <span class="nav-text">加载模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图的存储与加载"><span class="nav-number">4.3.</span> <span class="nav-text">图的存储与加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载数据"><span class="nav-number">5.</span> <span class="nav-text">加载数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预加载数据"><span class="nav-number">5.1.</span> <span class="nav-text">预加载数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#填充数据"><span class="nav-number">5.2.</span> <span class="nav-text">填充数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从文件读取数据"><span class="nav-number">5.3.</span> <span class="nav-text">从文件读取数据</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KaiQiang Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

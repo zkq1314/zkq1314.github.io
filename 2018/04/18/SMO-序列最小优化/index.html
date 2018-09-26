@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="机器学习,算法," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="SMO-序列最小最优化算法支持向量机的学习问题可以形式化为求解凸二次规划问题，这样的凸二次规划问题具有全局最优解，并且有许多最优化算法可以用于这一问题的求解。序列最小最优化算法就是其中一种。">
+<meta name="keywords" content="机器学习,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SMO-序列最小优化">
+<meta property="og:url" content="http://yoursite.com/2018/04/18/SMO-序列最小优化/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SMO-序列最小最优化算法支持向量机的学习问题可以形式化为求解凸二次规划问题，这样的凸二次规划问题具有全局最优解，并且有许多最优化算法可以用于这一问题的求解。序列最小最优化算法就是其中一种。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/SMO1.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/SMO2.png">
+<meta property="og:updated_time" content="2018-04-18T07:57:39.227Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SMO-序列最小优化">
+<meta name="twitter:description" content="SMO-序列最小最优化算法支持向量机的学习问题可以形式化为求解凸二次规划问题，这样的凸二次规划问题具有全局最优解，并且有许多最优化算法可以用于这一问题的求解。序列最小最优化算法就是其中一种。">
+<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/SMO1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/18/SMO-序列最小优化/"/>
+
+
+
+
+
+  <title>SMO-序列最小优化 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/18/SMO-序列最小优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SMO-序列最小优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T13:44:07+08:00">
+                2018-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="SMO-序列最小最优化算法"><a href="#SMO-序列最小最优化算法" class="headerlink" title="SMO-序列最小最优化算法"></a>SMO-序列最小最优化算法</h1><p>支持向量机的学习问题可以形式化为求解凸二次规划问题，这样的凸二次规划问题具有全局最优解，并且有许多最优化算法可以用于这一问题的求解。序列最小最优化算法就是其中一种。<br><a id="more"></a><br>序列最小最优化算法（sequential minimal optimization，SMO）是一种启发式算法，其基本思路：如果所有变量的解都满足此问题的KKT条件，那么这个最优化问题的解就得到了。因为<strong>KKT条件是该最优化问题的充分必要条件</strong>。否则，选择两个变量，固定其他变量，针对这两个变量构建一个二次规划问题，这个二次规划问题关于这两个变量的解应该更接近原始二次规划问题的解，因为这会使得原始二次规划问题的目标函数值变得更小。重要的是，这时子问题可以通过解析方法求解，这样可以大大提高整个算法的计算速度。子问题有两个变量，一个是违反KKT条件最严重的一个，另一个由约束条件自动确定。如此，SMO算法将原问题不断分解为子问题并对子问题求解，进而达到求解原问题的目的。<br>整个SMO算法包括两部分：</p>
+<ul>
+<li>求解两个变量二次规划的解析方法；</li>
+<li>选择变量的启发式方法。</li>
+</ul>
+<p>在支持向量机中，SMO算法要解决如下的凸二次规划的对偶问题：</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \min_{\pmb{\alpha}} \quad \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j K(\pmb{x}_i, \pmb{x}_j) - \sum_{i=1}^N \alpha_i \nonumber \\
+    & s.t. \quad \sum_{i=1}^N \alpha_i y_i = 0 \nonumber \\
+    & \qquad \quad 0 \leq \alpha_i \leq C, \quad i=1,2,\cdots,N \nonumber
+\end{align}</script><h2 id="1-两个变量二次规划的求解问题"><a href="#1-两个变量二次规划的求解问题" class="headerlink" title="1. 两个变量二次规划的求解问题"></a>1. 两个变量二次规划的求解问题</h2><p>假设选择的两个变量是$\alpha_1,\alpha_2$，其他变量$\alpha_i(i=3,4,\cdots,N)$是固定的。于是SMO要解决的对偶问题的子问题可以写成：</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \min_{\alpha_1, \alpha_2} \quad W(\alpha_1,\alpha_2) = \frac{1}{2} K_{11} \alpha_1^2 + \frac{1}{2} K_{22} \alpha_2^2 + y_1 y_2 K_{12} \alpha_1 \alpha_2 - (\alpha_1 + \alpha_2)  \\
+    & \qquad \qquad \qquad \qquad + y_1 \alpha_1 \sum_{i=3}^N y_i \alpha_i K_{i1} + y_2 \alpha_2 \sum_{i=3}^N y_i \alpha_i K_{i2} \nonumber \\
+    & s.t. \qquad \alpha_1y_1 + \alpha_2y_2 = - \sum_{i=3}^N y_i \alpha_i = \varsigma  \\
+    & \qquad \qquad 0 \leq \alpha_i \leq C, \quad i=1,2 
+\end{align}</script><p>其中，$K_{ij} = K(\pmb{x}_i, \pmb{x}_j), i,j=1,2,\cdots,N$，$\varsigma$为常数，由于目标函数式中不含$\alpha_1$和$\alpha_2$的项为常数，因此省略。<br>由于只有两个变量$(\alpha_1,\alpha_2)$，约束可以用二维空间中的图形表示：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/SMO1.png" alt="此处输入图片的描述"></p>
+<p>对偶问题中的不等式约束使得$(\alpha_1,\alpha_2)$在盒子$[0,C] \times [0,C]$内，等式约束使$(\alpha_1,\alpha_2)$在平行于盒子$[0,C] \times [0,C]$的对角线的直线上。因此要求的是目标函数在一条平行于对角线的线段上的最优值。这使得两个变量的最优化问题成为实质上的单变量的最优化问题，我们可以考虑为变量$\alpha_2$的最优化问题。<br>假设原对偶问题的初始可行解为$\alpha_1^{old}, \alpha_2^{old}$，最优解为$\alpha_1^{new}, \alpha_2^{new}$，并且假设在沿着约束方向未经剪辑时$\alpha_2$的最优解为$\alpha_2^{new,unc}$。<br>由于$\alpha_2^{new}$需要满足不等式约束，所以其取值范围为</p>
+<script type="math/tex; mode=display">L \leq \alpha_2^{new} \leq H</script><p>其中，$l$与$H$是$\alpha_2^{new}$所在的对角线段端点的界：<br>如果$y_1 \neq y_2$，则</p>
+<script type="math/tex; mode=display">L = \max(0,\alpha_2^{old} - \alpha_1^{old}), \quad H = \min(C, C + \alpha_2^{old} - \alpha_1^{old})</script><p>如果$y_1 = y_2$，则</p>
+<script type="math/tex; mode=display">L = \max(0, \alpha_2^{old} + \alpha_1^{old} - C), \quad H = \min (C,\alpha_2^{old} + \alpha_1^{old})</script><p>首先求解沿着约束方向未经剪辑即未考虑不等式约束时$\alpha_2$的最优解$\alpha_2^{new,unc}$；然后再求剪辑后$\alpha_2$的解$\alpha_2^{new}$。为了叙述简单，记</p>
+<script type="math/tex; mode=display">g(\pmb{x}) = \sum_{i=1}^N \alpha_i y_i K(\pmb{x}_i, \pmb{x}) + b</script><p>令</p>
+<script type="math/tex; mode=display">E_i = g(\pmb{x}_i) - y_i = (\sum_{j=1}^N \alpha_j y_j K(\pmb{x}_j,\pmb{x}_i)+b)-y_i, \quad i=1,2</script><p>当$i=1,2$时，$E_i$为函数$g(\pmb{x})$对输入$\pmb{x}_i$的预测值与真实输出$y_i$之差。  </p>
+<p><strong>定理</strong>：最优化问题$(1) \sim (3)$沿着约束方向向未经剪辑时的解是</p>
+<script type="math/tex; mode=display">\alpha_2^{new,unc} = \alpha_2^{old} + \frac{y_2(E_1 - E_2)}{\eta}</script><p>其中</p>
+<script type="math/tex; mode=display">\eta = K_{11} + K_{22} - 2 K_{12} = ||\phi(\pmb{x}_1) - \phi(\pmb{x}_2)||^2</script><p>$\phi(\pmb{x})$是输入空间到特征空间的映射。<br>经剪辑后$\alpha_2$的解是</p>
+<script type="math/tex; mode=display">\alpha_2^{new} = 
+\begin{cases}
+    H, \qquad \qquad \alpha_2^{new,unc} > H \\
+    \alpha_2^{new,unc}, \quad L \leq \alpha_2^{new,unc} \leq H \\
+    L, \qquad \qquad \alpha_2^{new,unc} < L
+\end{cases}</script><p>由$\alpha_2$求得$\alpha_1^{new}$是</p>
+<script type="math/tex; mode=display">\alpha_1^{new} = \alpha_1^{old} + y_1 y_2 (\alpha_2^{old} - \alpha_2^{new})</script><p><strong>证明</strong>：引进记号</p>
+<script type="math/tex; mode=display">v_i = \sum_{j=3}^N \alpha_j y_j K(\pmb{x}_i,\pmb{x}_j) = g(\pmb{x}_i) - \sum_{j=1}^2 \alpha_j y_j K(\pmb{x}_i,\pmb{x}_j) - b, \quad i=1,2</script><p>目标函数可写成</p>
+<script type="math/tex; mode=display">W(\alpha_1,\alpha_2) = \frac{1}{2} K_{11} \alpha_1^2 + \frac{1}{2} K_{22} \alpha_2^2 + y_1 y_2 K_{12} \alpha_1 \alpha_2 - (\alpha_1 + \alpha_2) + y_1 v_1 \alpha_1 + y_2 v_2 \alpha_2</script><p>由$\alpha_1 y_1 = \varsigma - \alpha_2 y_2$及$y_i^2 = 1$，可将$\alpha_1$表示为</p>
+<script type="math/tex; mode=display">\alpha_1 = (\varsigma - y_2 \alpha_2) y_1</script><p>带入目标函数，得到只是$\alpha_2$的函数的目标函数：</p>
+<script type="math/tex; mode=display">\begin{align}
+W(\alpha_2) = & \frac{1}{2} K_{11} (\varsigma - \alpha_2 y_2)^2 + \frac{1}{2} K_{22} \alpha_2^2 + y_2 K_{12} (\varsigma - \alpha_2 y_2) \alpha_2 - (\varsigma - \alpha_2 y_2) y_1 - \alpha_2 \nonumber \\
+& + v1(\varsigma - \alpha_2 y_2) + y_2 v_2 \alpha_2 \nonumber 
+\end{align}</script><p>对$\alpha_2$求导数</p>
+<script type="math/tex; mode=display">\frac{\partial W}{\partial \alpha_2} = K_{11} \alpha_2 + K_{22} \alpha_2 - 2K_{12} \alpha_2 - K_{11} \varsigma y_2 + K_{12} \varsigma y_2 -1 - v_1 y_2 + y_2 v_2</script><p>令其为0，得到</p>
+<script type="math/tex; mode=display">\begin{align}
+    (K_{11}+K_{22}-2K_{12}) \alpha_2 & = y_2(y_2 - y_1 + \varsigma K_{11} - \varsigma K_{12} + v_1 - v_2) \nonumber \\
+    &= y_2 [y_2 - y_1 + \varsigma K_{11} - \varsigma K_{12} + (g(\pmb{x}_1) - \sum_{j=1}^2 y_j \alpha_j K_{1j} - b) \nonumber \\
+    & \quad - (g(\pmb{x}_2) - \sum_{j=1}^2 y_j \alpha_j K_{2j} - b)] \nonumber 
+\end{align}</script><p>将$\varsigma = \alpha_1^{old} y_1 + \alpha_2^{old} y_2$带入，得到</p>
+<script type="math/tex; mode=display">\begin{align}
+    (K_{11} + K_{22} - 2K_{12}) \alpha_2^{new,unc} &= y_2((K_{11} + K_{22} - 2K_{12})\alpha_2^{old}y_2 + y_2 - y_1  + g(\pmb{x}_1) - g(\pmb{x}_2)) \nonumber \\
+    &= (K_{11} + K_{22} - 2K_{12}) + y_2(E_1 - E_2) \nonumber
+\end{align}</script><p>将$\eta = K<em>{11} + K</em>{22} - 2K_{12}$代入，得到</p>
+<script type="math/tex; mode=display">\alpha_2^{new,unc} = \alpha_2^{old} + \frac{y_2(E_1 - E_2)}{\eta}</script><p>由等式约束得到$\alpha_1^{new}$。  </p>
+<h2 id="2-变量的选择方法"><a href="#2-变量的选择方法" class="headerlink" title="2. 变量的选择方法"></a>2. 变量的选择方法</h2><p>SMO算法在每个子问题中选择两个变量优化，其中至少一个变量是违反KKT条件的。  </p>
+<h3 id="2-1-第一个变量的选择"><a href="#2-1-第一个变量的选择" class="headerlink" title="2.1. 第一个变量的选择"></a>2.1. 第一个变量的选择</h3><p>SMO称选择第一个变量的过程为外层循环。外层循环在训练样本中选取<strong>违反KKT条件最严重的样本点，并将其对应的变量作为第一个变量</strong>。具体地，检验训练样本点$(\pmb{x}_i,y_i)$是否满足KKT条件，即</p>
+<script type="math/tex; mode=display">\begin{equation}
+    \alpha_i = 0 \Leftrightarrow y_i g(\pmb{x}_i) \geq 1 \nonumber \\
+    0 < \alpha_i < C \Leftrightarrow y_i g(\pmb{x}_i) = 1 \nonumber \\
+    \alpha_i = C \Leftrightarrow y_i g(\pmb{x}_i) \leq 1 \nonumber
+\end{equation}</script><p>其中，$g(\pmb{x}<em>i) = \sum</em>{j=1}^N \alpha_j y_j K(\pmb{x}_i,\pmb{x}_j) + b$。<br>在检验过程中，外层循环首先遍历所有满足条件$0 &lt; \alpha_i &lt; C$的样本点，即在间隔边界上的支持向量点，检验它们是否满足KKT条件。如果这些样本点都满足KKT条件，那么遍历整个训练集，检验它们是否满足KKT条件。  </p>
+<h3 id="2-2-第二个变量的选择"><a href="#2-2-第二个变量的选择" class="headerlink" title="2.2. 第二个变量的选择"></a>2.2. 第二个变量的选择</h3><p>SMO算法称选择第二个变量的过程为内层循环。假设在外层循环中已经找到第一个变量$\alpha_1$，现在要在内层循环中找到第二个变量$\alpha_2$。<strong>第二个变量选择的标准是希望能使$\alpha_2$有足够大的变化</strong>。<br>由定理可知，$\alpha_2^{new}$是依赖于$|E_1 - E_2|$的，为了加快计算速度，一种简单的做法是选择$\alpha_2$使其对应的$|E_1 - E_2|$最大。由于$\alpha_1$已经确定，因此$E_1$也确定了。如果$E_1$是正的，那么选择最小的$E_i$作为$E_2$；如果$E_1$是负的，那么选择最大的$E_i$作为$E_2$。为了节省计算时间，可将所有的$E_i$值保存在一个列表中。<br>在特殊情况下，如果内层循环通过以上方法选择的$\alpha_2$不能使目标函数有足够的下降，那么采用以下启发式规则继续选择$\alpha_2$。遍历在间隔边界上的支持向量点，依次将其对应的向量作为$\alpha_2$试用，直到目标函数有足够的下降。若找不到合适的$\alpha_2$，那么遍历训练数据集；若仍找不到合适的$\alpha_2$，则放弃第一个$\alpha_1$，再通过外层循环寻找另外的$\alpha_1$。  </p>
+<h3 id="2-3-计算阈值-b-和差值-E-i"><a href="#2-3-计算阈值-b-和差值-E-i" class="headerlink" title="2.3. 计算阈值$b$和差值$E_i$"></a>2.3. 计算阈值$b$和差值$E_i$</h3><p>在每次完成两个变量的优化后，都要重新计算阈值$b$。当$0 &lt; \alpha_1^{new} &lt; C$时，由KKT条件可知：</p>
+<script type="math/tex; mode=display">\sum_{i=1}^N \alpha_i y_i K_{i1} + b = y_1</script><p>于是</p>
+<script type="math/tex; mode=display">b_1^{new} = y_1 - \sum_{i=3}^N \alpha_i y_iK_{i1} - \alpha_1^{new} y_1 K_{11} - \alpha_2^{new} y_2 K_{21} \tag{4}</script><p>由$E_1$的定义式有</p>
+<script type="math/tex; mode=display">E_1 = \sum_{i=3}^N \alpha_i y_i K_{i1} + \alpha_1^{old} y_1 K_{11} + \alpha_2^{old} y_2 K_{21} + b^{old} - y_1</script><p>式$(4)$的前两项可写成：</p>
+<script type="math/tex; mode=display">y_1 - \sum_{i=3}^N \alpha_i y_i K_{i1} = - E_1 + \alpha_1^{old} y_1 K_{11} + \alpha_2^{old} y_2 K_{21} + b^{old}</script><p>带入式$(4)$可得</p>
+<script type="math/tex; mode=display">b_1^{new} = - E_1 - y_1 K_{11} (\alpha_1^{new} - \alpha_1^{old}) - y_2 K_{21} (\alpha_2^{new} - \alpha_2^{old}) + b^{old}</script><p>同样，如果$0&lt;\alpha_2^{new} &lt; C$，那么</p>
+<script type="math/tex; mode=display">b_2^{new} = - E_2 - y_1 K_{12} (\alpha_1^{new} - \alpha_1^{old}) - y_2 K_{22} (\alpha_2^{new} - \alpha_2^{old}) + b^{old}</script><p>如果$\alpha_1^{new}, \alpha_2^{new}$同时满足条件$0&lt;\alpha_i^{new} &lt; C, \quad i=1,2$，那么$b_1^{new} = b_2^{new}$。如果$\alpha_1^{new}, \alpha_2^{new}$是$0$或者$C$，那么$b_1^{new}$和$b_2^{new}$以及它们之间的数都是符合KKT条件的阈值，这时选择它们的中点作为$b^{new}$。<br>在每次完成两个变量的优化之后，还必须更新对应的$E_i$值，并将它们保存在列表中。$E_i$值的更新要用的$b^{new}$值，以及所有支持向量对应的$\alpha_j$：</p>
+<script type="math/tex; mode=display">E_i^{new} = \sum_{S} y_j \alpha_j K(\pmb{x}_i, \pmb{x}_j) + b^{new} - y_i</script><p>其中，$S$是所有支持向量$\pmb{x}_j$的集合。  </p>
+<p><img src="http://p5vuwy2ht.bkt.clouddn.com/SMO2.png" alt="此处输入图片的描述"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/18/支持向量机/" rel="next" title="支持向量机">
+                <i class="fa fa-chevron-left"></i> 支持向量机
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/19/AdaBoost/" rel="prev" title="AdaBoost">
+                AdaBoost <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KaiQiang Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SMO-序列最小最优化算法"><span class="nav-number">1.</span> <span class="nav-text">SMO-序列最小最优化算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-两个变量二次规划的求解问题"><span class="nav-number">1.1.</span> <span class="nav-text">1. 两个变量二次规划的求解问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-变量的选择方法"><span class="nav-number">1.2.</span> <span class="nav-text">2. 变量的选择方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-第一个变量的选择"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1. 第一个变量的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-第二个变量的选择"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2. 第二个变量的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-计算阈值-b-和差值-E-i"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3. 计算阈值$b$和差值$E_i$</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KaiQiang Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,机器学习,文本分类," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本文总结了神经网络在文本分类方面的一些应用，其中多篇论文被广泛引用。如果有最新的相关研究会及时更新。文章将按照这些论文提出年份展开介绍，发展历史如下图所示：">
+<meta name="keywords" content="NLP,机器学习,文本分类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文本分类综述">
+<meta property="og:url" content="http://yoursite.com/2018/08/03/文本分类综述/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文总结了神经网络在文本分类方面的一些应用，其中多篇论文被广泛引用。如果有最新的相关研究会及时更新。文章将按照这些论文提出年份展开介绍，发展历史如下图所示：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B015.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B02.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B03.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B04.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B05.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B012.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B06.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B07.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B08.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B09.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B010.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B011.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B013.jpg">
+<meta property="og:updated_time" content="2018-08-03T03:58:38.609Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文本分类综述">
+<meta name="twitter:description" content="本文总结了神经网络在文本分类方面的一些应用，其中多篇论文被广泛引用。如果有最新的相关研究会及时更新。文章将按照这些论文提出年份展开介绍，发展历史如下图所示：">
+<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B015.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/03/文本分类综述/"/>
+
+
+
+
+
+  <title>文本分类综述 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/文本分类综述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文本分类综述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T11:58:38+08:00">
+                2018-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文本分类/" itemprop="url" rel="index">
+                    <span itemprop="name">文本分类</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文总结了神经网络在文本分类方面的一些应用，其中多篇论文被广泛引用。如果有最新的相关研究会及时更新。<br>文章将按照这些论文提出年份展开介绍，发展历史如下图所示：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B015.jpg" alt="此处输入图片的描述"><br><a id="more"></a></p>
+<h2 id="FastText"><a href="#FastText" class="headerlink" title="FastText"></a>FastText</h2><p>文章提出的方法类似于word2vec的cbow模型，并在此基础上加上bag of n-grams（考虑单词的顺序关系），下图是FastText文本分类的模型，$w$是语句中的词语，词语的向量相加求平均值作为文本表示然后做一个线性分类。<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B02.jpg" alt="此处输入图片的描述"><br>但与cbow不同的是，fasttext不是预测中心词，而是直接预测标签。模型以语句中的词语作为输入，输出语句属于各类别上的概率。<br>    模型比较简单，训练速度很快，但是准确率不高。</p>
+<h2 id="TextCNN2014"><a href="#TextCNN2014" class="headerlink" title="TextCNN2014"></a>TextCNN2014</h2><p> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B03.jpg" alt="此处输入图片的描述"><br>输入层将一个句子所有单词的词向量拼接成一个矩阵，每一行代表一个词。图中有两个channels，原文中用的是static和non-static，即使用的词向量是否随着训练发生变化；也可以使用不同的词向量方法生成的词向量作为不同channel。对于未登录词的向量，使用0或随机正数来填充。<br>    卷积层的每个卷积核的大小为$filter<em>-size\times embedding</em>-size$。$filter<em>-size$代表卷积核纵向上包含的单词个数，即认为相邻几个词之间有词序关系，代码里使用的是[3，4，5]。$embedding</em>-size$就是词向量的维度。每个卷积核计算完成之后我们就得到了1个列向量，代表着该卷积核从句子中提取出来的特征。<br>池化层使用Max-over-time Pooling的方法。这种方法就是简单地从之前的Feature Map中提出最大的值（文中解释最大值代表着最重要的信号）。可以看出，这种Pooling方式可以解决可变长度的句子输入问题（因为不管Feature Map中有多少个值，只需要提取其中的最大值）。最终池化层的输出为各个Feature Map的最大值，即一个一维的向量。<br>全连接层，为了将pooling层输出的向量转化为我们想要的预测结果，加上一个softmax层。文中还提到了过拟合的问题，在倒数第二层的全连接部分上使用<strong>Dropout</strong>技术，即对全连接层上的权值参数给予L2正则化的限制。这样做的好处是防止隐藏层单元自适应（或者对称），从而减轻过拟合的程度。<br><strong>本文使用的词向量是CBOW在Google News上的训练结果。</strong></p>
+<h2 id="RCNN"><a href="#RCNN" class="headerlink" title="RCNN"></a>RCNN</h2><p>分析了Recursive Neural Network、RNN、CNN做文本分类的优缺点：<br>Recursive Neural Network效果完全依赖于文本树的构建，并且构建文本树所需的时间是$ O\left( n^2 \right)  $  。并且两个句子的关系也不能通过一颗树表现出来。因此不适合于长句子或者文本。<br>    RNN是有偏的模型，后面的词比前面的词更重要。<br>    CNN卷积核的尺寸难以设置。如果选小了容易造成信息的丢失；如果选大了，会造成巨大的参数空间。<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B04.jpg" alt="此处输入图片的描述"><br>卷积层是一个BiRNN（双向LSTM），通过正向和反向循环来构建一个单词的上文和下文，如下式：</p>
+<script type="math/tex; mode=display">c_l\left( w_i \right) =f\left( W^{\left( l \right)}c_l\left( w_{i-1} \right) +W^{\left( sl \right)}e\left( w_{i-1} \right) \right)</script><script type="math/tex; mode=display">c_r\left( w_i \right) =f\left( W^{\left( r \right)}c_r\left( w_{i+1} \right) +W^{\left( sr \right)}e\left( w_{i+1} \right) \right)</script><p>得到上下文表示后，拼接表示当前词：</p>
+<script type="math/tex; mode=display">x_i=\left[ c_l\left( w_i \right) ;e\left( w_i \right) ;c_r\left( w_i \right) \right]</script><p>使用$tanh$函数激活得到：</p>
+<script type="math/tex; mode=display">y_{i}^{\left( 2 \right)}=\tanh \left( W^{\left( 2 \right)}x_i+b^{\left( 2 \right)} \right)</script><p>池化层使用最大池化，使用所有单词在每个维度上的最大值表示文本的信息。最后输出层使用softmax得到分类结果。<br>    <strong>本文使用的词向量是使用Skip-gram训练的中英文Wikipedia。</strong></p>
+<h2 id="TextRNN"><a href="#TextRNN" class="headerlink" title="TextRNN"></a>TextRNN</h2><p>传统的RNN（LSTM）结构：<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B05.jpg" alt="此处输入图片的描述"><br>下面的公式为LSTM中各门的公式：<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B012.jpg" alt="此处输入图片的描述"><br>文章《Recurrent Neural Network for Text Classification with Multi-Task Learning》中介绍了RNN用于文本分类的模型设计，主要提出了以下三种模型：<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B06.jpg" alt="此处输入图片的描述"><br>模型（a）中多任务共享LSTM结构以及公有的词向量；针对于任务$m$，输入$ \hat{x}_t $ 为：</p>
+<script type="math/tex; mode=display">\hat{x}_{t}^{\left( m \right)}=x_{t}^{\left( m \right)}\oplus x_{t}^{\left( s \right)}</script><p>其中，$ x<em>{t}^{\left( m \right)} $ ，$ x</em>{t}^{\left( s \right)} $  分别表示任务私有的词向量和公有的词向量。最后一个时刻的hidden state则作为输入传入softmax。<br>模型（b）每个任务具有自己独立的LSTM层，但是每一时刻所有任务的hidden state则会和下一时刻的character一起作为输入，最后一个时刻的hidden state进行分类。作者修改了候选状态的计算公式：</p>
+<script type="math/tex; mode=display">\tilde{c}_{t}^{\left( m \right)}=\tanh \left( W_{t}^{\left( m \right)}x_t+\sum_{i\in \left\{ m,n \right\}}{g^{\left( i\rightarrow m \right)}U_{c}^{\left( i\rightarrow m \right)}h_{t-1}^{\left( i \right)}} \right)</script><script type="math/tex; mode=display">g^{\left( i\rightarrow m \right)}=\sigma \left( W_{g}^{\left( m \right)}x_t+U_{g}^{\left( i \right)}h_{t-1}^{\left( i \right)} \right)</script><p>模型（c）除了一个共享的BI-LSTM层用于获取共享信息，每个任务有自己独立的LSTM层，LSTM的输入包括每一时刻的character和BI-LSTM的hidden state，同模型2一样，作者修改了候选状态的计算公式：</p>
+<script type="math/tex; mode=display">\tilde{c}_{t}^{\left( m \right)}=\tanh \left( W_{t}^{\left( m \right)}x_t+g^{\left( m \right)}U_{c}^{\left( m \right)}h_{t-1}^{\left( m \right)}+g^{\left( s\rightarrow m \right)}U_{c}^{\left( s \right)}h_{t}^{\left( s \right)} \right)</script><script type="math/tex; mode=display">g^{\left( m \right)}=\sigma \left( W_{g}^{\left( m \right)}x_t+U_{g}^{\left( m \right)}h_{t-1}^{\left( s \right)} \right)</script><script type="math/tex; mode=display">g^{\left( s\rightarrow m \right)}=\sigma \left( W_{g}^{\left( m \right)}x_t+U_{g}^{\left( s\rightarrow m \right)}h_{t}^{\left( s \right)} \right)</script><p><strong>本文使用的词向量是使用Word2Vec训练的Wikipedia语料。</strong></p>
+<h2 id="CharCNN"><a href="#CharCNN" class="headerlink" title="CharCNN"></a>CharCNN</h2><p> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B07.jpg" alt="此处输入图片的描述"><br>首先对文本编码，使用的字母表共有69个字符，对其使用one-hot编码，外加一个全零向量（用于处理不在该字符表中的字符），所以共70个。经过6个卷积层和3个全连接层得到输出。<br>优点是是不需要使用预训练好的词向量和语法句法结构等信息，并且可以很容易的推广到所有语言。针对于汉语，作者使用拼音代替汉字实现的编码。<br>对于几百上千等小规模数据集，可以优先考虑传统方法，对于百万规模的数据集，CharCNN表现不错。CharCNN适用于用户生成数据(user-generated data)（如拼写错误，表情符号等）。</p>
+<h2 id="GRNN（Conv、LSTM）"><a href="#GRNN（Conv、LSTM）" class="headerlink" title="GRNN（Conv、LSTM）"></a>GRNN（Conv、LSTM）</h2><p> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B08.jpg" alt="此处输入图片的描述"><br>首先使用CNN/LSTM来建模句子表示，接下来使用双向GRU模型对句子表示进行编码得到文档表示，得到的文档表示用于Softmax情感分类。<br><strong>在上图中，底层的词向量是由word2vec预训练得到。</strong>使用CNN/LSTM学习得到句子的表示，这里会把变长的句子表示表示成相同维度的向量。卷积模型如下：<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B09.jpg" alt="此处输入图片的描述"><br>filter的宽度分别取1，2，3来编码unigrams，bigrams和trigrams的语义信息。最后使用一个Average层捕获全局信息并转化为输出向量。<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B010.jpg" alt="此处输入图片的描述"><br>使用GRU模型，输入是变长的句子向量，输出固定长度的文本向量，这里会对最后每个单元的输出向量进行取平均操作</p>
+<h2 id="HAN（RNN-Attention）"><a href="#HAN（RNN-Attention）" class="headerlink" title="HAN（RNN+Attention）"></a>HAN（RNN+Attention）</h2><p> <img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B011.jpg" alt="此处输入图片的描述"><br>    一个句子中每个单词的重要性不同。一篇文档中每个句子的重要性也不同。因此本文主要思想是，首先考虑文档的分层结构：单词构成句子，句子构成文档，所以建模时也分这两部分进行。其次，不同的单词和句子具有不同的信息量，不能单纯的统一对待所以引入Attention机制。而且引入Attention机制除了提高模型的精确度之外还可以进行单词、句子重要性的分析和可视化，让我们对文本分类的内部有一定了解。模型主要可以分为四个部分，如上图所示：<br>    Word encoder和sentence encoder都是双向GRU，公式如下：<br>Word encoder中公式如下：</p>
+<script type="math/tex; mode=display">x_{it}=W_ew_{it},t\in \left[ \text{1,}T \right]  \\ \vec{h}_{it}=\overrightarrow{GRU}\left( x_{it} \right) ,t\in \left[ \text{1,}T \right]  \\ \vec{h}_{it}=\overleftrightarrow{GRU}\left( x_{it} \right) ,t\in \left[ T,1 \right]</script><p>Word attention中公式如下：</p>
+<script type="math/tex; mode=display">u_{it}=\tanh \left( W_wh_{it}+b_w \right)  \\ \alpha _{it}=\frac{\exp \left( u_{it}^{\top}u_w \right)}{\sum_t^{}{\exp \left( u_{it}^{\top}u_w \right)}} \\ s_i=\sum_t{\alpha _{it}h_{it}}</script><p>Sentence encoder中公式如下：</p>
+<script type="math/tex; mode=display">\vec{h}_i=\overrightarrow{GRU}\left( s_i \right) ,i\in \left[ \text{1,}L \right]  \\ \vec{h}_i=\overleftrightarrow{GRU}\left( s_i \right) ,i\in \left[ L,1 \right]</script><p>Sentence attention中公式如下：</p>
+<script type="math/tex; mode=display">u_i=\tanh \left( W_sh_i+b_s \right)  \\ \alpha _i=\frac{\exp \left( u_{i}^{\top}u_s \right)}{\sum_i^{}{\exp \left( u_{i}^{\top}u_s \right)}} \\ v=\sum_i{\alpha _ih_i}</script><p>每个词语对应的hidden vector的输出经过变换（转置和$tanh$）之后和$u_w$ 相互作用（点积），结果就是每个词语的权重。加权以后就可以产生整个sentence的表示。从高一级的层面来看(hierarchical的由来)，每个document有$L$个句子组成，那么这$L$个句子就可以连接成另一个sequence model, 同样是双向GRU，同样的对输出层进行变换后和 相互作用，产生每个句子的权重，加权以后我们就产生了对整个document的表示。最后用softmax就可以产生对分类的预测。</p>
+<h2 id="Reinforcement-Learning"><a href="#Reinforcement-Learning" class="headerlink" title="Reinforcement Learning"></a>Reinforcement Learning</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E7%BB%BC%E8%BF%B013.jpg" alt="此处输入图片的描述"><br>表征学习是自然语言处理中的一个基本问题。文章《Learning Structured Representation for Text Classification via Reinforcement Learning》研究如何学习文本分类的结构化表示。与大多数既不使用结构也不依赖于预定义结构的现有表示模型不同，作者提出了一种强化学习（RL）方法，通过自动地优化结构来学习句子表示。<br>作者在文章中提出两种结构表示模型（模型第二部分）：Information Distilled LSTM (ID-LSTM) 和 Hierarchically Structured LSTM (HS-LSTM)。其中 ID-LSTM 只选择重要的任务相关的单词，HS-LSTM 则去发现句子中的短语结构。两种表示模型中的结构发现被表述为一个顺序决策问题，结构发现的当前决策影响随后的决策，这可以通过策略梯度 RL 来解决。<br>结果表明，这种方法可以通过识别重要的词或任务相关的结构而无需明确的结构注释来学习任务友好的表示，从而获得有竞争力的表现。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/文本分类/" rel="tag"># 文本分类</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/23/词向量综述/" rel="next" title="词向量综述">
+                <i class="fa fa-chevron-left"></i> 词向量综述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/08/keras中的embedding层/" rel="prev" title="keras中的embedding层">
+                keras中的embedding层 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KaiQiang Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#FastText"><span class="nav-number">1.</span> <span class="nav-text">FastText</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TextCNN2014"><span class="nav-number">2.</span> <span class="nav-text">TextCNN2014</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RCNN"><span class="nav-number">3.</span> <span class="nav-text">RCNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TextRNN"><span class="nav-number">4.</span> <span class="nav-text">TextRNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CharCNN"><span class="nav-number">5.</span> <span class="nav-text">CharCNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GRNN（Conv、LSTM）"><span class="nav-number">6.</span> <span class="nav-text">GRNN（Conv、LSTM）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HAN（RNN-Attention）"><span class="nav-number">7.</span> <span class="nav-text">HAN（RNN+Attention）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reinforcement-Learning"><span class="nav-number">8.</span> <span class="nav-text">Reinforcement Learning</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KaiQiang Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

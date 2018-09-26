@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="机器学习," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="支持向量机支持向量机（support vector machines, SVM）是一种二分类模型。它的基本模型是定义在特征空间上的间隔最大的线性分类器，间隔最大使它有别于感知机；支持向量机还包括核技巧，使它成为实质上的非线性分类器。支持向量机的学习策略就是间隔最大化，可形式化为一个求解凸二次规划（convex quadratic programming）的问题，也等价于正则化的hinge损失函数的">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支持向量机">
+<meta property="og:url" content="http://yoursite.com/2018/04/18/支持向量机/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="支持向量机支持向量机（support vector machines, SVM）是一种二分类模型。它的基本模型是定义在特征空间上的间隔最大的线性分类器，间隔最大使它有别于感知机；支持向量机还包括核技巧，使它成为实质上的非线性分类器。支持向量机的学习策略就是间隔最大化，可形式化为一个求解凸二次规划（convex quadratic programming）的问题，也等价于正则化的hinge损失函数的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA1.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA2.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA3.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA4.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA5.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA6.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA7.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA8.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA9.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA10.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA11.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA12.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA13.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA14.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA15.png">
+<meta property="og:updated_time" content="2018-04-18T02:57:05.343Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="支持向量机">
+<meta name="twitter:description" content="支持向量机支持向量机（support vector machines, SVM）是一种二分类模型。它的基本模型是定义在特征空间上的间隔最大的线性分类器，间隔最大使它有别于感知机；支持向量机还包括核技巧，使它成为实质上的非线性分类器。支持向量机的学习策略就是间隔最大化，可形式化为一个求解凸二次规划（convex quadratic programming）的问题，也等价于正则化的hinge损失函数的">
+<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/18/支持向量机/"/>
+
+
+
+
+
+  <title>支持向量机 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/18/支持向量机/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">支持向量机</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T08:58:20+08:00">
+                2018-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h1><p>支持向量机（support vector machines, SVM）是一种二分类模型。它的基本模型是定义在特征空间上的间隔最大的线性分类器，间隔最大使它有别于感知机；支持向量机还包括核技巧，使它成为实质上的非线性分类器。支持向量机的学习策略就是间隔最大化，可形式化为一个求解<strong>凸二次规划</strong>（convex quadratic programming）的问题，也等价于正则化的hinge损失函数的最小化问题。支持向量机的学习算法是求解凸二次规划的最优化算法。<br><a id="more"></a><br>支持向量机学习方法包含构建由简至繁的模型：<strong>线性可分支持向量机</strong>（linear support vector machine in linearly separable case）、<strong>线性支持向量机</strong>（linear support vector machine）及<strong>非线性支持向量机</strong>（non-linear support vector machine）。简单模型是复杂模型的基础，也是复杂模型的特殊情况。<br>当输入空间为欧式空间或离散集合、特征空间为希尔伯特空间时，核函数（kernel function）表示将输入从输入空间映射到特征空间得到的特征向量之间的内积。通过使用核函数可以学习非线性支持向量机，等价于隐式地在高维的特征空间中学习线性支持向量机，这样的方法称为<strong>核技巧</strong>。  </p>
+<h2 id="1-线性可分支持向量机与硬间隔最大化"><a href="#1-线性可分支持向量机与硬间隔最大化" class="headerlink" title="1. 线性可分支持向量机与硬间隔最大化"></a>1. 线性可分支持向量机与硬间隔最大化</h2><h3 id="1-1-线性可分支持向量机"><a href="#1-1-线性可分支持向量机" class="headerlink" title="1.1. 线性可分支持向量机"></a>1.1. 线性可分支持向量机</h3><p>假设输入空间与特征空间为两个不同的空间，输入空间为欧式空间或离散集合，特征空间为欧式空间或希尔伯特空间。线性可分支持向量机、线性支持向量机假设这两个空间的元素一一对应，并将输入空间中的输入映射为特征空间中的特征向量。非线性支持向量机利用一个从输入空间到特征空间的非线性映射将输入映射为特征向量。这样，输入都是由输入空间转换到特征空间，支持向量机的学习是在特征空间进行的。<br>假设给定一个特征空间上的训练数据集</p>
+<script type="math/tex; mode=display">T = \{(\pmb{x}_1,y_1),(\pmb{x}_2,y_2),\cdots, (\pmb{x}_N,y_N)\}</script><p>其中，$\pmb{x}_i \in \chi = \mathbf{R}^n$，$y_i \in {+1,-1}, \quad i=1,2,\cdots,N$，$\pmb{x}_i$为第$i$个特征向量，也成为实例，$y_i$为$\pmb{x}_i$的类标记，$+1$表示正例，$-1$表示负例。假设训练数据集是线性可分的。<br>学习的目标是在特征空间中找到一个分离超平面，能将实例分到不同的类。分离超平面对应于方程$\pmb{w} · \pmb{x} + b = 0$，它由法向量$\pmb{w}$和截距$b$决定，可用$(\pmb{w},b)$表示。分离超平面将特征空间划分为两部分，法向量指向的一侧为正类，另一侧为负类。<br>当训练数据集线性可分时，存在无穷个分离超平面可将两类数据正确分开。感知机利用误分类最小的策略，求得分离超平面，此时的解有无穷多个。线性可分支持向量机利用间隔最大化求解最优分离超平面，此时的解是唯一的。<br><strong>线性可分支持向量机</strong>：给定线性可分训练数据集，通过间隔最大化或等价地求解相应的凸二次规划问题学习得到的分离超平面为</p>
+<script type="math/tex; mode=display">\pmb{w}^* · \pmb{x} + b^* = 0</script><p>以及相应的分类决策函数</p>
+<script type="math/tex; mode=display">f(x) = sign(\pmb{w}^* · \pmb{x} + b^*)</script><p>称为线性可分支持向量机。  </p>
+<h3 id="1-2-函数间隔和几何间隔"><a href="#1-2-函数间隔和几何间隔" class="headerlink" title="1.2. 函数间隔和几何间隔"></a>1.2. 函数间隔和几何间隔</h3><p>一般来说，一个点距离分离超平面的远近可以表示分类预测的确信程度。在超平面$\pmb{w} · \pmb{x} + b = 0$确定的情况下，$|\pmb{w} · \pmb{x} + b|$能够相对地表示点$\pmb{x}$距离超平面的远近。而$\pmb{w} · \pmb{x} + b$的符号与类标记$y$的符号是否一致能够表示分类是否正确。所以可用量$y(\pmb{w} · \pmb{x} + b)$来表示分类的正确性及确信度，这就是函数间隔（functional margin）的概念。<br><strong>函数间隔</strong>：对于给定的训练数据集$T$和超平面$(\pmb{w},b)$，定义超平面$(\pmb{w},b)$关于样本点$(\pmb{x}_i,y_i)$的函数间隔为</p>
+<script type="math/tex; mode=display">\hat{\gamma}_i = y_i(\pmb{w} · \pmb{x} + b)</script><p>定义超平面$(\pmb{w},b)$关于训练数据集$T$的函数间隔为超平面$(\pmb{w},b)$关于$T$中所有样本点$(\pmb{x}_i,y_i)$的函数间隔的最小值，即</p>
+<script type="math/tex; mode=display">\hat{\gamma} = \min_{i=1,2,\cdots,N} \hat{\gamma}_i</script><p>函数间隔可以表示分类预测的正确性及确信度。但是在选择分离超平面时，只有函数间隔还不够，因为成比例的改变$\pmb{w}$和$b$，例如改为$2\pmb{w}$和$2b$，超平面并没有改变，但函数间隔却变为原来的2倍。所以可以对分离超平面的法向量$\pmb{w}$增加某些约束，如规范化，$||\pmb{w}|| = 1$，使得间隔是确定的，这时函数间隔称为几何间隔（geometric margin）。<br><strong>几何间隔</strong>：对于给定的训练数据集$T$和超平面$(\pmb{w},b)$，定义超平面$(\pmb{w},b)$关于样本点$(\pmb{x}_i,y_i)$的几何间隔为</p>
+<script type="math/tex; mode=display">\gamma_i = y_i(\frac{\pmb{w}}{||\pmb{w}||}·\pmb{x}_i + \frac{b}{||\pmb{w}||})</script><p><strong>证明：</strong><br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA1.jpg" alt="此处输入图片的描述"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA2.jpg" alt="此处输入图片的描述"><br>定义超平面$(\pmb{w},b)$关于训练数据集$T$的几何间隔为超平面$(\pmb{w},b)$关于$T$中所有样本点$(\pmb{x}_i,y_i)$的几何间隔的最小值，即</p>
+<script type="math/tex; mode=display">\gamma = \min_{i=1,2,\cdots,N} \gamma_i</script><p>超平面$(\pmb{w},b)$关于样本点$(\pmb{x}_i,y_i)$的几何间隔一般是实例点到超平面的带符号的距离，当样本点被超平面正确分类时就是实例点到超平面的距离。<br>从函数间隔和几何间隔的定义可知，二者有如下关系：</p>
+<script type="math/tex; mode=display">\gamma_i = \frac{\hat{\gamma}_i}{||\pmb{w}||}, \quad \gamma = \frac{\hat{\gamma}}{||\pmb{w}||}</script><p>如果$||\pmb{w}||=1$，那么函数间隔和几何间隔相等。如果超平面参数$\pmb{w}$和$b$成比例地改变（超平面没有改变），函数间隔也按此比例改变，而几何间隔不变。  </p>
+<h3 id="1-3-间隔最大化"><a href="#1-3-间隔最大化" class="headerlink" title="1.3. 间隔最大化"></a>1.3. 间隔最大化</h3><p>支持向量机学习的基本想法：求解能够正确划分训练数据集并且几何间隔最大的分离超平面。<br>对线性可分的训练数据集而言，线性可分分离超平面有无穷多个（等价于感知机），但几何间隔最大的分离超平面是唯一的。这里的间隔最大化又称为硬间隔最大化。<br>间隔最大化的直观解释：对训练数据集找到几何间隔最大的超平面意味着以充分大的确信度对训练数据进行分类。这样的超平面应该对未知的新实例有很好的分类预测能力。  </p>
+<h4 id="1-3-1-最大间隔分离超平面"><a href="#1-3-1-最大间隔分离超平面" class="headerlink" title="1.3.1. 最大间隔分离超平面"></a>1.3.1. 最大间隔分离超平面</h4><p>为了求解几何间隔最大的分离超平面，可以表示为下面的约束最优化问题：</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \max_{\pmb{w},b} \quad \gamma \nonumber \\
+    & s.t. \quad y_i(\frac{\pmb{w}}{||\pmb{w}||} · \pmb{x}_i + \frac{b}{||\pmb{w}||}) \geq \gamma, \quad i=1,2,\cdots,N \nonumber
+\end{align}</script><p>即最大化超平面$(\pmb{w},b)$关于训练数据集的几何间隔$\gamma$，约束条件表示超平面$(\pmb{w},b)$关于每个训练样本点的几何间隔至少是$\gamma$。<br>考虑到几何间隔和函数间隔的关系，将上式改写为：</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \max_{\pmb{w},b} \quad \frac{\hat{\gamma}}{||\pmb{w}||} \nonumber \\
+    & s.t. \quad y_i(\pmb{w} · \pmb{x}_i + b) \geq \hat{\gamma}, \quad i=1,2,\cdots,N \nonumber
+\end{align}</script><p>函数间隔的改变并不会对上面最优化问题的不等式约束产生影响，对目标函数的优化也没有影响，即它产生了一个等价的最优化问题。这时可以令$\hat{\gamma} = 1$，并将其带入到上面的最优化问题，并且最大化$\frac{1}{||\pmb{w}||}$和最小化$\frac{1}{2} ||\pmb{w}||^2$是等价的，于是就得到了下面的线性可分支持向量机学习的最优化问题</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \min_{\pmb{w},b} \quad \frac{1}{2} ||\pmb{w}||^2 \nonumber \\
+    & s.t. \quad y_i(\pmb{w}·\pmb{x}_i + b) - 1 \geq 0, \quad i=1,2,\cdots,N \nonumber
+\end{align}</script><p>这是一个凸二次规划问题。<br><strong>凸二次规划问题</strong>是指约束最优化问题</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \min_{\pmb{w}} \quad f(\pmb{w}) \nonumber \\
+    & s.t. \quad g_i(\pmb{w}) \leq 0, \quad i=1,2,\cdots,N \nonumber \\
+    & \qquad \quad h_i(\pmb{w}) = 0, \quad i=1,2,\cdots,N \nonumber
+\end{align}</script><p>其中，目标函数$f(\pmb{w})$和约束函数$g_i(\pmb{w})$都是$\mathbf{R}^n$上的连续可微的凸函数，约束函数$h_i(\pmb{w})$是$\mathbf{R}^n$上的仿射函数。<br>当目标函数$f(\pmb{w})$是二次函数且约束函数$g_i(\pmb{w})$是仿射函数时，上述凸最优化问题成为凸二次规划问题。<br>求解出上述最优化问题的解$\pmb{w}^*$和$b^*$，就可以得到最大间隔分离超平面$\pmb{w}^*·\pmb{x} + b^* = 0$及分类决策函数$f(\pmb{x}) = sign(\pmb{w}^*·\pmb{x} + b^*)$，即线性可分支持向量机模型。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA3.png" alt="此处输入图片的描述"></p>
+<h4 id="1-3-2-最大间隔分离超平面的存在唯一性"><a href="#1-3-2-最大间隔分离超平面的存在唯一性" class="headerlink" title="1.3.2. 最大间隔分离超平面的存在唯一性"></a>1.3.2. 最大间隔分离超平面的存在唯一性</h4><p><strong>若训练数据集$T$线性可分，则可将训练数据集中的样本点完全正确分开的最大间隔分离超平面存在且唯一。</strong><br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA4.png" alt="此处输入图片的描述"></p>
+<h4 id="1-3-3-支持向量和间隔边界"><a href="#1-3-3-支持向量和间隔边界" class="headerlink" title="1.3.3. 支持向量和间隔边界"></a>1.3.3. 支持向量和间隔边界</h4><p><strong>支持向量（support vector）</strong>：在线性可分情况下，训练数据集的样本点中与分离超平面距离最近的样本点的实例称为支持向量。支持向量是使约束条件式等号成立的点，即</p>
+<script type="math/tex; mode=display">y_i(\pmb{w}·\pmb{x}_i + b) - 1 = 0</script><p>对于$y_i=1$的正例点，支持向量所在的超平面：</p>
+<script type="math/tex; mode=display">H_1: \pmb{w}·\pmb{x} + b = 1</script><p>对于$y_i=-1$的负例点，支持向量所在的超平面：</p>
+<script type="math/tex; mode=display">H_2: \pmb{w}·\pmb{x} + b = -1</script><p>如下图所示，在$H_1$和$H_2$上的点就是支持向量：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA5.png" alt="此处输入图片的描述"><br>$H_1$和$H_2$平行，并且没有实例点落在它们中间。在$H_1$和$H_2$之间形成一条长带，分离超平面与它们平行且位于它们中央。常带的宽度，即$H_1$和$H_2$之间的距离成为间隔（margin）。间隔依赖于分离超平面的法向量$\pmb{w}$，等于$\frac{2}{||\pmb{w}||}$。$H_1$和$H_2$成为间隔边界。<br>在决定分离超平面时只有支持向量起作用，而其他实例点并不起作用。支持向量的个数一般很少，所以支持向量机由很少的“重要”训练样本确定。  </p>
+<h3 id="1-4-学习的对偶算法"><a href="#1-4-学习的对偶算法" class="headerlink" title="1.4. 学习的对偶算法"></a>1.4. 学习的对偶算法</h3><p>为了求解线性可分支持向量机的最优化问题，将它作为原始最优化问题，应用拉格朗日对偶性，通过求解对偶问题（dual problem）得到原始问题（primal problem）的最优解，这就是线性可分支持向量机的对偶算法（dual algorithm）。<br>优点：</p>
+<ul>
+<li>对偶问题往往更容易求解；</li>
+<li>自然引入核函数，进而推广到非线性分类问题。</li>
+</ul>
+<p>首先构建拉格朗日函数，对每一个不等式引进拉格朗日乘子$\alpha_i \geq 0,\quad i=1,2,\cdots,N$，定义拉格朗日函数：</p>
+<script type="math/tex; mode=display">L(\pmb{w},b,\pmb{\alpha}) = \frac{1}{2} ||\pmb{w}||^2 - \sum_{i=1}^N \alpha_i [y_i (\pmb{w}·\pmb{x} + b)-1]</script><p>其中$\alpha=(\alpha_1,\alpha_2,\cdots,\alpha_N)^T$为拉格朗日乘子向量。<br>根据拉格朗日对偶性，原始问题的对偶问题是极大极小问题：</p>
+<script type="math/tex; mode=display">\max_{\pmb{\alpha}} \min_{\pmb{w},b} L(\pmb{w},b,\pmb{\alpha})</script><p>所以，为了得到对偶问题的解，需要先求$L(\pmb{w},b,\pmb{\alpha})$对$\pmb{w}$和$b$的极小，再求对$\alpha$的极大。  </p>
+<p>（1）求$\min_{\pmb{w},b} L(\pmb{w},b,\pmb{\alpha})$<br>将拉格朗日函数$L(\pmb{w},b,\pmb{\alpha})$分别对$\pmb{w}$和$b$求偏导数并令其等于0：</p>
+<script type="math/tex; mode=display">\begin{align}
+    \nabla_{\pmb{w}} L(\pmb{w},b,\pmb{\alpha}) &= \pmb{w} - \sum_{i=1}^N \alpha_i y_i x_i = 0 \nonumber \\
+    \nabla_b L(\pmb{w},b,\pmb{\alpha}) &= - \sum_{i=1}^N \alpha_i y_i = 0 \nonumber
+\end{align}</script><p>求得</p>
+<script type="math/tex; mode=display">\begin{equation}
+    \pmb{w} = \sum_{i=1}^N \alpha_i y_i x_i \nonumber \\
+    \sum_{i=1}^N \alpha_i y_i = 0 \nonumber
+\end{equation}</script><p>将求得上式带入朗格朗日函数，得到</p>
+<script type="math/tex; mode=display">\begin{align}
+    L(\pmb{w},b,\pmb{\alpha}) &= \frac{1}{2} \sum_{i=1}^N \sum_{i=1}^N \alpha_i \alpha_j y_i y_j (\pmb{x}_i·\pmb{x}_j) - \sum_{i=1}^N \alpha_i y_i ((\sum_{j=1}^N \alpha_j y_j \pmb{x}_j)·\pmb{x}_i + b) + \sum_{i=1}^N \alpha_i \nonumber \\
+    &= - \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (\pmb{x}_i · \pmb{x}_j) + \sum_{i=1}^N \alpha_i \nonumber 
+\end{align}</script><p>即</p>
+<script type="math/tex; mode=display">\min_{\pmb{w},b} L(\pmb{w},b,\pmb{\alpha}) = - \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (\pmb{x}_i · \pmb{x}_j) + \sum_{i=1}^N \alpha_i</script><p>（2）求$\min_{\pmb{w},b} L(\pmb{w},b,\pmb{\alpha})$对$\alpha$的极大，既是对偶问题</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \max_{\pmb{\alpha}} \quad - \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (\pmb{x}_i · \pmb{x}_j) + \sum_{i=1}^N \alpha_i \nonumber \\
+    & s.t. \quad \sum_{i=1}^N \alpha_i y_i = 0 \nonumber \\
+    & \qquad \quad \alpha_i \geq 0, \quad i=1,2,\cdots,N \nonumber
+\end{align}</script><p>将目标函数由求极大转换成求极小，就得到下面与之等价的对偶最优化问题：</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \min_{\pmb{\alpha}} \quad \frac{1}{2} \sum_{i=1}^N \sum_{i=1}^N \alpha_i \alpha_j y_i y_j (\pmb{x}_i · \pmb{x}_j) - \sum_{i=1}^N \alpha_i \nonumber \\
+    & s.t. \quad \sum_{i=1}^N \alpha_i y_i = 0 \nonumber \\
+    & \qquad \quad \alpha_i \geq 0,\quad i=1,2,\cdots,N \nonumber
+\end{align}</script><p>对线性可分训练数据集，假设对偶最优化问题对$\pmb{\alpha}$的解为$\pmb{\alpha}^* = (\alpha_1^*,\alpha_2^*,\cdots,\alpha_N^*)^T$，可以由$\pmb{\alpha}^*$求得原始最优化问题对$(\pmb{w},b)$的解$\pmb{w}^*$和$b^*$。<br>设$\pmb{\alpha}^* = (\alpha_1^*,\alpha_2^*,\cdots,\alpha_N^*)^T$是对偶最优化问题的解，则存在下标$j$，使得$\alpha_j^* \geq 0$，并可按下式求得原始最优化问题的解$\pmb{w}^*,b^*$：</p>
+<script type="math/tex; mode=display">\begin{align}
+    \pmb{w}^* &= \sum_{i=1}^N \alpha_i^* y_i \pmb{x}_i \nonumber \\
+    b^* &= y_j - \sum_{i=1}^N \alpha_i^* y_i (\pmb{x}_i · \pmb{x}_j) \nonumber
+\end{align}</script><p><strong>证明</strong>：根据KKT条件成立，即得</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \nabla_{\pmb{w}} L(\pmb{w}^*,b^*,\pmb{\alpha}^*) = \pmb{w}^* - \sum_{i=1}^N \alpha_i^* y_i x_i = 0 \nonumber \\
+    & \nabla_{b} L(\pmb{w}^*,b^*,\pmb{\alpha}^*) = - \sum_{i=1}^N \alpha_i^* y_i = 0 \nonumber \\
+    & \alpha_i^*(y_i(\pmb{w}^*·\pmb{x}_i+b^*)-1) = 0, \quad i=1,2,\cdots,N \nonumber \\
+    & y_i (\pmb{w}^*·\pmb{x}_i + b^*) - 1 \geq 0, \quad i=1,2,\cdots,N \nonumber \\
+    & \alpha_i^* \geq 0, \quad i=1,2,\cdots,N \nonumber
+\end{align}</script><p>由此得</p>
+<script type="math/tex; mode=display">\pmb{w}^* = \sum_{i=1}^N \alpha_i^* y_i \pmb{x}_i</script><p>其中至少有一个$\alpha_j^* &gt; 0$（反证法，假设$\pmb{\alpha}^* = 0$，由对$\pmb{w}$求偏导可知$\pmb{w}^* = 0$，而$\pmb{w}^* = 0$不是原始最优化问题的解，产生矛盾），对此$j$有</p>
+<script type="math/tex; mode=display">y_j (\pmb{w}^* · \pmb{x}_j + b^*) - 1 = 0</script><p>又因为有$y_j^2 = 1$，即得</p>
+<script type="math/tex; mode=display">b^* = y_j - \sum_{i=1}^N \alpha_i^* y_i (\pmb{x}_i · \pmb{x}_j)</script><p>有上述最优解可以得到分离超平面可写成：</p>
+<script type="math/tex; mode=display">\sum_{i=1}^N \alpha_i^* y_i (\pmb{x} · \pmb{x}_i) + b^* = 0</script><p>分类决策函数可写成：</p>
+<script type="math/tex; mode=display">f(\pmb{x}) = sign(\sum_{i=1}^N \alpha_i^* y_i (\pmb{x} · \pmb{x}_i) + b^*)</script><p>从上式可以看出，分类决策函数只依赖于输入$\pmb{x}$和训练样本输入的内积，上式称为线性可分支持向量机的对偶形式。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA6.png" alt="此处输入图片的描述"><br>在线性可分支持向量机中，$\pmb{w}^*$和$b^*$只依赖于训练数据中对应于$\alpha_i^* &gt; 0$的样本点$(\pmb{x}_i,y_i)$，而其他样本点对$\pmb{w}^*$和$b^*$没有影响。将<strong>训练数据中对应于$\alpha_i^*&gt;0$的实例点$\pmb{x}_i \in \mathbf{R}^n$称为支持向量。</strong>  </p>
+<h2 id="2-线性支持向量机与软间隔最大化"><a href="#2-线性支持向量机与软间隔最大化" class="headerlink" title="2. 线性支持向量机与软间隔最大化"></a>2. 线性支持向量机与软间隔最大化</h2><h3 id="2-1-线性支持向量机"><a href="#2-1-线性支持向量机" class="headerlink" title="2.1. 线性支持向量机"></a>2.1. 线性支持向量机</h3><p>线性可分问题的支持向量机学习方法不适用于线性不可分的训练数据，因为此时上述方法的不等式约束并不能都成立。这样就需要将硬间隔最大化修改为软间隔最大化。<br>假设给定一个特征空间上的训练数据集</p>
+<script type="math/tex; mode=display">T = \{(\pmb{x}_1,y_1),(\pmb{x}_2,y_2),\cdots, (\pmb{x}_N,y_N)\}</script><p>其中，$\pmb{x}_i \in \chi = \mathbf{R}^n$，$y_i \in {+1,-1}, \quad i=1,2,\cdots,N$，$\pmb{x}_i$为第$i$个特征向量，也成为实例，$y_i$为$\pmb{x}_i$的类标记，并假设训练数据集不是线性可分的。通常情况是，训练数据中有一些特异点（outlier），将这些特异点除去后，剩下大部分的样本点组成的集合是线性可分的。<br>线性不可分意味着某些样本点$(\pmb{x}_i,y_i)$不能满足函数间隔大于等于1的约束条件，为了解决此问题，可以对每个样本点$(\pmb{x}_i,y_i)$引进一个松弛变量$\xi_i \geq 0$，是函数间隔加上松弛变量大于等于1。此时，约束条件变为</p>
+<script type="math/tex; mode=display">y_i(\pmb{w}·\pmb{x}_i + b) \geq 1 - \xi_i</script><p>同样，对每个松弛变量$\xi_i$，需要增加一个代价$\xi_i$，目标函数变为</p>
+<script type="math/tex; mode=display">\frac{1}{2} ||\pmb{w}||^2 + C \sum_{i=1}^N \xi_i</script><p>这里，$C&gt;0$为惩罚参数，一般由应用问题决定。$C$值大时对误分类的惩罚增大，$C$值小时对误分类的惩罚较小。最小化目标函数包含两层含义：使$\frac{1}{2} ||\pmb{w}||^2$尽量小即间隔尽量大，同时使误分类点的个数尽量小，$C$是调和二者的系数。<br>线性不可分的线性支持向量机的学习问题变为如下凸二次规划问题（原始问题）：</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \min_{\pmb{w},b,\pmb{\xi}} \quad \frac{1}{2} ||\pmb{w}||^2 + C \sum_{i=1}^N \xi_i \nonumber \\
+    & s.t. \quad y_i(\pmb{w}·\pmb{x}_i + b) \geq 1 - \xi_i, \quad i=1,2,\cdots,N \nonumber \\
+    & \qquad \quad \xi_i \geq 0, \quad i=1,2,\cdots,N \nonumber 
+\end{align}</script><p>原始问题是一个凸二次规划问题，因而关于$(\pmb{w},b,\pmb{\xi})$的解是存在的。可以证明$\pmb{w}$的解是唯一的，但$b$的解可能不唯一，而是存在与一个区间。<br>线性支持向量机包含线性可分支持向量机，由于现实中训练数据集往往是线性不可分的，线性支持向量机基友更广的适用性。<br><strong>线性支持向量机</strong>：对于给定的线性不可分的训练数据集，通过求解凸二次规划问题，即软间隔最大化问题，得到的分离超平面为</p>
+<script type="math/tex; mode=display">\pmb{w}^* · \pmb{x} + b^* = 0</script><p>以及相应的分类决策函数</p>
+<script type="math/tex; mode=display">f(x) = sign(\pmb{w}^* · \pmb{x} + b^*)</script><p>称为支持向量机。  </p>
+<h3 id="2-2-学习的对偶算法"><a href="#2-2-学习的对偶算法" class="headerlink" title="2.2. 学习的对偶算法"></a>2.2. 学习的对偶算法</h3><p>原始问题的对偶问题：</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \min_{\pmb{\alpha}} \quad \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (\pmb{x}_i · \pmb{x}_j) - \sum_{i=1}^N \alpha_i \nonumber \\
+    & s.t. \quad \sum_{i=1}^N \alpha_i y_i = 0 \nonumber \\
+    & \qquad \quad 0 \leq \alpha_i \leq C,quad i=1,2,\cdots,N \nonumber
+\end{align}</script><p><strong>推导</strong>：<br>原始最优化问题的拉格朗日函数为</p>
+<script type="math/tex; mode=display">L(\pmb{w},b,\pmb{\xi},\pmb{\alpha},\pmb{\mu}) = \frac{1}{2} ||\pmb{w}||^2 + C \sum_{i=1}^N \xi_i - \sum_{i=1}^N \alpha_i (y_i (\pmb{w}·\pmb{x}_i + b)-1 + \xi_i) - \sum_{i=1}^N \mu_i \xi_i</script><p>对偶问题是拉格朗日函数的极大极小问题，首先求$L(\pmb{w},b,\pmb{\xi},\pmb{\alpha},\pmb{\mu})$对$\pmb{w}, b, \pmb{\xi}$的极小：</p>
+<script type="math/tex; mode=display">\begin{align}
+    \nabla_{\pmb{w}} L(\pmb{w},b,\pmb{\xi},\pmb{\alpha},\pmb{\mu}) &= \pmb{w} - \sum_{i=1}^N \alpha_i y_i \pmb{x}_i = 0 \nonumber \\
+    \nabla_b L(\pmb{w},b,\pmb{\xi},\pmb{\alpha},\pmb{\mu}) &= - \sum_{i=1}^N \alpha_i y_i = 0 \nonumber \\
+    \nabla_{\xi_i} L(\pmb{w},b,\pmb{\xi},\pmb{\alpha},\pmb{\mu}) &= C - \alpha_i - \mu_i = 0 \nonumber
+\end{align}</script><p>求得</p>
+<script type="math/tex; mode=display">\begin{equation}
+    \pmb{w} = \sum_{i=1}^N \alpha_i y_i \pmb{x}_i \nonumber \\
+    \sum_{i=1}^N \alpha_i y_i = 0 \nonumber \\
+    C - \alpha_i - \mu_i = 0 \nonumber
+\end{equation}</script><p>将所求等式带入拉格朗日函数得到</p>
+<script type="math/tex; mode=display">\min_{\pmb{w},b,\pmb{\xi}} L(\pmb{w},b,\pmb{\xi},\pmb{\alpha},\pmb{\mu}) = - \frac{1}{2} \sum_{i=1}^N \sum_{i=1}^N \alpha_i \alpha_j y_i y_j (\pmb{x}_i · \pmb{x}_j) + \sum_{i=1}^N \alpha_i</script><p>再对$\min_{\pmb{w},b,\pmb{\xi}} L(\pmb{w},b,\pmb{\xi},\pmb{\alpha},\pmb{\mu})$求$\pmb{\alpha}$的极大，即得对偶问题：</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \max_{\pmb{\alpha}} \quad - \frac{1}{2} \sum_{i=1}^N \sum_{i=1}^N \alpha_i \alpha_j y_i y_j (\pmb{x}_i · \pmb{x}_j) + \sum_{i=1}^N \alpha_i \nonumber \\
+    & s.t. \quad \sum_{i=1}^N \alpha_i y_i = 0 \nonumber \\
+    & \qquad \quad C - \alpha_i - \mu_i = 0 \nonumber \\
+    & \qquad \quad \alpha_i \geq 0 \nonumber \\
+    & \qquad \quad \mu_i \geq 0, \quad i=1,2,\cdots,N \nonumber
+\end{align}</script><p>将对偶最优化问题进行变换：利用等式约束$C - \alpha_i - \mu_i = 0$消去$\mu_i$，从而只留下变量$\alpha_i$，并将后三个约束写成</p>
+<script type="math/tex; mode=display">0 \leq \alpha_i \leq C</script><p>再将对目标函数求极大转换为求极小，就得到了对偶问题。  </p>
+<p>设$\pmb{\alpha}^* = (\alpha_1^*,\alpha_2^*,\cdots,\alpha_N^*)^T$是上述对偶问题的一个解，若存在$\pmb{\alpha}^*$的一个分量$\alpha_j^*$，$0 &lt; \alpha_j^* &lt; C$，则原始问题的解$\pmb{w}^*,b^*$可按下式求得：</p>
+<script type="math/tex; mode=display">\begin{align}
+    \pmb{w}^* &= \sum_{i=1}^N \alpha^* y_i \pmb{x}_i \nonumber \\
+    b^* &= y_j - \sum_{i=1}^N y_i \alpha_i^* (\pmb{x}_i · \pmb{x}_j) \nonumber
+\end{align}</script><p><strong>证明</strong>：原始问题是凸二次规划问题，解满足KKT条件，即得</p>
+<script type="math/tex; mode=display">\begin{equation}
+    \nabla_{\pmb{w}} L(\pmb{w},b,\pmb{\xi},\pmb{\alpha},\pmb{\mu}) = \pmb{w} - \sum_{i=1}^N \alpha_i y_i \pmb{x}_i = 0 \nonumber \\
+    \nabla_b L(\pmb{w},b,\pmb{\xi},\pmb{\alpha},\pmb{\mu}) = - \sum_{i=1}^N \alpha_i y_i = 0 \nonumber \\
+    \nabla_{\xi_i} L(\pmb{w},b,\pmb{\xi},\pmb{\alpha},\pmb{\mu}) = C - \alpha_i - \mu_i = 0 \nonumber \\
+    \alpha^*(y_i(\pmb{w}^*·\pmb{x}_i + b^*)-1+\xi_i^*) = 0 \nonumber \\
+    \mu_i^* \xi_i^* = 0 \nonumber \\
+    y_i(\pmb{w}^* · \pmb{x}_i + b^*) - 1 + \xi_I^* \geq 0 \nonumber \\
+    \xi_i^* \geq 0 \nonumber  \\
+    \alpha_i^* \geq 0 \nonumber \\
+    \mu_i^* \geq 0, \quad i=1,2,\cdots,N \nonumber
+\end{equation}</script><p>由上述等式可推得$\pmb{w}^*, b^*$。<br>分离超平面可写成</p>
+<script type="math/tex; mode=display">\sum_{i=1}^N \alpha_i^* y_i (\pmb{x} · \pmb{x}_i) + b^* = 0</script><p>分类决策面可写成</p>
+<script type="math/tex; mode=display">f(x) = sign(\sum_{i=1}^N \alpha_i^* y_i (\pmb{x} · \pmb{x}_i) + b^*)</script><p><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA7.png" alt="此处输入图片的描述"></p>
+<h3 id="2-3-支持向量"><a href="#2-3-支持向量" class="headerlink" title="2.3. 支持向量"></a>2.3. 支持向量</h3><p>在线性不可分的情况下，将对偶问题的解$\pmb{\alpha}^* = {\alpha_1^*, \alpha_2^*, \cdots, \alpha_N^*}^T$中对应于$\alpha_i^* &gt; 0$的样本点$(\pmb{x}_i,y_i)$的实例$\pmb{x}_i$称为支持向量（软间隔的支持向量）。如下图，分离超平面由实线表示，间隔边界由虚线表示，正例点由$\circ$表示，负例点由$\times$表示。图中还标出了实例$\pmb{x}_i$到间隔边界的距离$\frac{\xi_i}{||\pmb{w}||}$。</p>
+<p><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA8.png" alt="此处输入图片的描述"><br>软间隔的支持向量$\pmb{x}_i$或者在间隔边界上，或者在间隔边界与分离超平面之间，或者在分离超平面误分一侧：</p>
+<ul>
+<li>若$\alpha_i^* &lt; C$，则$\xi_i = 0$，支持向量恰好落在间隔边界上；</li>
+<li>若$\alpha_i^* = C$，$0 &lt; \xi_i &lt; 1$，则分类正确，$\pmb{x}_i$在间隔边界与分离超平面之间；</li>
+<li>若$\alpha_i^* = C$，$\xi_i = 1$，则$\pmb{x}_i$在分离超平面上；</li>
+<li>若$\alpha_i^* = C$，$\xi_i &gt; 1$，则$\pmb{x}_i$位于分离超平面误分一侧。</li>
+</ul>
+<h3 id="2-4-hinge损失函数"><a href="#2-4-hinge损失函数" class="headerlink" title="2.4. hinge损失函数"></a>2.4. hinge损失函数</h3><p>线性支持向量机还有另外一种解释，就是最小化以下目标函数：</p>
+<script type="math/tex; mode=display">\sum_{i=1}^N [1 - y_i(\pmb{w}·\pmb{x}_i + b)]_+ \lambda ||\pmb{w}||^2</script><p>目标函数的第一项是经验损失或经验风险，函数</p>
+<script type="math/tex; mode=display">L(y(\pmb{w}·\pmb{x}+b)) = [1 - y(\pmb{w} ·\pmb{x}+b)]_+</script><p>称为hinge损失函数（hinge loss function）。下标”$+$”表示以下取正值的函数：</p>
+<script type="math/tex; mode=display">[z]_+ = \begin{cases}
+    z, \quad z>0 \\
+    0, \quad z \leq 0
+\end{cases}</script><p>由上式可以看出，当样本点$(\pmb{x}_i,y_i)$被正确分类且函数间隔（确信度）$y_i(\pmb{w}·\pmb{x}_i+b)$大于1时，损失是0，否则损失是$1-y_i(\pmb{w}·\pmb{x}_i+b)$。目标函数第二项是系数为$\lambda$的$\pmb{w}$的$L_2$范数，是正则化项。  </p>
+<p>线性支持向量机原始最优化问题：</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \min_{\pmb{w},b,\pmb{\xi}} \quad \frac{1}{2} ||\pmb{w}||^2 + C \sum_{i=1}^N \xi_i \nonumber \\
+    & s.t. \quad y_i(\pmb{w}·\pmb{x}_i + b) \geq 1 - \xi_i, \quad i=1,2,\cdots,N \nonumber \\
+    & \qquad \quad \xi_i \geq 0, \quad i=1,2,\cdots,N \nonumber
+\end{align}</script><p>等价于最优化问题</p>
+<script type="math/tex; mode=display">\min_{\pmb{w},b} \quad \sum_{i=1}^N [1 - y_i(\pmb{w}·\pmb{x}_i + b)]_+ \lambda ||\pmb{w}||^2</script><p><strong>证明</strong>：令</p>
+<script type="math/tex; mode=display">[1 - y_i(\pmb{w}·\pmb{x}_i+b)]_+ = \xi_i</script><p>当$1-y_i(\pmb{w}·\pmb{x}_i+b)&gt;0$时，有$y_i(\pmb{w}·\pmb{x}_i+b) = 1-\xi_i$；当$1-y_i(\pmb{w}·\pmb{x}_i+b) \leq 0$时，$\xi_i=0$，有$y_i(\pmb{w}·\pmb{x}_i+b) \geq 1-\xi_i$。所以有$y_i(\pmb{w}·\pmb{x}_i + b) \geq 1 - \xi_i, \quad i=1,2,\cdots,N$成立。所以有 $\pmb{w},b,\xi_i$满足约束条件，所以最优问题可写成</p>
+<script type="math/tex; mode=display">\min_{\pmb{w},b} \quad \sum_{i=1}^N \xi_i + \lambda ||\pmb{w}||^2</script><p>若取$\lambda = \frac{1}{2C}$，则</p>
+<script type="math/tex; mode=display">\min_{\pmb{w},b} \quad \frac{1}{C} (\frac{1}{2} ||\pmb{w}||^2 + C \sum_{i=1}^N \xi_i)</script><p>与原始最优化问题等价。<br>hinge损失函数图形如下图所示，横轴是函数间隔$y(\pmb{w}·\pmb{x}+b)$，纵轴是损失。由于函数形状是一个折页，所以称为hinge损失函数。hinge损失函数不仅要分类正确，而且确信度足够高时损失才是0。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA9.png" alt="此处输入图片的描述"></p>
+<p>图中还画出0-1损失函数，可以认为它是二分类问题真正的损失函数，而hinge损失函数是0-1损失函数的上界。由于0-1损失函数不是连续可导的，直接优化尤其构成的目标函数比较困难，可以认为线性支持向量机是优化由0-1损失函数的上界（hinge损失函数）构成的目标函数。此时的上界损失函数又称为代理损失函数（surrogate loss function）。<br>图中虚线是感知机的损失函数$[-y<em>i(\pmb{w}·\pmb{x}_i+b)]</em>+$。  </p>
+<h2 id="3-非线性支持向量机与核函数"><a href="#3-非线性支持向量机与核函数" class="headerlink" title="3. 非线性支持向量机与核函数"></a>3. 非线性支持向量机与核函数</h2><h3 id="3-1-核技巧"><a href="#3-1-核技巧" class="headerlink" title="3.1. 核技巧"></a>3.1. 核技巧</h3><h4 id="3-1-1-非线性问题"><a href="#3-1-1-非线性问题" class="headerlink" title="3.1.1. 非线性问题"></a>3.1.1. 非线性问题</h4><p>对于给定的一个训练数据集$T={(\pmb{x}_1,y_1),(\pmb{x}_2,y_2),\cdots,(\pmb{x}_N,y_N)}$，其中，实例$\pmb{x}_i$属于输入空间，$\pmb{x}_i \in \chi = \mathbf{R}^n$，对应标记有两类$y_i \in {-1,+1}, \quad i=1,2,\cdots,N$。如果能用$\mathbf{R}^n$中的一个超平面将正负例正确分开，则称这个问题为非线性可分问题。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA10.png" alt="此处输入图片的描述"></p>
+<p>非线性问题往往不好求解，所以希望通过解线性分类问题的方法解决此问题。所采取的方法是进行一个非线性变换，将非线性问题变换为线性问题，通过解变换后的线性问题的方法求解原来的非线性问题。<br>用线性分类方法求解非线性分类问题分为两步：</p>
+<ul>
+<li>首先使用一个变换将原空间的数据映射到新空间；</li>
+<li>在新空间里用线性分类学习方法从训练数据中学习分类模型。  </li>
+</ul>
+<p>核技巧应用到支持向量机的基本想法：通过一个非线性变换将输入空间（欧式空间$\mathbf{R}^n$或离散集合）对应于一个特征空间（希尔伯特空间），使得在输入空间的超曲面模型对应于特征空间中的超平面模型。  </p>
+<h4 id="3-1-2-核函数"><a href="#3-1-2-核函数" class="headerlink" title="3.1.2. 核函数"></a>3.1.2. 核函数</h4><p><strong>核函数</strong>：设$\chi$是输入空间（欧式空间$\mathbf{R}^n$的子集或离散集合），又设$\mathscr{H}$为特征空间（希尔伯特空间），如果存在一个从$\chi$到$\mathscr{H}$的映射：</p>
+<script type="math/tex; mode=display">\phi(\pmb{x}):\chi \to \mathscr{H}</script><p>使得所有$\pmb{x},\pmb{z} \in \chi$，函数$K(\pmb{x},\pmb{z})$满足条件</p>
+<script type="math/tex; mode=display">K(\pmb{x},\pmb{z}) = \phi(\pmb{x}) · \phi(\pmb{z})</script><p>则称$K(\pmb{x},\pmb{z})$为核函数，$\phi(\pmb{x})$为映射函数，式中$\phi(\pmb{x}) · \phi(\pmb{z})$为内积。<br>核技巧的想法：在学习与预测中只定义核函数$K(\pmb{x},\pmb{z})$，而不显式地定义映射函数$\phi$。通常，直接计算$K(\pmb{x},\pmb{z})$比较容易，而通过$\phi(\pmb{x})$和$\phi(\pmb{x},\pmb{z})$并不容易。<br><strong>注意</strong>：$\phi$是输入空间$\mathbf{R}^n$到特征空间$\mathscr{H}$的映射，特征空间$\mathscr{H}$一般是高维的，甚至是无穷维的。对于给定的$K(\pmb{x},\pmb{z})$，特征空间$\mathscr{H}$和映射函数$\phi$的取法并不唯一，可以取不同的特征空间，即便是在统一特征空间里也可以取不同的映射。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA11.png" alt="此处输入图片的描述"></p>
+<h4 id="3-1-3-核技巧在支持向量机中的应用"><a href="#3-1-3-核技巧在支持向量机中的应用" class="headerlink" title="3.1.3. 核技巧在支持向量机中的应用"></a>3.1.3. 核技巧在支持向量机中的应用</h4><p>在线性支持向量机的对偶问题中，无论是目标函数还是决策函数都只涉及输入实例与实例之间的内积。在对偶问题的目标函数中的内积$\pmb{x}_i·\pmb{x}_j$可以用核函数$K(\pmb{x}_i,\pmb{x}_j) = \phi(\pmb{x}_i)·\phi(\pmb{x}_j)$来代替，此时对偶问题的目标函数为</p>
+<script type="math/tex; mode=display">W(\pmb{\alpha}) = \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j K(\pmb{x}_i, \pmb{x}_j) - \sum_{i=1}^N \alpha_i</script><p>同样，分类决策函数中的内积也可以用核函数代替：</p>
+<script type="math/tex; mode=display">f(x) = sign(\sum_{i=1}^{N_s} \alpha_i^* y_i \phi(\pmb{x}_i)·\phi(\pmb{x})+b^*) = sign(\sum_{i=1}^{N_s} \alpha_i^* y_i K(\pmb{x}_i, \pmb{x}_j)+b^*)</script><p>上式等价于经过映射函数$\phi$将原来的输入空间变换到一个新的特征空间，将输入空间的内积$\pmb{x}_i·\pmb{x}_j$变换为特征空间中的内积$\phi(\pmb{x}_i)·\phi(\pmb{x})$。当映射函数是非线性函数时，学习到的含有核函数的支持向量机是非线性模型。<br>在核函数$K(\pmb{x},\pmb{z})$给定的条件下，可以利用解线性分类问题的方法求解非线性分类问题的支持向量机。  </p>
+<h3 id="3-2-正定核"><a href="#3-2-正定核" class="headerlink" title="3.2. 正定核"></a>3.2. 正定核</h3><p>通常所说的核函数就是正定核函数（positive definite kernel function）。假设$K(\pmb{x},\pmb{z})$是定义在$\chi \times \chi$上的对称函数，并且对任意的$\pmb{x}_1,\pmb{x}_2,\cdots,\pmb{x}_m \in \chi$，$K(\pmb{x},\pmb{z})$关于$\pmb{x}_1,\pmb{x}_2,\cdots,\pmb{x}_m$的Gram矩阵式半正定的，可以依据函数$K(\pmb{x},\pmb{z})$，构成一个希尔伯特空间。<br>步骤：</p>
+<ol>
+<li>首先定义映射$\phi$并构成向量空间$\mathscr{S}$；</li>
+<li>在$\mathscr{S}$上定义内积构成内积空间；</li>
+<li>将$\mathscr{S}$完备化构成希尔伯特空间。</li>
+</ol>
+<p><strong>正定核的充要条件</strong>：设$K:\chi \times \chi \to \mathbf{R}$是对称函数，则$K(\pmb{x},\pmb{z})$为正定核函数的充要条件：对任意$\pmb{x}<em>i \in \chi, \quad i=1,2,\cdots,m$，$K(\pmb{x},\pmb{z})$对应的Gram矩阵$K = [K(\pmb{x}_i,\pmb{x}_j)]</em>{m \times m}$是半正定矩阵。  </p>
+<h3 id="3-3-常用核函数"><a href="#3-3-常用核函数" class="headerlink" title="3.3. 常用核函数"></a>3.3. 常用核函数</h3><p><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA12.png" alt="此处输入图片的描述"></p>
+<h3 id="3-4-非线性支持向量机"><a href="#3-4-非线性支持向量机" class="headerlink" title="3.4. 非线性支持向量机"></a>3.4. 非线性支持向量机</h3><p><strong>非线性支持向量机</strong>：从非线性分类训练集，通过核函数与软间隔最大化，或凸二次规划，学习得到的分类决策函数</p>
+<script type="math/tex; mode=display">f(x) = sign(\sum_{i=1}^N \alpha_i^* y_i K(\pmb{x}·\pmb{x}_i)+b^*)</script><p>称为非线性支持向量机，$K(\pmb{x},\pmb{z})$是正定核函数。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA13.png" alt="此处输入图片的描述"></p>
+<h2 id="4-支持向量回归"><a href="#4-支持向量回归" class="headerlink" title="4. 支持向量回归"></a>4. 支持向量回归</h2><p>支持向量回归（support vector regression，SVR）就是找到一个回归面，让一个集合的所有数据到该平面的距离最近。<br>对于样本$(\pmb{x},y)$，传统回归模型通常直接基于模型输出$f(\pmb{x})$与真实标记$y$之间的差别来计算损失，当且仅当$f(\pmb{x})$与$y$完全相同时，损失才为0.而SVR可以容忍$f(\pmb{x})$与$y$之间最多有$\epsilon$的偏差，即仅当$f(\pmb{x})$与$y$之间的差别绝对值大于$\epsilon$时才计算损失。如下图所示，相当于以$f(\pmb{x})$为中心，构建了一个宽度为$2 \epsilon$的间隔带，若样本落入此间隔带内就认为是预测正确的。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA14.png" alt="此处输入图片的描述"></p>
+<p>SVR问题可形式化为</p>
+<script type="math/tex; mode=display">\min_{\pmb{w},b} \frac{1}{2} ||\pmb{w}||^2 + C \sum_{i=1}^m \mathscr{l}_{\epsilon} (f(\pmb{x}_i) - y_i)</script><p>其中$C$为正则化常数，$\mathscr{l}_{\epsilon}$是下图所示的$\epsilon$-不敏感损失($\epsilon$-insensitive loss)函数</p>
+<script type="math/tex; mode=display">\mathscr{l}_{\epsilon} = 
+\begin{cases}
+    0, \quad if |z| \leq \epsilon \\
+    |z| - \epsilon, \quad otherwise
+\end{cases}</script><p><img src="http://p5vuwy2ht.bkt.clouddn.com/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA15.png" alt="此处输入图片的描述"><br>引入松弛变量$\xi_i$和$\hat{\xi}_i$，将上式重写为</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \min_{\pmb{w},b,\xi_i,\hat{\xi}_i} \quad \frac{1}{2} ||\pmb{w}||^2 + C \sum_{i=1}^m(\xi_i + \hat{\xi}_i) \nonumber \\
+    & \quad s.t. \quad f(\pmb{x}_i) - y_i \leq \epsilon + \xi_i, \nonumber \\
+    & \qquad \qquad y_i - f(\pmb{x}) \leq \epsilon + \hat{\xi}_i, \nonumber \\
+    & \qquad \qquad \xi_i \geq 0, \quad \hat{\xi}_i \geq 0, \quad i=1,2,\cdots,m \nonumber
+\end{align}</script><p>通过引入拉格朗日乘子$\mu_i \geq 0, \quad \hat{\mu}_i \geq 0, \quad \alpha_i \geq 0, \quad \hat{\alpha}_i \geq 0$，得到拉格朗日函数</p>
+<script type="math/tex; mode=display">L(\pmb{w},b,\pmb{\alpha},\hat{\pmb{\alpha}},\pmb{\xi},\hat{\pmb{\xi}},\pmb{\mu},\hat{\pmb{\mu}}) = \frac{1}{2} ||\pmb{w}||^2 + C \sum_{i=1}^m (\xi_i + \hat{\xi}_i) - \sum_{i=1}^m \mu_i \xi_i - \sum_{i=1}^m \hat{\mu}_i \hat{\xi}_i + \sum_{i=1}^m \alpha_i(f(\pmb{x}_i)-y_i-\epsilon-\xi_i) - \sum_{i=1}^m \hat{\xi}_i (y_i-f(\pmb{x}_i)-\epsilon-\hat{\xi}_i)</script><p>令$L(\pmb{w},b,\pmb{\alpha},\hat{\pmb{\alpha}},\pmb{\xi},\hat{\pmb{\xi}},\pmb{\mu},\hat{\pmb{\mu}})$对$\pmb{w},b,\xi_i,\hat{\xi}_i$的偏导为0可得</p>
+<script type="math/tex; mode=display">\begin{align}
+    \pmb{w} &= \sum_{i=1}^m (\hat{\alpha}_i - \alpha_i) \pmb{x}_i \nonumber \\
+    0 &= \sum_{i=1}^m (\hat{\alpha}_i - \alpha_i) \nonumber \\
+    C &= \alpha_i + \mu_i \nonumber \\
+    C &= \hat{\alpha}_i + \hat{\mu}_i \nonumber
+\end{align}</script><p>带入拉格朗日函数中得到</p>
+<script type="math/tex; mode=display">\begin{align}
+    & \max_{\pmb{\alpha},\hat{\pmb{\alpha}}} \quad \sum_{i=1}^m y_i(\hat{\alpha}_i - \alpha_i) - \epsilon (\hat{\alpha}_i + \alpha_i) - \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m(\hat{\alpha}_i - \alpha_i)(\hat{\alpha}_j - \alpha_j) \pmb{x}_i^T \pmb{x}_j \nonumber \\
+    & s.t. \quad \sum_{i=1}^m (\hat{\alpha}_i - \alpha_i) = 0, \nonumber \\
+    & \qquad \quad 0 \leq \alpha_i, \hat{\alpha}_i \leq C \nonumber
+\end{align}</script><p>上述过程需要满足KKT条件，即</p>
+<script type="math/tex; mode=display">\begin{cases}
+    \alpha_i(f(\pmb{x}_i) - y_i - \epsilon - \xi_i) = 0, \nonumber \\
+    \hat{\alpha}_i(y_i - f(\pmb{x}_i) - \epsilon - \hat{\xi}_i) = 0, \nonumber \\
+    \alpha_i \hat{\alpha}_i = 0, \quad \xi_i \hat{\xi}_i = 0, \nonumber \\
+    (C - \alpha_i) \xi_i = 0, \quad (C - \hat{\alpha}_i) \hat{\xi}_i = 0. \nonumber
+\end{cases}</script><p>可以看出，仅当样本$(\pmb{x}<em>i,y_i)$不落入$\epsilon$-间隔带中，相应的$\alpha_i$和$\hat{\alpha}_i$才能取得非零值。<br>将$\pmb{w} = \sum</em>{i=1}^m (\hat{\alpha}_i - \alpha_i) \pmb{x}_i$带入，则SVR的解形如</p>
+<script type="math/tex; mode=display">f(\pmb{x}) = \sum_{i=1}^m (\hat{\alpha} - \alpha_i) \pmb{x}_i^T \pmb{x} + b</script><p>能使上式中$(\hat{\alpha}_i - \alpha_i) \neq 0$的样本即为SVR的支持向量，它们必然落在$\epsilon$-间隔带外。显然，SVR的支持向量仅是训练样本的一部分，其解仍具有洗属性。<br>有KKT条件可以看出，在得到$\alpha_i$之后，若$0 &lt; \alpha_i &lt; C$，则必有$\xi_i=0$，进而有</p>
+<script type="math/tex; mode=display">b = y_i + \epsilon - \sum_{j=1}^m (\hat{\alpha}_j - \alpha_j) \pmb{x}_j^T \pmb{x}_i</script><p>理论上来说，可任取满足$0 &lt; \alpha_i &lt; C$的样本通过上式求解$b$，但在实践中采取一种更鲁棒的方法：选取多个（或所有）满足条件$0 &lt; \alpha_i &lt; C$的样本求解$b$后取平均值。<br>如果考虑特征映射形式，则</p>
+<script type="math/tex; mode=display">\pmb{w} = \sum_{i=1}^m (\hat{\alpha}_i - \alpha_i) \phi(\pmb{x}_i)</script><p>则SVR可表示为</p>
+<script type="math/tex; mode=display">f(\pmb{x}) = \sum_{i=1}^m (\hat{\alpha}_i - \alpha_i) K(\pmb{x},\pmb{x}_i) + b</script><p>其中K(·)为核函数。  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/09/决策树/" rel="next" title="决策树">
+                <i class="fa fa-chevron-left"></i> 决策树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/18/SMO-序列最小优化/" rel="prev" title="SMO-序列最小优化">
+                SMO-序列最小优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KaiQiang Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#支持向量机"><span class="nav-number">1.</span> <span class="nav-text">支持向量机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-线性可分支持向量机与硬间隔最大化"><span class="nav-number">1.1.</span> <span class="nav-text">1. 线性可分支持向量机与硬间隔最大化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-线性可分支持向量机"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1. 线性可分支持向量机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-函数间隔和几何间隔"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2. 函数间隔和几何间隔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-间隔最大化"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3. 间隔最大化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-最大间隔分离超平面"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1.3.1. 最大间隔分离超平面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-最大间隔分离超平面的存在唯一性"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">1.3.2. 最大间隔分离超平面的存在唯一性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-3-支持向量和间隔边界"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">1.3.3. 支持向量和间隔边界</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-学习的对偶算法"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4. 学习的对偶算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-线性支持向量机与软间隔最大化"><span class="nav-number">1.2.</span> <span class="nav-text">2. 线性支持向量机与软间隔最大化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-线性支持向量机"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1. 线性支持向量机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-学习的对偶算法"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2. 学习的对偶算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-支持向量"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3. 支持向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-hinge损失函数"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4. hinge损失函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-非线性支持向量机与核函数"><span class="nav-number">1.3.</span> <span class="nav-text">3. 非线性支持向量机与核函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-核技巧"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1. 核技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-非线性问题"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">3.1.1. 非线性问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-核函数"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">3.1.2. 核函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-3-核技巧在支持向量机中的应用"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">3.1.3. 核技巧在支持向量机中的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-正定核"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2. 正定核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-常用核函数"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3. 常用核函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-非线性支持向量机"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4. 非线性支持向量机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-支持向量回归"><span class="nav-number">1.4.</span> <span class="nav-text">4. 支持向量回归</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KaiQiang Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

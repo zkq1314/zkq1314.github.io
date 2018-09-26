@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,机器学习,词向量," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本文总结了论文CWE：Joint Learning of Character and Word Embeddings中的核心思想。">
+<meta name="keywords" content="NLP,机器学习,词向量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Character and Word Embedding读书报告">
+<meta property="og:url" content="http://yoursite.com/2018/07/14/Character-and-Word-Embedding读书报告/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文总结了论文CWE：Joint Learning of Character and Word Embeddings中的核心思想。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/CWE1.png">
+<meta property="og:updated_time" content="2018-07-15T06:30:06.375Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Character and Word Embedding读书报告">
+<meta name="twitter:description" content="本文总结了论文CWE：Joint Learning of Character and Word Embeddings中的核心思想。">
+<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/CWE1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/14/Character-and-Word-Embedding读书报告/"/>
+
+
+
+
+
+  <title>Character and Word Embedding读书报告 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/Character-and-Word-Embedding读书报告/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Character and Word Embedding读书报告</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T14:45:41+08:00">
+                2018-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/词向量/" itemprop="url" rel="index">
+                    <span itemprop="name">词向量</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文总结了论文CWE：Joint Learning of Character and Word Embeddings中的核心思想。<br><a id="more"></a></p>
+<h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>论文《Joint Learning of Character and Word Embeddings》是刘知远老师团队2015年在顶会Ijcai上发表的，在词向量生成部分进行了改进，引入了单个汉字的信息（论文主要针对的是中文），提升了词向量生成的质量。因为模型名称叫做“character-enhanced word embeddding model”，故模型简称为CWE。<br>从论文的题目可以看出，这篇paper在进行词向量训练的时候，把组成词语的汉字单独抽取出来，和词语一起进行训练。这样就使那些共享汉字的词语之间产生了联系，因为paper的假设是<strong>“semantically compositional”</strong>的词语中的汉字对词语的意思具有一定的表征作用，比方说词语“智能”。但是在汉语中并不是所有的词语都是semantically compositional，比方说一些<strong>音译词</strong>“巧克力”，“沙发”，再比方说一些实体的名称，比方说一些人名、地名和国家名。在这些词语中，单个汉字的意思可能和本来这个词语要表达的意思是完全没有关系的。在本篇paper中，作者做了大量的工作去把这些没有semantically compositional性质的词语全部人工的挑选出来，对于这些词语不去进行单个字的拆分处理。</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/CWE1.png" alt="此处输入图片的描述"><br>这篇文章提出的模型是在word2vec的CBOW模型基础上改进而来，模型的优化函数：</p>
+<script type="math/tex; mode=display">\frac{1}{M}\sum_{i=k}^{N-k}logPr(x_i|x_{i-k},....,x_{i+k})\tag{1}</script><p>其中，</p>
+<script type="math/tex; mode=display">Pr(x_i|x_{i-k},....,x_{i+k})=\frac{exp(x_o\cdot x_i)}{\sum_{x_j'\in{Dictionary}}exp(x_o\cdot x_j')}\tag{2}</script><p>在CBOW模型中，context的表示是$w_i$前后窗口内的词向量的相加求均值。</p>
+<script type="math/tex; mode=display">x_o=\frac{1}{2k}\sum_{j=i-k,....i+k}x_j\tag{3}</script><p>而在CWE模型中，对于context中的词语的表征，一方面来自于词向量，还有一部分在自于这些词语中的字的向量，具体的计算方式如下：</p>
+<script type="math/tex; mode=display">x_j=w_j\oplus\frac{1}{N_j}\sum_{k=1}^{N_j}c_k\tag{4}</script><p>其中，其中，$N_j$是单词$w_j$中的汉字个数，$c_k$是字向量。$\oplus$对应的操作有拼接和相加两种方式，paper里说拼接方式虽然增加了模型的复杂度，但是对于效果的提升并不明显，因此后面的模型中直接就采用了相加的方式，公式如下所示： </p>
+<script type="math/tex; mode=display">x_j=\frac{1}{2}(w_j+\frac{1}{N_j}\sum_{k=1}^{N_j}c_k)\tag{5}</script><p>注意上述公式中的$\frac{1}{2}$非常重要，它保证了具有semantically compositional的词语和不具有semantically compositional词语在计算距离时的一致性。同时paper指出，为了简化起见只对context的生成考虑字向量信息，target部分不予考虑。其中对于$\sum_{k=1}^{N_j}c_k$计算部分只是把一个词语中的汉字向量进行<strong>等权</strong>相加，如果利用<strong>attention机制</strong>，可能效果更好。</p>
+<h2 id="单字不同语义的解决办法"><a href="#单字不同语义的解决办法" class="headerlink" title="单字不同语义的解决办法"></a>单字不同语义的解决办法</h2><p>同一个汉字，在不同的词语中可能具有完全不同的语义，如果使用一个向量来表征一个字，那么很可能会无法标识出这些差异性，故使用多个向量来表征同一个汉字，有下面几种方式：</p>
+<h3 id="Position-based-Character-Embedding"><a href="#Position-based-Character-Embedding" class="headerlink" title="Position-based Character Embedding"></a>Position-based Character Embedding</h3><p>从名字可以看出，在该模型中同一个汉字根据其在词语中出现的位置不同，对应不同位置的向量表示形式。分析可知，汉字在词语中出现的位置有：Begin,Middle,End这三种情况，故每一个汉字都有三种向量表示形式，在进行$x<em>j=\frac{1}{2}(w_j+\frac{1}{N_j}\sum</em>{k=1}^{N_j}c_k)$ 生成向量操作的时候，对于$c_k$按照其在词语中出现的位置进行合理的筛选。这种方式比较简单，但是缺点也是比较明显的，它假设的前提是同一个汉字只要位于不同单词的同一个位置就具有相同的语义，这显然在一些情况下是不成立的。</p>
+<h3 id="Cluster-based-Character-Embedding"><a href="#Cluster-based-Character-Embedding" class="headerlink" title="Cluster_based Character Embedding"></a>Cluster_based Character Embedding</h3><p>这种方法看的不是很懂，简单来讲就是：对于每一个汉字提前分配x个字向量，称之为模式向量。利用该词对应的词语的context信息，从一个汉字的所有模式向量中选择一个和context语义计算上最相似的作为该汉字对应的向量。</p>
+<h3 id="Nonparametric-Cluster-based-Character-Embeddings"><a href="#Nonparametric-Cluster-based-Character-Embeddings" class="headerlink" title="Nonparametric Cluster-based Character Embeddings"></a>Nonparametric Cluster-based Character Embeddings</h3><p>该模型和Cluster_based Character Embedding模型是很相似的，唯一不同的是，Cluster_based Character Embedding中的每一个汉字对应的模型向量的数量是一个预先设定的固定值，也就是作为模型的超参数。而在Nonparametric Cluster-based Character Embeddings模型中，该值是一个模型自动学习的值。</p>
+<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><p>1 本文提出的汉字和词语结合的方式就是简单的<strong>向量相加</strong>操作，也许应用复杂一点的操作（比如矩阵变换）等方式可以把二者更加合理地结合在一起；<br>2 在相加的时候，需要给以每一个汉字不同权重，这也和我之前说的一致，可以利用attention机制，只不过在2015年的时候还没有attention的概念。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/词向量/" rel="tag"># 词向量</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/10/word2vec公式推导/" rel="next" title="word2vec公式推导">
+                <i class="fa fa-chevron-left"></i> word2vec公式推导
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/14/JWE-Joint-Embeddings-of-Chinese-Words-Characters-and-Fine-grained-Subcharacter-Components读书笔记/" rel="prev" title="JWE:Joint Embeddings of Chinese Words,Characters,and Fine-grained Subcharacter Components">
+                JWE:Joint Embeddings of Chinese Words,Characters,and Fine-grained Subcharacter Components <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KaiQiang Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单字不同语义的解决办法"><span class="nav-number">3.</span> <span class="nav-text">单字不同语义的解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Position-based-Character-Embedding"><span class="nav-number">3.1.</span> <span class="nav-text">Position-based Character Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cluster-based-Character-Embedding"><span class="nav-number">3.2.</span> <span class="nav-text">Cluster_based Character Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nonparametric-Cluster-based-Character-Embeddings"><span class="nav-number">3.3.</span> <span class="nav-text">Nonparametric Cluster-based Character Embeddings</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#收获"><span class="nav-number">4.</span> <span class="nav-text">收获</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KaiQiang Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

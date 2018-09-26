@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,机器学习,词向量," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本文总结了词向量的多种表示方法，主要为word2vec基础上的多种模型，侧重于中文词向量模型。2018年7月23日更新，在NLP课上宗成庆老师在讲词向量时提到，除了基于文本的词汇语义表示模型，还有基于图像、语音、多模态信息学习词汇语义表示等，这一些有空再补充。">
+<meta name="keywords" content="NLP,机器学习,词向量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="词向量综述">
+<meta property="og:url" content="http://yoursite.com/2018/07/23/词向量综述/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文总结了词向量的多种表示方法，主要为word2vec基础上的多种模型，侧重于中文词向量模型。2018年7月23日更新，在NLP课上宗成庆老师在讲词向量时提到，除了基于文本的词汇语义表示模型，还有基于图像、语音、多模态信息学习词汇语义表示等，这一些有空再补充。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E5%8F%91%E5%B1%95%E5%9B%BE.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B01.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B02.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B03.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B04.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B05.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B06.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B07.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B09.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B010.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B011.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B012.jpg">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B013.jpg">
+<meta property="og:updated_time" content="2018-08-03T03:45:28.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="词向量综述">
+<meta name="twitter:description" content="本文总结了词向量的多种表示方法，主要为word2vec基础上的多种模型，侧重于中文词向量模型。2018年7月23日更新，在NLP课上宗成庆老师在讲词向量时提到，除了基于文本的词汇语义表示模型，还有基于图像、语音、多模态信息学习词汇语义表示等，这一些有空再补充。">
+<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E5%8F%91%E5%B1%95%E5%9B%BE.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/23/词向量综述/"/>
+
+
+
+
+
+  <title>词向量综述 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/词向量综述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">词向量综述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T16:14:07+08:00">
+                2018-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/词向量/" itemprop="url" rel="index">
+                    <span itemprop="name">词向量</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文总结了词向量的多种表示方法，主要为word2vec基础上的多种模型，侧重于中文词向量模型。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E5%8F%91%E5%B1%95%E5%9B%BE.jpg" alt="此处输入图片的描述"><br>2018年7月23日更新，在NLP课上宗成庆老师在讲词向量时提到，除了基于文本的词汇语义表示模型，还有基于图像、语音、多模态信息学习词汇语义表示等，这一些有空再补充。<br><a id="more"></a></p>
+<h2 id="什么是词向量"><a href="#什么是词向量" class="headerlink" title="什么是词向量"></a>什么是词向量</h2><p>自然语言是符合语法、具有一定的信息、为人类所能理解并进行沟通的语言。但当我们使用计算机来处理自然语言时，计算机是无法直接理解这些符号的（汉字、字母、标点等）。这些符号需要经过数值化后才能输入计算机进行后续的处理。然而只用单个数字来表示单词是毫无意义的，它只是一个id，无法体现单词的属性，因此需要将单词进行向量化。</p>
+<h2 id="词向量的表示"><a href="#词向量的表示" class="headerlink" title="词向量的表示"></a>词向量的表示</h2><p>词向量的表示主要有两种方式：独热编码（One-hot Representation）和分布式表示（Distributed Representation）。</p>
+<h3 id="One-hot表示"><a href="#One-hot表示" class="headerlink" title="One-hot表示"></a>One-hot表示</h3><p>独热编码是最直观、也最常用的方法。是一种稀疏的表示方式。其思路为将每个词都表示成一个很长的向量，该向量的维度等于词表大小，其中只有一个维度的值为1（维度的位置等于词的id），其余维度都为0。举个例子：<br>假设我们从语料库中为每个词分配一个数字id（从0开始分配），得到“话筒”这个词的id为3，“麦克”为8，那么用独热编码为：</p>
+<blockquote>
+<p>话筒：[0 0 0 1 0 0 0 0 0 0 …]<br>麦克: [0 0 0 0 0 0 0 0 1 0 …]</p>
+</blockquote>
+<p>每个词都是茫茫0海中的一个1。如果要编程实现的话，用 Hash 表给每个词分配一个id就可以了。这么简洁的表示方法配合上最大熵、SVM、CRF 等等算法已经很好地完成了 NLP 领域的各种主流任务。<br>如此简洁的方法自然有它的缺点：<br>1、向量维度会随着词表增大而增大：</p>
+<ul>
+<li>存储效率低</li>
+<li>若词表扩容，则每个词维度也必须相应增加</li>
+<li>若某个词出现次数很少的话，则相应的权重会容易被错误估计</li>
+</ul>
+<p>2、“词汇鸿沟”问题：每个维度彼此正交，即所有词彼此孤立，无法表示词与词之间的相关信息，例如余弦相似度。由于任意一对向量 的余弦相似度为</p>
+<script type="math/tex; mode=display">\frac{x^{\top}y}{\lVert x \rVert \lVert y \rVert}\in \left[ -\text{1,}1 \right]</script><p>任何一对词的one-hot向量的余弦相似度都为0。</p>
+<h3 id="分布式表示"><a href="#分布式表示" class="headerlink" title="分布式表示"></a>分布式表示</h3><p>1954 年，Harris 提出<strong>分布假说（distributional hypothesis）</strong>，即“上下文相似的词，其语义也相似”，为词的分布表示提供了理论基础。Firth 在1957 年对分布假说进行了进一步阐述和明确：词的语义由其上下文决定（a word is characterized by the company it keeps）。<br>基于分布假说，研究人员提出了多种词表示模型：如基于矩阵的LSA 模型、基于聚类的Brown clustering 模型以及最近使用广泛的神经网络词表示模型。神经网络模型生成的词表示通常被称为<strong>词向量（word embedding）</strong>，是一个低维的实数向量表示，通过这种表示，可以直接对词之间的相似度进行刻画。</p>
+<h4 id="基于矩阵的分布式表示"><a href="#基于矩阵的分布式表示" class="headerlink" title="基于矩阵的分布式表示"></a>基于矩阵的分布式表示</h4><p>利用语料库构建一个$ W\times C $ 共现矩阵$F$，矩阵每一行代表一个词，每一列是某种上下文表示方法。$W$是词表大小。矩阵每个单元的值可以是二值（表示二者是否共现），可以是未经处理的共现次数，也可以是经过处理后的共现tf-idf值，等等。很多可衡量两个对象之间关联的指标都可以用来作为矩阵中每个单元的值。<br>由于矩阵每一行的维度大小都等于词表大小，不便计算，所以需要进行降维。降维技术可以减少噪声带来的影响，但也可能损失一部分信息。最常用的分解技术包括奇异值分解（SVD）、非负矩阵分解（NMF）、典型关联分析（Canonical Correlation Analysis，CCA）、Hellinger PCA（HPCA）。<br>基于矩阵的分布表示在这些步骤的基础上，衍生出了若干不同方法，如经典的LSA就是使用tf-idf 作为矩阵元素的值，并使用SVD分解，得到词的低维向量表示。在这类方法中，最新的为GloVe 模型，下文简单介绍这一模型。</p>
+<h5 id="GloVe"><a href="#GloVe" class="headerlink" title="GloVe"></a>GloVe</h5><p>总体上看，GloVe 模型是一种对“词-词”矩阵进行分解从而得到词表示的方法。矩阵第$i$行第$j$列的值为词$v<em>i$与词$v_j$在语料中的共现次数$ x</em>{ij} $的对数。在矩阵分解步骤，GloVe 模型借鉴了推荐系统中基于隐因子分解（Latent Factor Model）的方法，在计算重构误差时，只考虑共现次数非零的矩阵元素，同时对矩阵中的行和列加入了偏移项。具体为最小化下式：</p>
+<script type="math/tex; mode=display">\sum_{ik}{f\left( x_{ik} \right) \left( w_{i}^{T}w_k+b_i+b_k-\log x_{ik} \right) ^2}</script><p>其中$ w_i $为词$ v_i $ 作为目标词时的词向量，$ w_j $ 为词$ v_j $ 作为上下文时的词向量，$ b_i $ 、$ b_k $ 为针对词表中各词的偏移向量， $ f\left( x \right)  $ 是一个加权函数，对低频的共现词对进行衰减，减少低频噪声带来的误差，定义为：</p>
+<script type="math/tex; mode=display">f\left( x \right) =\begin{cases}     \left( \frac{x}{x_{\max}} \right) ^{\alpha}\ \ \text{如果}x<x_{\max}\\     \text{1                 其他情况}\\ \end{cases}</script><h4 id="基于聚类的分布式表示"><a href="#基于聚类的分布式表示" class="headerlink" title="基于聚类的分布式表示"></a>基于聚类的分布式表示</h4><p>基于聚类的分布式表示也被称为分布聚类，通过聚类的方法构建词与其上下文之间的关系。最经典的方法是布朗聚类（Brown clustering）。布朗聚类是一种层级聚类方法，聚类结果为每个词的多层类别体系。因此可以根据两个词的公共类别判断这两个词的语义相似度。具体而言，布朗聚类需要最大化以下似然，其中$ c_i $ 为词$ w_i $ 对应的类别：</p>
+<script type="math/tex; mode=display">P\left( w_i|w_{i-1} \right) =P\left( w_i|c_i \right) P\left( c_i|c_{i-1} \right)</script><p>布朗聚类只考虑了相邻词之间的关系，也就是说，每个词只使用它的上一个词，作为上下文信息。</p>
+<h4 id="基于神经网络的分布式表示"><a href="#基于神经网络的分布式表示" class="headerlink" title="基于神经网络的分布式表示"></a>基于神经网络的分布式表示</h4><p>神经网络词向量表示技术通过神经网络技术对上下文，以及上下文与目标词之间的关系进行建模。神经网络词向量模型与其它分布表示方法一样，均基于分布假说，核心依然是上下文的表示以及上下文与目标词之间的关系的建模。构建上下文与目标词之间的关系，最自然的一种思路就是使用语言模型。从历史上看，早期的词向量只是神经网络语言模型的副产品。同时，神经网络语言模型对当前词向量的发展方向有着决定性的作用。</p>
+<h5 id="NNLM2001"><a href="#NNLM2001" class="headerlink" title="NNLM2001"></a>NNLM2001</h5><p>2001年，Bengio 等人正式提出神经网络语言模型（Neural Network Language Model，NNLM）。该模型在学习语言模型的同时，也得到了词向量。NNLM对$n$元语言模型进行建模，估算$ P\left( w<em>i|w</em>{i-\left( n-1 \right)},…,w<em>{i-1} \right)  $  的值。也就是对语料中一段长度为$n$ 的序列 $ w</em>{i-\left( n-1 \right)},…,w_{i-1},w_i $ , 元语言模型需要最大化以下似然：</p>
+<script type="math/tex; mode=display">P\left( w_i|w_{i-\left( n-1 \right)},...,w_{i-1} \right)</script><p>其中， $ w<em>i $ 为需要通过语言模型预测的词（目标词）。对于整个模型而言，输入为条件部分的整个词序列： $ w</em>{i-\left( n-1 \right)},…,w<em>{i-1} $ ，输出为目标词的分布。<br><strong>神经网络语言模型结构图</strong>:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B01.jpg" alt="神经网络语言模型结构图"><br>输入层将前 $n-1$个词 $ w</em>{i-\left( n-1 \right)},…,w_{i-1} $ 通过查表映射成对应的词向量，然后将这 $n-1$个向量顺序拼接，形成$x$ ：</p>
+<script type="math/tex; mode=display">x=\left[ e\left( w_{i-\left( n-1 \right)} \right) ;...;e\left( w_{i-2} \right) ;e\left( w_{i-1} \right) \right]</script><p>输入层完成对 $x$的拼接后，模型将其依次送入隐藏层$h$ 和输出层 $y$。</p>
+<script type="math/tex; mode=display">h=\tanh \left( b^h+Hx \right)</script><script type="math/tex; mode=display">y=b^y+Wx+Uh</script><p>其中 $ H\in \mathbb{R}^{\left| h \right|\times \left( n-1 \right) \left| e \right|} $ 为输入层到隐藏层的权重矩阵， $ U\in \mathbb{R}^{\left| v \right|\times \left| h \right|} $ 为隐藏层到输出层的权重矩阵，$ \left| V \right| $  表示词表大小， $ \left| e \right| $ 表示词向量维度， $ \left| h \right| $ 为隐藏层维度，$ b^h $  、 $ b^y $ 均为偏置。矩阵$W$ 表示从输入层到输出层的直连边权重矩阵。<br>输出层一共有 $ \left| V \right| $ 个元素，对应下一个词为词表中某个词的可能性。使用softmax将输出值归一化成概率。</p>
+<script type="math/tex; mode=display">p\left( w_i|w_{i-\left( n-1 \right)},...,w_{i-1} \right) =\frac{\exp \left( y\left( w_i \right) \right)}{\sum_{k=1}^{\left| V \right|}{\exp \left( y\left( v_k \right) \right)}}</script><p>对于整个预料而言，语言模型需要最大化：</p>
+<script type="math/tex; mode=display">\sum_{w_{i-\left( n-1 \right) :i\in \mathbb{D}}}{\log \left( P\left( w_i \right) |w_{i-\left( n-1 \right)},...,w_{i-1} \right)}</script><p>训练时使用随机梯度下降来优化上述目标。每次迭代，随即从语料中选取一段样本作为训练样本，使用下式进行一次梯度迭代：</p>
+<script type="math/tex; mode=display">\theta \gets \theta +\alpha \frac{\partial \log P\left( w_i|w_{i-\left( n-1 \right)},...,w_{i-1} \right)}{\partial \theta}</script><p>其中，$ \alpha  $ 是学习率； $ \theta  $ 为模型中所有参数，包括词向量和网络模型中的权重及偏置。<br>值得注意的是，神经网络语言模型中的词向量出现了两次。在输入层，各词的词向量存在于一个$ \left| e \right|\times \left| V \right| $  维的实数矩阵中，每一列对应一个词向量。隐藏层到输出层的权重矩阵$U$ 的维度是$ \left| V \right|\times \left| h \right| $  ，可看作$ \left| V \right| $  个$ \left| h \right| $  维的行向量，其中每个向量都可以看做某个词的另一种表示$ e’ $  。我们将 $ e\left( w \right)  $ 称为词的上下文表示，将 $ e’\left( w \right)  $ 称为词的目标词表示，通常将$e$ 作为词向量。</p>
+<h5 id="循环神经网络语言模型"><a href="#循环神经网络语言模型" class="headerlink" title="循环神经网络语言模型"></a>循环神经网络语言模型</h5><p>Mikolov等人提出的循环神经网络语言模型（Recurrent Neural Network based Language Model，RNNLM）直接对 $ P\left( w<em>i|w_1,w_2,…,w</em>{i-1} \right)  $ 进行建模。因此，RNNLM 可以利用所有的上文信息，预测下一个词，其模型结构下图所示。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B02.jpg" alt="循环神经网络语言模型结构图"><br>RNNLM的核心在于其隐藏层算法：</p>
+<script type="math/tex; mode=display">h\left( i \right) =\phi \left( e\left( w_i \right) +Wh\left( i-1 \right) \right)</script><p>其中，$ \phi  $  为非线性激活函数；$h(i)$ 表示文本中第 $i$个词$w_i$ 所对应的隐藏层，该隐藏层由当前词的词向量 $ e\left( w_i \right)  $ 以及上一个词对应的隐藏层$ h\left( i-1 \right)  $  结合得到。通过迭代，每个隐藏层都包含了此前所有词的信息。RNNLM的输出层计算方法与NNLM的输出层一致。</p>
+<h5 id="C-amp-W模型"><a href="#C-amp-W模型" class="headerlink" title="C&amp;W模型"></a>C&amp;W模型</h5><p>C&amp;W模型结构图:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B03.jpg" alt="此处输入图片的描述"><br>不同于之前的模型，C&amp;W模型直接以生成词向量为目标。他们没有去近似地求$P(w<em>t |w_1,w_2,…,w</em>(t-1))$，而是直接去尝试近似$P(w<em>1,w_2,…,w_t)$。在实际操作中，他们并没有去求一个字符串的概率，而是求窗口连续 $n$个词的打分 $f(w</em>(t-n+1),…,w_(t-1),w_t)$打分越高的说明这句话越是正常的话；打分低的说明这句话不是太合理；如果是随机把几个词堆积在一起，那肯定是负分（差评）。打分只有相对高低之分，并没有概率的特性。有了这个对 $f$的假设，C&amp;W 就直接使用 pair-wise 的方法训练词向量。具体而言，就是最小化下面的目标函数。</p>
+<script type="math/tex; mode=display">\sum_{x\in \mathfrak{X}}{\sum_{w\in \mathfrak{D}}{\max\text{\{0,}1-f\left( x \right) +f\left( x^{\left( w \right)} \right) \}}}</script><p> $ \mathfrak{X} $ 为训练集中的所有连续的$n$ 元短语， $ \mathfrak{D} $ 是整个字典。第一个求和枚举了训练语料中的所有的$n$ 元短语，作为正样本。第二个对字典的枚举是构建负样本。 $ x^{\left( w \right)} $ 是将短语$x$ 的最中间的那个词，替换成$w$ 。在大多数情况下，在一个正常短语的基础上随便找个词替换掉中间的词，最后得到的短语肯定不是正确的短语，所以这样构造的负样本是非常可用的（多数情况下确实是负样本，极少数情况下把正常短语当作负样本也不影响大局）。同时，由于负样本仅仅是修改了正样本中的一个词，也不会让分类面距离负样本太远而影响分类效果。再回顾这个式子， $x$是正样本， $ x^{\left( w \right)} $ 是负样本，$ f\left( x \right)  $  是对正样本的打分，$ f\left( x^{\left( w \right)} \right)  $  是对负样本的打分。最后希望正样本的打分要比负样本的打分至少高1分。$f$ 函数的结构和NNLM中的网络结构基本一致。同样是把窗口中的$n$ 个词对应的词向量串成一个长的向量，同样是经过一层网络（乘一个矩阵）得到隐藏层。不同之处在于C&amp;W的输出层只有一个节点，表示得分，而不像NNLM那样的有$ \left| V \right| $  个节点，这么做可以大大降低计算复杂度。</p>
+<h5 id="Word2vec"><a href="#Word2vec" class="headerlink" title="Word2vec"></a>Word2vec</h5><p>Mikolov 等人在2013年开发了word2vec工具，包含CBOW（Continuous Bag of Words）和Skip-gram 两种模型。</p>
+<h6 id="CBOW模型"><a href="#CBOW模型" class="headerlink" title="CBOW模型"></a>CBOW模型</h6><p><strong>CBOW模型结构图</strong>:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B04.jpg" alt="此处输入图片的描述"><br>简单来讲，CBOW用上下文作为输入去预测目标词。该模型一方面根据C&amp;W 模型的经验，使用一段文本的中间词作为目标词；另一方面，又以NNLM作为蓝本，并在其基础上做了两个简化。一、CBOW 没有隐藏层，去掉隐藏层之后，模型从神经网络结构直接转化为log 线性结构，与Logistic 回归一致。log 线性结构比三层神经网络结构少了一个矩阵运算，大幅度地提升了模型的训练速度。二、CBOW 去除了上下文各词的词序信息，使用上下文各词词向量的平均值（论文中求和，实际工具求平均），代替神经网络语言模型使用的上文各词词向量的拼接。形式化地，CBOW 模型对于一段训练样本$ w_{i-\left( n-1 \right)},…,w_i $  ，输入为：</p>
+<script type="math/tex; mode=display">x=\frac{1}{n-1}\sum_{w_j\in c}{e\left( wj \right)}</script><p>然后根据上下文表示，对目标词进行预测：</p>
+<script type="math/tex; mode=display">P\left( w|c \right) =\frac{\exp \left( e'\left( w \right) ^Tx \right)}{\sum_{w'\in \mathbb{V}}{\exp \left( e'\left( w' \right) ^Tx \right)}}</script><p>上述二式，目标词$w$ 与上下文$c$ 的定义与C&amp;W模型一致。优化目标与神经网络语言模型一致，即最大化：</p>
+<script type="math/tex; mode=display">\sum_{\left( w,c \right) \in \mathbb{D}}{\log P\left( w|c \right)}</script><h6 id="Skip-gram模型"><a href="#Skip-gram模型" class="headerlink" title="Skip-gram模型"></a>Skip-gram模型</h6><p><strong>Skip-gram模型结构图</strong>:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B05.jpg" alt="此处输入图片的描述"><br>与CBOW相反，Skip-gram用目标词作为输入去预测上下文。为了与CBOW统一，可以将其描述为：每次从目标词$w$ 的上下文$c$ 中选择一个词，将其词向量作为模型的输入$x$ ，也就是上下文的表示，这样Skip-gram的任务也变成了通过上下文预测目标词，优化目标为：</p>
+<script type="math/tex; mode=display">\sum_{\left( w,c \right) \in \mathbb{D}}{\sum_{w_j\in c}{\log P\left( w|w_j \right)}}</script><p>其中，</p>
+<script type="math/tex; mode=display">P\left( w|w_j \right) =\frac{\exp \left( e'\left( w \right) ^Te\left( w_j \right) \right)}{\sum_{w'\in \mathbb{V}}{\exp \left( e'\left( w' \right) ^Te\left( w_j \right) \right)}}</script><h5 id="fastText"><a href="#fastText" class="headerlink" title="fastText"></a>fastText</h5><p>word2vec在词汇建模方面产生了巨大的贡献，然而其依赖于大量的文本数据进行学习，如果一个word出现次数较少那么学到的vector质量也不理想。针对这一问题作者提出使用subword信息来弥补这一问题，简单来说就是通过词缀的vector来表示词。比如unofficial是个低频词，其数据量不足以训练出高质量的vector，但是可以通过un+official这两个高频的词缀学习到不错的vector。<br>方法上，本文沿用了word2vec的skip-gram模型，主要区别体现在特征上。word2vec使用word作为最基本的单位，即通过中心词预测其上下文中的其他词汇。而subword model使用字母n-gram作为单位，本文n取值为3~6。这样每个词汇就可以表示成一串字母n-gram，一个词的embedding表示为其所有n-gram的和。这样我们训练也从用中心词的embedding预测目标词，转变成用中心词的n-gram embedding预测目标词。</p>
+<h5 id="CWE"><a href="#CWE" class="headerlink" title="CWE"></a>CWE</h5><p><strong>CWE模型结构图</strong>:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B06.jpg" alt="此处输入图片的描述"><br>在word2vec的CBOW模型基础上，在词向量生成部分进行了改进，引入了单个汉字的信息（论文主要针对的是中文），提升了词向量生成的质量。具体实现方法是将CBOW中 $x$的取值办法由上下文词向量相加求均值：</p>
+<script type="math/tex; mode=display">x_o=\frac{1}{2k}\sum_{j=i-k,...,i+k}{x}_j</script><p>变成词语中所有单字的向量与词向量相加求均值：</p>
+<script type="math/tex; mode=display">x=\frac{1}{2}\{w+\frac{1}{N_j}\sum_{k=1}^{N_J}{c_k}\text{)}</script><p>其中， $ N_j $ 是单词中的汉字个数， $w$是字向量。<br>另外文章还提出了三种办法以解决同一汉字在不同词语中的不同语义问题，分别为：Position-based Character Embedding、Cluster-based Character Embedding、Nonparametric Cluster-based Character Embeddings。</p>
+<h5 id="JWE2017"><a href="#JWE2017" class="headerlink" title="JWE2017"></a>JWE2017</h5><p><strong>JWE模型结构图</strong>:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B07.jpg" alt="此处输入图片的描述"><br>根据人工总结的“字件”，将汉字拆成一个一个的小模块，把词、汉字和字件一起联合学习词向量。其中$ w<em>i $  是目标词， $ w</em>{i-1} $ 是目标词左边的词， $ w<em>{i+1} $ 是目标词右边的词；$ c</em>{i-1} $  是目标词左边的词中的单字， $ c<em>{i+1} $ 是目标词右边的词中的单字；$ s</em>{i-1} $  是目标词左边的词拆分的字件，$ s_{i+1} $  是目标词右边的词拆分的字件, $ s_i $ 是目标词的字件；<br>模型的目标是最大化以下对数似然：</p>
+<script type="math/tex; mode=display">L\left( w_i \right) =\sum_{k=1}^3{\log P\left( w_i|h_{i_k} \right)}</script><p>其中, $ h<em>{i_1} $ ， $ h</em>{i<em>2} $ ， $ h</em>{i_3} $ 分别为上下文单词、单字、组件的组合。</p>
+<script type="math/tex; mode=display">P\left( w_i|h_{i_k} \right) =\frac{\exp \left( h_{i_k}^{T}\hat{v}_{w_i} \right)}{\sum_{j=1}^N{\exp \left( h_{i_k}^{T}\hat{v}_{w_j} \right)}}</script><script type="math/tex; mode=display">h_{i_1}=\frac{1}{2T}\sum_{-T\leqslant j\leqslant T,j\ne 0}{v_{w_{i+j}}}</script><p>在以上3个公式中， $ v<em>{w_i} $ ,$ v</em>{c<em>i} $  , $ v</em>{s<em>i} $ 分别为上下文、单字、字件的“<strong>输入向量</strong>”， $ \hat{v}</em>{w<em>j} $ 是“<strong>输出向</strong>量”；$ h</em>{i<em>1} $  为上下文“输入向量”的均值，同理， $ h</em>{i<em>2} $ 为上下文单字“输入向量”的均值，$ h</em>{i_3} $  为上下文字件“输入向量”的均值。<br>给定语料$ D $  ,模型的目标是最大化：</p>
+<script type="math/tex; mode=display">L\left( D \right) =\sum_{w_i\in D}{L\left( w_i \right)} $ 
+#####GWE2017
+**GWE模型结构图（一）**:
+![此处输入图片的描述][9]
+通过convolutional auto-encoder（convAE）提取词中字的glyph特征，取均值后与上下文词向量均值及上下文中字向量的均值合并，得到新的上下文表示，预测目标词。词向量表示为：
+ $$ \vec{w}_{i}^{ctxG}=\vec{w}_i+\frac{1}{\left| C\left( i \right) \right|}\sum_{c_j\in C\left( i \right)}{\left( \vec{c}_j+\vec{g}_j \right)}</script><p><strong>GWE模型结构图（二）</strong>:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B09.jpg" alt="此处输入图片的描述"><br>这种模型将当前词中字的glyph特征与上下文结合，一起预测当前词。<br>以下两种模型直接从特征中学习词向量，没有使用上下文信息。</p>
+<p><strong>GWE模型结构图（三）</strong>:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B010.jpg" alt="此处输入图片的描述"><br>在Skip-gram的基础上，以特征作为输入，两层GRU，两层全连接ELU，预测当前词的上下文。</p>
+<p><strong>GWE模型结构图（四）</strong>:<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B011.jpg" alt="此处输入图片的描述"><br>类似于GloVe模型，将原模型中词向量部分改写为当前词的特征。</p>
+<h5 id="cw2vec"><a href="#cw2vec" class="headerlink" title="cw2vec"></a>cw2vec</h5><p>cw2vec在Skip-Gram基础之上进行改进，把词语的n-gram笔画特征信息代替词语进行训练，cw2vec模型如下图：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B012.jpg" alt="此处输入图片的描述"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/%E8%AF%8D%E5%90%91%E9%87%8F%E7%BB%BC%E8%BF%B013.jpg" alt="此处输入图片的描述"><br> 首先将词语分割，获取中文字符。然后获取笔画信息，并合并笔画信息。将笔画信息数字化。最后提取笔画信息的n-gram特征。</p>
+<h2 id="词向量的评价"><a href="#词向量的评价" class="headerlink" title="词向量的评价"></a>词向量的评价</h2><p>根据来斯惟的博士论文《基于神经网络的词和文档语义向量》，词向量的用法可以分为三大类，分别为：一、利用词向量的语言学特性完成任务；二、将词向量作为特征，提高自然语言处理任务的性能；三、将词向量作为神经网络的初始值，提升神经网络模型的优化效果。他在这三大类用法的基础上，选取了八个有代表性的具体任务，作为词向量的评价指标。</p>
+<h3 id="词向量的语言学特征"><a href="#词向量的语言学特征" class="headerlink" title="词向量的语言学特征"></a>词向量的语言学特征</h3><p>各词向量模型均基于分布假说设计而成，因此无论哪种词向量模型，都会符合分布假说所提出的性质：具有相似上下文的词，会拥有相似的语义，并且其词向量的空间距离更接近。本文选取了三个代表性任务。</p>
+<h4 id="语义相关性-ws"><a href="#语义相关性-ws" class="headerlink" title="语义相关性(ws)"></a>语义相关性(ws)</h4><p>衡量语义相关性最经典的是WordSim353 数据集，该数据集包含了353 个词对，其中每一个词对有至少十位标注者对其进行0 到10 之间的打分，分数越高表示标注人员认为这两个词的语义更相关或者更相似。例如，词对“student,professor”的平均打分为6.81，而词对“professor, cucumber”的打分为0.31。评价时，对于每个词对，本文使用所有标注者打分的平均值作为参考得分$X$ ，以词对的两个词向量的余弦距离作为模型得到的相关性得分$Y$ ，并衡量这两组数值之间的皮尔逊相关系数。皮尔逊相关系数衡量了两个变量之间的线性相关性，值在-1到1之间，如果模型得到的打分与人工标注的打分一致，得分就越高。具体而言，$X$ 和$Y$ 之间的皮尔逊相关系数定义为 $X$和 $Y$之间的协方差与它们标准差的商：</p>
+<script type="math/tex; mode=display">\rho _{X,y}=\frac{cov\left( X,Y \right)}{\sigma _X\sigma _Y}</script><h4 id="同义词检测-tfl"><a href="#同义词检测-tfl" class="headerlink" title="同义词检测(tfl)"></a>同义词检测(tfl)</h4><p>托福考试（TOEFL）数据集包含80 个单选题，每个题目包含一个问题词以及四个选项，要求从四个选项中选出一个与问题词同义的词语。例如：问题“levied”，选项“imposed”、“believed”、“requested”、“correlated”，正确答案为“imposed”。对于每一个问题，需要计算问题词与选项词对应词向量之间的余弦距离，并选用距离最近的选项词，作为答案。在评价词向量时，可以直接使用80 个问题的准确率。</p>
+<h4 id="单词类比-sem、syn"><a href="#单词类比-sem、syn" class="headerlink" title="单词类比(sem、syn)"></a>单词类比(sem、syn)</h4><p>英文单词类比数据集由Mikolov 等人于2013 年的word2vec相关论文中提出，该数据集包含了9000 个语义类比问题以及1 万个句法类比问题。语义类比问题包括国家首都、家庭成员称谓、国家货币等五类问题，如，“‘king’对‘queen’如同‘man’对什么？”，答案为“woman”。句法类比问题有比较级、最高级、名词单复数等九类问题，如“‘dance’对‘dancing’如同‘predict’对什么？”，答案为“predicting”。<br>为了回答这类类比问题，Mikolov 等人根据相似关系词对的词向量之差也相似的特点，提出使用词向量的加减法来完成这一任务。例如，对于问题“‘king’对‘queen’如同‘man’对什么？”，该方法直接从词表中寻找与$ \overrightarrow{queen}-\overrightarrow{king}+\overrightarrow{man} $  最相似的词，作为答案。评价时使用回答问题的准确率。<br>单词类比任务的数据集相对前两个任务规模较大，因此在实验中，结果较为稳定，该指标也成为评价词向量的经典指标。</p>
+<h3 id="词向量用作特征"><a href="#词向量用作特征" class="headerlink" title="词向量用作特征"></a>词向量用作特征</h3><p>词向量可以从无标注文本中学习到句法和词法的特征，很多现有工作直接使用词向量作为机器学习系统的特征，并以此提高系统的性能。</p>
+<h4 id="基于平均词向量的文本分类-avg"><a href="#基于平均词向量的文本分类-avg" class="headerlink" title="基于平均词向量的文本分类(avg)"></a>基于平均词向量的文本分类(avg)</h4><p>该任务直接以文本中各词词向量的加权平均值作为文档的表示，以此为特征，利用Logistic 回归完成文本分类任务。其中权重为文档中各词的词频。可以选用IMDB 数据集做文本分类实验。该数据集包含三部分，其中训练集和测试集各2.5 万篇文档，用来做文本分类的训练和测试；无标注部分共5 万篇文档，用于训练词向量。任务的评价指标为文本分类的准确率。</p>
+<h4 id="命名实体识别-ner"><a href="#命名实体识别-ner" class="headerlink" title="命名实体识别(ner)"></a>命名实体识别(ner)</h4><p>命名实体识别（Named entity recognition，NER）在机器学习框架下，通常作为一个序列标注问题处理。在这一评价指标中，将词向量作为现有命名实体识别系统的额外特征，该系统的性能接近现有系统的最好性能。任务的评价指标为命名实体识别的F1值，测试集可以是CoNLL03 多任务数据集的测试集。</p>
+<h3 id="词向量用作神经网络初始值"><a href="#词向量用作神经网络初始值" class="headerlink" title="词向量用作神经网络初始值"></a>词向量用作神经网络初始值</h3><p>在上一类词向量的用法（将词向量作为特征）中，词向量是模型的固定输入值，在模型的训练过程中，输入值不会改变，只有模型中的参数会改变。然而，将神经网络的初始值赋值为词向量之后，神经网络在训练过程中会改变设置的初始值。因此这两类词向量的用法表面上看非常相似，实质上却是不同的。</p>
+<h4 id="基于卷积神经网络的文本分类-cnn"><a href="#基于卷积神经网络的文本分类-cnn" class="headerlink" title="基于卷积神经网络的文本分类(cnn)"></a>基于卷积神经网络的文本分类(cnn)</h4><p>卷积神经网络（Convolutional neural networks，CNN）是表示文本的有效模型。2014 年，Lebret等人以及Kim等人同时提出用于文本分类任务的卷积神经网络。<br>选取斯坦福情感树库（Stanford Sentiment Treebank）数据集作为文本分类的训练集、验证集和测试集。由于该数据集规模较小，文本分类的效果受网络初始值的影响较大，导致了评价指标的不稳定。为了更客观地评价卷积网络中，不同词向量对文本分类性能的影响，对每一份词向量重复做多次实验。在每次实验中，输入层词表示均初始化为这份词向量，网络结构中的其它参数则初始化为不同的随机值。对于每一次实验，在训练集上训练卷积神经网络，取验证集上准确率最高的点，并报告其在测试集上的准确率。最后将5 组实验的测试集准确率的平均值作为最终的评价指标。</p>
+<h4 id="词性标注-pos"><a href="#词性标注-pos" class="headerlink" title="词性标注(pos)"></a>词性标注(pos)</h4><p>词性标注（part-of-speech tagging）是一个经典的序列标注问题。在这个任务中，使用Collobert 等人提出的网络，对句子中的每个词做序列标注。该任务选用华尔街日报数据集。评价指标为模型在验证集上达到最佳效果时，测试集上的准确率。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/词向量/" rel="tag"># 词向量</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/" rel="next" title="GWE:Learning Chinese Word Representations From Glyphs Of Characters读书笔记">
+                <i class="fa fa-chevron-left"></i> GWE:Learning Chinese Word Representations From Glyphs Of Characters读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/03/文本分类综述/" rel="prev" title="文本分类综述">
+                文本分类综述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KaiQiang Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是词向量"><span class="nav-number">1.</span> <span class="nav-text">什么是词向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词向量的表示"><span class="nav-number">2.</span> <span class="nav-text">词向量的表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#One-hot表示"><span class="nav-number">2.1.</span> <span class="nav-text">One-hot表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式表示"><span class="nav-number">2.2.</span> <span class="nav-text">分布式表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于矩阵的分布式表示"><span class="nav-number">2.2.1.</span> <span class="nav-text">基于矩阵的分布式表示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GloVe"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">GloVe</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于聚类的分布式表示"><span class="nav-number">2.2.2.</span> <span class="nav-text">基于聚类的分布式表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于神经网络的分布式表示"><span class="nav-number">2.2.3.</span> <span class="nav-text">基于神经网络的分布式表示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#NNLM2001"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">NNLM2001</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#循环神经网络语言模型"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">循环神经网络语言模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#C-amp-W模型"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">C&amp;W模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Word2vec"><span class="nav-number">2.2.3.4.</span> <span class="nav-text">Word2vec</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#CBOW模型"><span class="nav-number">2.2.3.4.1.</span> <span class="nav-text">CBOW模型</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Skip-gram模型"><span class="nav-number">2.2.3.4.2.</span> <span class="nav-text">Skip-gram模型</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fastText"><span class="nav-number">2.2.3.5.</span> <span class="nav-text">fastText</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CWE"><span class="nav-number">2.2.3.6.</span> <span class="nav-text">CWE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JWE2017"><span class="nav-number">2.2.3.7.</span> <span class="nav-text">JWE2017</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cw2vec"><span class="nav-number">2.2.3.8.</span> <span class="nav-text">cw2vec</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词向量的评价"><span class="nav-number">3.</span> <span class="nav-text">词向量的评价</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#词向量的语言学特征"><span class="nav-number">3.1.</span> <span class="nav-text">词向量的语言学特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语义相关性-ws"><span class="nav-number">3.1.1.</span> <span class="nav-text">语义相关性(ws)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同义词检测-tfl"><span class="nav-number">3.1.2.</span> <span class="nav-text">同义词检测(tfl)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单词类比-sem、syn"><span class="nav-number">3.1.3.</span> <span class="nav-text">单词类比(sem、syn)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词向量用作特征"><span class="nav-number">3.2.</span> <span class="nav-text">词向量用作特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于平均词向量的文本分类-avg"><span class="nav-number">3.2.1.</span> <span class="nav-text">基于平均词向量的文本分类(avg)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名实体识别-ner"><span class="nav-number">3.2.2.</span> <span class="nav-text">命名实体识别(ner)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词向量用作神经网络初始值"><span class="nav-number">3.3.</span> <span class="nav-text">词向量用作神经网络初始值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于卷积神经网络的文本分类-cnn"><span class="nav-number">3.3.1.</span> <span class="nav-text">基于卷积神经网络的文本分类(cnn)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#词性标注-pos"><span class="nav-number">3.3.2.</span> <span class="nav-text">词性标注(pos)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KaiQiang Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
