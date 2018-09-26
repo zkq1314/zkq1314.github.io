@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="NLP,keras," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -81,18 +81,17 @@
 
 
 
-<meta name="description" content="keras中的Embedding层将索引映射为固定维度的稠密向量，如[[4],[20]]-&amp;gt;[[0.25,0.1],[0.6,-0.2]]。Embedding层只能作为模型的第一层。 如何使用 从头训练就像word2vec一样, 这一层是可学习的, 用随机数initialize , 通过BP去调整. pre-trained + fine tuning用其他网络(如 word2vec) 训练好">
-<meta name="keywords" content="NLP,keras">
+<meta name="description" content="欢迎使用 MWebMWeb 是专业的 Markdown 写作、记笔记、静态博客生成软件，目前已支持 Mac，iPad 和 iPhone。MWeb 有以下特色： 软件本身： 使用原生的 macOS 技术打造，追求与系统的完美结合。 原则上，首先是追求界面简洁和高性能，然后才是强大易用，功能全面。  Markdown 语法： 使用 Github Flavored Markdown 语法，简称 GFM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="keras中的embedding层">
-<meta property="og:url" content="http://yoursite.com/2018/08/08/keras中的embedding层/index.html">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/09/26/docs/15379278708905/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="keras中的Embedding层将索引映射为固定维度的稠密向量，如[[4],[20]]-&amp;gt;[[0.25,0.1],[0.6,-0.2]]。Embedding层只能作为模型的第一层。 如何使用 从头训练就像word2vec一样, 这一层是可学习的, 用随机数initialize , 通过BP去调整. pre-trained + fine tuning用其他网络(如 word2vec) 训练好">
+<meta property="og:description" content="欢迎使用 MWebMWeb 是专业的 Markdown 写作、记笔记、静态博客生成软件，目前已支持 Mac，iPad 和 iPhone。MWeb 有以下特色： 软件本身： 使用原生的 macOS 技术打造，追求与系统的完美结合。 原则上，首先是追求界面简洁和高性能，然后才是强大易用，功能全面。  Markdown 语法： 使用 Github Flavored Markdown 语法，简称 GFM">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-08T02:04:32.804Z">
+<meta property="og:updated_time" content="2018-09-26T02:11:10.891Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="keras中的embedding层">
-<meta name="twitter:description" content="keras中的Embedding层将索引映射为固定维度的稠密向量，如[[4],[20]]-&amp;gt;[[0.25,0.1],[0.6,-0.2]]。Embedding层只能作为模型的第一层。 如何使用 从头训练就像word2vec一样, 这一层是可学习的, 用随机数initialize , 通过BP去调整. pre-trained + fine tuning用其他网络(如 word2vec) 训练好">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="欢迎使用 MWebMWeb 是专业的 Markdown 写作、记笔记、静态博客生成软件，目前已支持 Mac，iPad 和 iPhone。MWeb 有以下特色： 软件本身： 使用原生的 macOS 技术打造，追求与系统的完美结合。 原则上，首先是追求界面简洁和高性能，然后才是强大易用，功能全面。  Markdown 语法： 使用 Github Flavored Markdown 语法，简称 GFM">
 
 
 
@@ -122,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/08/keras中的embedding层/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/26/docs/15379278708905/"/>
 
 
 
 
 
-  <title>keras中的embedding层 | Hexo</title>
+  <title> | Hexo</title>
   
 
 
@@ -255,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/keras中的embedding层/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/docs/15379278708905/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="KaiQiang Zhang">
@@ -272,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">keras中的embedding层</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -284,8 +283,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T09:23:20+08:00">
-                2018-08-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-26T10:11:10+08:00">
+                2018-09-26
               </time>
             
 
@@ -294,28 +293,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/文本分类/" itemprop="url" rel="index">
-                    <span itemprop="name">文本分类</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -344,14 +321,41 @@
       
 
       
-        <h2 id="keras中的Embedding层"><a href="#keras中的Embedding层" class="headerlink" title="keras中的Embedding层"></a>keras中的Embedding层</h2><p>将索引映射为固定维度的稠密向量，如[[4],[20]]-&gt;[[0.25,0.1],[0.6,-0.2]]。<br>Embedding层只能作为模型的第一层。</p>
-<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><ol>
-<li>从头训练<br>就像word2vec一样, 这一层是可学习的, 用随机数initialize , 通过BP去调整.</li>
-<li>pre-trained + fine tuning<br>用其他网络(如 word2vec) 训练好的现成的词向量, 作为初始化参数, 然后继续学习.</li>
-<li>pre-trained + static<br>用其他网络(如 word2vec) 训练好的现成的词向量, 作为初始化参数, 并且这些参数保持固定, 不参与网络的学习.<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keras.layers.embeddings.Embedding(input_dim, output_dim, embeddings_initializer=<span class="string">'uniform'</span>, embeddings_regularizer=<span class="keyword">None</span>, activity_regularizer=<span class="keyword">None</span>, embeddings_constraint=<span class="keyword">None</span>, mask_zero=<span class="keyword">False</span>, input_length=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
-</li>
+        <h1 id="欢迎使用-MWeb"><a href="#欢迎使用-MWeb" class="headerlink" title="欢迎使用 MWeb"></a>欢迎使用 MWeb</h1><p>MWeb 是专业的 Markdown 写作、记笔记、静态博客生成软件，目前已支持 Mac，iPad 和 iPhone。MWeb 有以下特色：</p>
+<h2 id="软件本身："><a href="#软件本身：" class="headerlink" title="软件本身："></a>软件本身：</h2><ul>
+<li>使用原生的 macOS 技术打造，追求与系统的完美结合。</li>
+<li>原则上，首先是追求界面简洁和高性能，然后才是强大易用，功能全面。</li>
+</ul>
+<h2 id="Markdown-语法："><a href="#Markdown-语法：" class="headerlink" title="Markdown 语法："></a>Markdown 语法：</h2><ul>
+<li>使用 Github Flavored Markdown 语法，简称 GFM 语法。</li>
+<li>支持表格、TOC、LaTeX、代码块、任务列表、脚注等。</li>
+<li>画图库支持 mermaid, viz, echarts, plantuml, sequence, flow。</li>
+</ul>
+<h2 id="Markdown-辅助："><a href="#Markdown-辅助：" class="headerlink" title="Markdown 辅助："></a>Markdown 辅助：</h2><ul>
+<li>支持截图并粘贴、复制并粘贴、拖拽等方式插入图片并直接显示在编辑器内。</li>
+<li>在兼容 Markdown 语法的情况下支持设置图片宽度。</li>
+<li>好用的表格插入和 LaTeX 书写辅助。</li>
+</ul>
+<h2 id="Markdown-输出："><a href="#Markdown-输出：" class="headerlink" title="Markdown 输出："></a>Markdown 输出：</h2><ul>
+<li>支持导出为图片、HTML、Epub、PDF、RTF、Docx。</li>
+<li>支持发布到 Wordrpess、支持 Metaweblog API 协议的服务、Wordpress.com、印象笔记（Evernote）、Blogger、Medium、Tumblr。</li>
+<li>图片上传服务（图床）支持 Google Photos、Imgur、七牛云、又拍云和自定义的图床服务。</li>
+</ul>
+<h2 id="Markdown-笔记："><a href="#Markdown-笔记：" class="headerlink" title="Markdown 笔记："></a>Markdown 笔记：</h2><ul>
+<li>强大的文档库支持分类树和标签管理文档，文档可归类于多个分类，可以把分类整个导出为 Epub、PDF 和生成静态网站。非常合适用于笔记、个人知识收集、管理和输出。</li>
+<li>快速笔记：随意增加笔记及图片等素材，支持以天为单位把增加的素材组合在一个文档内，方便整理及记录历史收集情况。</li>
+<li>快速搜索：目前已支持全局快捷键调出搜索。</li>
+</ul>
+<h2 id="外部-Markdown-文档："><a href="#外部-Markdown-文档：" class="headerlink" title="外部 Markdown 文档："></a>外部 Markdown 文档：</h2><ul>
+<li>外部 Markdown 文档使用外部模式管理。外部模式使用目录树的方式编辑和管理你的 markdown 文档，还能很好的支持 gitbook、JekyII、hexo 等等编辑和图片插入。</li>
+</ul>
+<h2 id="MWeb-文档："><a href="#MWeb-文档：" class="headerlink" title="MWeb 文档："></a>MWeb 文档：</h2><p>如果要更详细了解 MWeb，建议你一定要去看一下官网的帮助文档，网址为：<a href="https://zh.mweb.im/help.html" target="_blank" rel="noopener">https://zh.mweb.im/help.html</a>。我们建议在使用文档库之前，一定要阅读一下  <a href="https://zh.mweb.im/mweb-library.html" target="_blank" rel="noopener">MWeb 文档库详细介绍</a> 这篇文章，以便更好的使用文档库。</p>
+<h2 id="帮助我们改进-MWeb"><a href="#帮助我们改进-MWeb" class="headerlink" title="帮助我们改进 MWeb"></a>帮助我们改进 MWeb</h2><p>如果你喜欢 MWeb，想让它变得更好，你可以：</p>
+<ol>
+<li>推荐 MWeb，让更多的人知道。</li>
+<li>给我们发反馈和建议：<a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#99;&#x6f;&#x64;&#x65;&#x72;&#102;&#x6f;&#x72;&#97;&#114;&#116;&#43;&#50;&#x33;&#51;&#x33;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#99;&#x6f;&#x64;&#x65;&#x72;&#102;&#x6f;&#x72;&#97;&#114;&#116;&#43;&#50;&#x33;&#51;&#x33;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a></li>
+<li>在 Mac App Store 上评价 （如果是在 MAS 上购买的话）。</li>
 </ol>
-<p>input_dim：大或等于0的整数，字典长度（词汇量），即输入数据最大下标+1<br>output_dim：大于0的整数，代表词向量的维度<br>embeddings_initializer: 初始化方法<br>embeddings_regularizer: 嵌入矩阵的正则项，为Regularizer对象<br>embeddings_constraint: 嵌入矩阵的约束项，为Constraints对象<br>mask_zero：布尔值，确定是否将输入中的‘0’看作是应该被忽略的‘填充’（padding）值，该参数在使用递归层处理变长输入时有用。设置为True的话，模型中后续的层必须都支持masking，否则会抛出异常。如果该值为True，则下标0在字典中不可用，input_dim应设置为$|vocabulary| + 1$。<br>input_length：当输入序列的长度固定时，该值为其长度。如果要在该层后接Flatten层，然后接Dense层，则必须指定该参数，否则Dense层的输出维度无法自动推断。</p>
 
       
     </div>
@@ -367,14 +371,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/NLP/" rel="tag"># NLP</a>
-          
-            <a href="/tags/keras/" rel="tag"># keras</a>
-          
-        </div>
-      
 
       
       
@@ -384,8 +380,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/03/文本分类综述/" rel="next" title="文本分类综述">
-                <i class="fa fa-chevron-left"></i> 文本分类综述
+              <a href="/2018/09/26/HyperLedger-Fabric架构篇/" rel="next" title="HyperLedger Fabric架构篇">
+                <i class="fa fa-chevron-left"></i> HyperLedger Fabric架构篇
               </a>
             
           </div>
@@ -393,10 +389,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/13/scipy-stats-spearmanr用法/" rel="prev" title="scipy.stats.spearmanr用法">
-                scipy.stats.spearmanr用法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -535,7 +527,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#keras中的Embedding层"><span class="nav-number">1.</span> <span class="nav-text">keras中的Embedding层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用"><span class="nav-number">1.1.</span> <span class="nav-text">如何使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数说明"><span class="nav-number">1.2.</span> <span class="nav-text">参数说明</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#欢迎使用-MWeb"><span class="nav-number">1.</span> <span class="nav-text">欢迎使用 MWeb</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#软件本身："><span class="nav-number">1.1.</span> <span class="nav-text">软件本身：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown-语法："><span class="nav-number">1.2.</span> <span class="nav-text">Markdown 语法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown-辅助："><span class="nav-number">1.3.</span> <span class="nav-text">Markdown 辅助：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown-输出："><span class="nav-number">1.4.</span> <span class="nav-text">Markdown 输出：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown-笔记："><span class="nav-number">1.5.</span> <span class="nav-text">Markdown 笔记：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外部-Markdown-文档："><span class="nav-number">1.6.</span> <span class="nav-text">外部 Markdown 文档：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MWeb-文档："><span class="nav-number">1.7.</span> <span class="nav-text">MWeb 文档：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助我们改进-MWeb"><span class="nav-number">1.8.</span> <span class="nav-text">帮助我们改进 MWeb</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -742,26 +734,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
