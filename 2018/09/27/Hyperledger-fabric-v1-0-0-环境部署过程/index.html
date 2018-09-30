@@ -99,7 +99,7 @@
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署8.png">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署9.png">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署10.png">
-<meta property="og:updated_time" content="2018-09-30T06:20:01.550Z">
+<meta property="og:updated_time" content="2018-09-30T06:26:29.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hyperledger fabric v1.0.0 环境部署过程">
 <meta name="twitter:description" content="本文主要基于 Hyperledger fabric 的官方文档来搭建其实验环境，但官方文档对于很多步骤都有省略，结合网上比较新的博客，在一台 Ubuntu 14.04 机器(没用通过测试，换成了16.04的虚拟机)上来安装部署 fabric 的环境。">
@@ -395,16 +395,20 @@
 <p>  国内从 Docker Hub 拉取镜像有时会遇到困难，此时可以配置镜像加速器。Docker 官方和国内很多云服务商都提供了国内加速器服务，例如：</p>
 <ol>
 <li>Docker 官方提供的中国 registry mirror <a href="https://registry.docker-cn.com" target="_blank" rel="noopener">https://registry.docker-cn.com</a></li>
-<li><p>七牛云加速器 <a href="https://reg-mirror.qiniu.com/" target="_blank" rel="noopener">https://reg-mirror.qiniu.com/</a></p>
-<p>当配置某一个加速器地址之后，若发现拉取不到镜像，请切换到另一个加速器地址。国内各大云服务商均提供了 Docker 镜像加速服务，建议根据运行 Docker 的云平台选择对应的镜像加速服务。</p>
-<p>我们以 Docker 官方加速器 <a href="https://registry.docker-cn.com" target="_blank" rel="noopener">https://registry.docker-cn.com</a> 为例进行介绍。</p>
-<p>在 /etc/docker/daemon.json 中写入如下内容（如果文件不存在则创建）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    &#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [</span><br><span class="line">    &quot;https://registry.docker-cn.com&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>七牛云加速器 <a href="https://reg-mirror.qiniu.com/" target="_blank" rel="noopener">https://reg-mirror.qiniu.com/</a></li>
 </ol>
 </li>
 </ul>
-<p>之后重新启动服务<br>Ubuntu16.04:<br><code>$ sudo systemctl daemon-reload</code><br><code>$ sudo systemctl restart docker</code><br>Ubuntu14.04：<br><code>$ service docker restart</code></p>
+<pre><code>当配置某一个加速器地址之后，若发现拉取不到镜像，请切换到另一个加速器地址。国内各大云服务商均提供了 Docker 镜像加速服务，建议根据运行 Docker 的云平台选择对应的镜像加速服务。
+
+我们以 Docker 官方加速器 https://registry.docker-cn.com 为例进行介绍。
+
+在 /etc/docker/daemon.json 中写入如下内容（如果文件不存在则创建）
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    &#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [</span><br><span class="line">    &quot;https://registry.docker-cn.com&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+之后重新启动服务
+</code></pre><p>Ubuntu16.04:<br><code>$ sudo systemctl daemon-reload</code><br><code>$ sudo systemctl restart docker</code><br>Ubuntu14.04：<br><code>$ service docker restart</code></p>
 <h2 id="安装-Docker-Compose"><a href="#安装-Docker-Compose" class="headerlink" title="安装 Docker Compose"></a>安装 Docker Compose</h2><p>通过二进制包来安装，从 官方 GitHub Release 处直接下载编译好的二进制文件即可。</p>
 <pre><code>`$ sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose`
 
@@ -429,11 +433,9 @@
 <li><p>配置环境变量</p>
 <p>  <code>$ vi ~/.bashrc</code><br>添加</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/home/zkq/go</span><br><span class="line">export PATH=$PATH:$GOROOT/bin:$GOPATH/bin</span><br></pre></td></tr></table></figure>
+<p>  保存并使生效：</p>
+<p>  <code>$ source ~/.bashrc</code></p>
 </li>
-</ul>
-<p>保存并使生效：</p>
-<pre><code>`$ source ~/.bashrc`
-</code></pre><ul>
 <li><p>测试 Go 的 demo 程序</p>
 <p>  <code>$ cd ~/go</code></p>
 <p>  <code>$ vi hello.go</code></p>
@@ -504,8 +506,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/27/docs/15380180020170/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/30/Hyperledger-fabric-Building-Your-First-Network-on-MacOS/" rel="prev" title="Hyperledger fabric Building Your First Network on MacOS">
+                Hyperledger fabric Building Your First Network on MacOS <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -583,7 +585,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
