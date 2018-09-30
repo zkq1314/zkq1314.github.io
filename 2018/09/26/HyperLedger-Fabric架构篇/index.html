@@ -91,12 +91,12 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric1.png">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric2.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric3.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric8.png">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric4.png">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric5.png">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric6.png">
 <meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric7.png">
-<meta property="og:updated_time" content="2018-09-26T02:42:26.569Z">
+<meta property="og:updated_time" content="2018-09-26T03:11:03.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HyperLedger Fabric架构篇">
 <meta name="twitter:description" content="调研了一下HyperLedger Fabric的架构，因为它的官网文档并没有及时更新，所以有的内容参考的还是以前版本的文档。">
@@ -363,19 +363,35 @@
 <h2 id="交易的基本工作流程"><a href="#交易的基本工作流程" class="headerlink" title="交易的基本工作流程"></a>交易的基本工作流程</h2><ol>
 <li>client创建一个transaction，并根据endorse policy发送给某些endorser peers</li>
 <li>peers模拟transaction，并产生认可签名</li>
-<li>client收集到足够的peers对transaction的认可，并交给ordering service，orderer会汇总各client递交过来的trasaction交易，排序、打包</li>
+<li>client收集到足够的peers对transaction的认可，并交给ordering service，orderer会汇总各client递交过来的transaction交易，排序、打包</li>
 <li>orderer将交易打包成区块block，然后通知所有commit peer，各peer各自验证结果，最后将区块block记录到自己的ledger账本中</li>
 </ol>
-<p>如以下例子所示：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric3.png" alt="Fabric3"></p>
+<p>如以下例子所示：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric8.png" alt="Fabric8"></p>
 <ol>
-<li>首先，client发起一个transaction交易，含有<clientid,chaincodeid,txpayload,timrstamp,clientsig>等信息，指明了3W要素：消息是谁who在什么时间when发送了什么what。该消息根据chaincode中的背书策略，发向EP1、EP2、EP3这三个peer节点。</clientid,chaincodeid,txpayload,timrstamp,clientsig></li>
-<li>这三个peer节点模拟执行智能合约，并将结果及其各自的CA证书签名发还client。client收集到足够数量的结果后再进行下一步。</li>
-<li>client将含背书结果的tx交易发向ordering service。</li>
-<li>ordering service将打包好的block交给committing peer CP1以及EP1、EP2、EP3这三个背书者，背书者此时会校验结果并写入世界状态以及账本中。同时，client由于订阅了消息，也会收到通知。</li>
+<li>客户端向其中1个Peer提交Transaction。注意，这里的Client是真正的客户端。而这里的submiting peer，你可以认为是fabric网络的客户端（对客户端来说，这个submiting peer是服务器）</li>
+<li><p>submiting peer把请求给多个endoser<strong>模拟执行</strong>，然后从每个endoser收集返回结果。也就是图中的步骤 圆圈2,3。在Fabric里面，把这个“模拟执行”的过程，称为“背书”，endoser。 至所以这么叫，是因为如果模拟执行不通过的话，这个Transaction就直接被拒绝了。模拟执行通过，才有机会进入下面的过程，才有机会被区块链网络接受。 所以，“背书”，通俗点讲，就是“告诉整个区块链网络，这个Transaction被我模拟执行过了，有效的，你们要不也试试看？”<br>关键点：<br>发给几个endoser取决于你的endose poclicy怎么配置的，你配置成只有1个endoser也可以。 注意这里只是“模拟执行”。endoser并不会把结果直接写到worldState里面。</p>
+</li>
+<li><p>submitting peer 把这个Transaction + 模拟执行的结果发给Ordering Service。也就是图中的步骤 圆圈 4。<br>关键点：因为有很多个Client往不同的submit peer发送请求，所以这个Ordering Service会收到多笔的Transaction。Ordering Service会对这些Transaction进行打包，形成Block。</p>
+</li>
+<li>Ordering Service再把这个Block广播给每个Peer(此时，Peer充当了另外1个角色，不是endorser，而是Committer)。所有Committer接受到这个Block，真正写入：把交易加入区块链，同时更新WorldState，也就是分布式账本(Ledger)</li>
+<li>给Client发送Event，通知其交易已被执行。</li>
 </ol>
 <h2 id="构建企业级区块链的要素"><a href="#构建企业级区块链的要素" class="headerlink" title="构建企业级区块链的要素"></a>构建企业级区块链的要素</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric4.png" alt="Fabric4"></p>
-<h2 id="逻辑架构"><a href="#逻辑架构" class="headerlink" title="逻辑架构"></a>逻辑架构</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric5.png" alt="Fabric5"><br>0.6运行时架构与1.0运行时架构：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric6.png" alt="Fabric6"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric7.png" alt="Fabric7"></p>
-<p>两者对比：</p>
+<h2 id="逻辑架构"><a href="#逻辑架构" class="headerlink" title="逻辑架构"></a>逻辑架构</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric5.png" alt="Fabric5"><br>竖着来看，分为3大块： </p>
+<ol>
+<li>最左边的，Memship，就是联盟链特有的身份认证相关的内容。比如组织注册，公钥证书发放，交易签名，验证等等。 </li>
+<li>中间1块：区块链的基础东西，和比特币、以太坊类似，BlockChain、Transaction、Ledger(分布式账本）、P2P协议。</li>
+<li>最右边1块：智能合约。在以太坊里面，称为Smart Contract，这里换了个名字，叫做ChainCode而已。</li>
+</ol>
+<p>0.6运行时架构与1.0运行时架构：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric6.png" alt="Fabric6"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric7.png" alt="Fabric7"><br>下面这张图，展示了Fabric运行时的架构是什么样子。Fabric采用Go语言开发，通常运行在Docker容器里面，每1个Node对应1个Docker容器。</p>
+<ol>
+<li>这里的application/SDK，并不是指我们通常的APP的客户端。而是整个Fabric网络的调用端，通常是我们的Web应用服务器。 </li>
+<li>membership服务，就是上图中的注册登记、身份认证。</li>
+<li>peer就是区块链网络中说的物理上的node。peer有2个角色（对应2个模块），1个叫Endorser，1个叫Committer。peer上面存的是Ledger(区块链 + WorldState)，存的智能合约ChainCode，然后peer之间、peer和客户端之间，用event通信。 </li>
+<li>Order-Service 排序服务。</li>
+</ol>
+<p>Fabric相对于<strong>以太坊</strong>，大部分其实很类似（比如peer，peer上面的账本、worldState）。多了2个东西出来，1个是membership（用于注册、身份认证），1个是order service，用于共识算法。</p>
+<p>0.6版本和1.0版本运行时架构对比：</p>
 <ul>
 <li>分拆Peer的功能，将Blockchain的数据维护和共识服务进行分离，共识服务从Peer节点中完全分离出来，独立为Orderer节点提供共识服务；</li>
 <li>基于新的架构，实现多通道（channel）的结构，实现了更为灵活的业务适应性（业务隔离、安全性等方面）</li>
@@ -420,6 +436,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/" rel="prev" title="Hyperledger fabric v1.0.0 环境部署过程">
+                Hyperledger fabric v1.0.0 环境部署过程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -496,7 +516,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
