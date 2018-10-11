@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,attention," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本文参考张俊林博士的《深度学习中的注意力机制》和苏剑林的《Attention is All You Need》浅读（简介+代码）》，简单总结一下 NLP 中用到的 attention 和 self-attention。">
+<meta name="keywords" content="NLP,attention">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP 中的attention和self-attention">
+<meta property="og:url" content="http://yoursite.com/2018/10/11/NLP-中的attention和self-attention/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文参考张俊林博士的《深度学习中的注意力机制》和苏剑林的《Attention is All You Need》浅读（简介+代码）》，简单总结一下 NLP 中用到的 attention 和 self-attention。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/self-attention1.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/self-attention2.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/self-attention3.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/self-attention4.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/self-attention6.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/self-attention5.png">
+<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/self-attention7.png">
+<meta property="og:updated_time" content="2018-10-11T09:06:44.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NLP 中的attention和self-attention">
+<meta name="twitter:description" content="本文参考张俊林博士的《深度学习中的注意力机制》和苏剑林的《Attention is All You Need》浅读（简介+代码）》，简单总结一下 NLP 中用到的 attention 和 self-attention。">
+<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/self-attention1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/11/NLP-中的attention和self-attention/"/>
+
+
+
+
+
+  <title>NLP 中的attention和self-attention | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/NLP-中的attention和self-attention/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NLP 中的attention和self-attention</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-11T15:08:14+08:00">
+                2018-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文参考张俊林博士的《深度学习中的注意力机制》和苏剑林的《Attention is All You Need》浅读（简介+代码）》，简单总结一下 NLP 中用到的 attention 和 self-attention。<br><a id="more"></a></p>
+<h1 id="attention-的发展趋势"><a href="#attention-的发展趋势" class="headerlink" title="attention 的发展趋势"></a>attention 的发展趋势</h1><p>attention 机制的发展如下图所示：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/self-attention1.png" alt="self-attention1"><br>Attention机制最早是在视觉图像领域提出来的，但是真正火起来应该算是2014年google mind团队的论文《Recurrent Models of Visual Attention》，他们在RNN模型上使用了attention机制来进行图像分类。随后，Bahdanau等人在论文《Neural Machine Translation by Jointly Learning to Align and Translate》中，使用类似attention的机制在机器翻译任务上将翻译和对齐同时进行，他们的工作算是第一个将attention机制应用到NLP领域中。接着attention机制被广泛应用在基于RNN/CNN等神经网络模型的各种NLP任务中。2017年，google机器翻译团队发表的《Attention is all you need》中大量使用了自注意力（self-attention）机制来学习文本表示。</p>
+<h1 id="NLP-中的序列编码"><a href="#NLP-中的序列编码" class="headerlink" title="NLP 中的序列编码"></a>NLP 中的序列编码</h1><p>深度学习做NLP的方法，基本上都是先将句子分词，然后每个词转化为对应的词向量序列。这样一来，每个句子都对应的是一个矩阵$X=(x_1,x_2,…,x_t)$，其中$x_i$都代表着第$i$个词的词向量（行向量），维度为$d$维，故$X\in\mathbb{R}^{n×d}$。这样的话，问题就变成了编码这些序列了。</p>
+<h2 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h2><p>第一个基本的思路是RNN层，RNN的方案很简单，递归式进行：</p>
+<script type="math/tex; mode=display">y_t=f(y_{t−1},x_t)</script><p>不管是已经被广泛使用的LSTM、GRU还是最近的SRU，都并未脱离这个递归框架。RNN结构本身比较简单，也很适合序列建模，但RNN的明显缺点之一就是<strong>无法并行</strong>，因此速度较慢，这是递归的天然缺陷。另外苏剑林提到：</p>
+<blockquote>
+<p>RNN无法很好地学习到全局的结构信息，因为它本质是一个马尔科夫决策过程。</p>
+</blockquote>
+<h2 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h2><p>第二个思路是CNN层，其实CNN的方案也是很自然的，窗口式遍历，比如尺寸为3的卷积，就是</p>
+<script type="math/tex; mode=display">y_t=f(x_{t−1},x_t,x_{t+1})</script><p>在FaceBook的论文中，纯粹使用卷积也完成了Seq2Seq的学习，是卷积的一个精致且极致的使用案例。CNN方便并行，而且容易捕捉到一些全局的结构信息。</p>
+<h2 id="attention"><a href="#attention" class="headerlink" title="attention"></a>attention</h2><p>Google的大作提供了第三个思路：纯Attention！单靠注意力就可以！RNN要逐步递归才能获得全局信息，因此一般要双向RNN才比较好；CNN事实上只能获取局部信息，是通过层叠来增大感受野；attention的思路最为粗暴，它一步到位获取了全局信息！它的解决方案是：</p>
+<script type="math/tex; mode=display">y_t=f(x_t,A,B)</script><p>其中$A$,$B$是另外一个序列（矩阵）。如果都取$A=B=X$，那么就称为Self-Attention，它的意思是直接将$x_t$与原来的每个词进行比较，最后算出$y_t$！</p>
+<h1 id="attention-1"><a href="#attention-1" class="headerlink" title="attention"></a>attention</h1><p><img src="http://p5vuwy2ht.bkt.clouddn.com/self-attention2.png" alt="self-attention2"></p>
+<p>将Source中的构成元素想象成是由一系列的&lt; Key,Value &gt;数据对构成，此时给定Target中的某个元素Query，通过计算Query和各个Key的相似性或者相关性，得到每个Key对应Value的权重系数，然后对Value进行加权求和，即得到了最终的Attention数值。所以本质上Attention机制是对Source中元素的Value值进行加权求和，而Query和Key用来计算对应Value的权重系数。即可以将其本质思想改写为如下公式：</p>
+<script type="math/tex; mode=display">Attention(Query,Source)=\sum_{i=1}^{L_x}{Similarity(Query,Key_i)*Value_i}</script><p>其中， $L_x=||Source||$代表Source的长度。在机器翻译中，Source中的Key和Value指向的是同一个东西（输入句子中每个单词对应的语义编码）。</p>
+<h2 id="attention计算过程"><a href="#attention计算过程" class="headerlink" title="attention计算过程"></a>attention计算过程</h2><ol>
+<li>根据Query和Key计算两者的相似性或者相关性；</li>
+<li>对第一阶段的原始分值进行归一化处理，得到权重系数；</li>
+<li>根据权重系数对Value进行加权求和。</li>
+</ol>
+<p><img src="http://p5vuwy2ht.bkt.clouddn.com/self-attention3.png" alt="self-attention3"></p>
+<p>在第一个阶段，可以引入不同的函数和计算机制，根据Query和某个$Key_i$，计算两者的相似性或者相关性，最常见的方法包括：求两者的向量点积、求两者的向量Cosine相似性或者通过再引入额外的神经网络来求值，即如下方式：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/self-attention4.png" alt="self-attention4"><br>第二阶段引入类似SoftMax的计算方式对第一阶段的得分进行数值转换，一方面可以进行归一化，将原始计算分值整理成所有元素权重之和为1的概率分布；另一方面也可以通过SoftMax的内在机制更加突出重要元素的权重。即一般采用如下公式计算：</p>
+<script type="math/tex; mode=display">a_i=Softmax(Sim_i)=\frac{e^{Sim_i}}{\sum_{j=1}^{L_x}e^{Sim_j}}</script><p>第二阶段的计算结果$a_i$即为$Value_i$对应的权重系数，然后进行加权求和即可得到Attention数值：</p>
+<script type="math/tex; mode=display">Attention(Query,Source)=\sum_{i=1}^{L_x}{a_i*Value_i}</script><h1 id="self-attention"><a href="#self-attention" class="headerlink" title="self-attention"></a>self-attention</h1><p>Google的论文模型的整体结构如下图，还是由编码器和解码器组成，在编码器的一个网络块中，由一个多头attention子层和一个前馈神经网络子层组成，整个编码器栈式搭建了N个块。类似于编码器，只是解码器的一个网络块中多了一个多头attention层。为了更好的优化深度网络，整个网络使用了残差连接和对层进行了规范化（Add&amp;Norm）。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/self-attention6.png" alt="self-attention6"></p>
+<h2 id="scaled-dot-Product-attention"><a href="#scaled-dot-Product-attention" class="headerlink" title="scaled dot-Product attention"></a>scaled dot-Product attention</h2><p>对比我在前面背景知识里提到的attention的一般形式，其实scaled dot-Product attention就是我们常用的使用点积进行相似度计算的attention，只是多了一个$\sqrt{d_k}$，$\sqrt{d_k}$为$K$的维度,起到调节作用，使得内积不至于太大。</p>
+<script type="math/tex; mode=display">Attention(\boldsymbol{Q},\boldsymbol{K},\boldsymbol{V}) = softmax\left(\frac{\boldsymbol{Q}\boldsymbol{K}^{\top}}{\sqrt{d_k}}\right)\boldsymbol{V}</script><p><img src="http://p5vuwy2ht.bkt.clouddn.com/self-attention5.png" alt="self-attention5"></p>
+<h2 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi-Head Attention"></a>Multi-Head Attention</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/self-attention7.png" alt="self-attention7"></p>
+<p>多头attention（Multi-head attention）结构如上图，Query，Key，Value首先经过一个线性变换，然后输入到scaled dot-Product attention，注意这里要做h次，其实也就是所谓的多头，每一次算一个头。而且每次Q，K，V进行线性变换的参数W是不一样的。</p>
+<script type="math/tex; mode=display">head_i = Attention(\boldsymbol{Q}\boldsymbol{W}_i^Q,\boldsymbol{K}\boldsymbol{W}_i^K,\boldsymbol{V}\boldsymbol{W}_i^V)</script><p>然后将h次的放缩点积attention结果进行拼接，再进行一次线性变换得到的值作为多头attention的结果。</p>
+<script type="math/tex; mode=display">MultiHead(\boldsymbol{Q},\boldsymbol{K},\boldsymbol{V}) = Concat(head_1,...,head_h)</script><p>可以看到，google提出来的多头attention的不同之处在于进行了h次计算而不仅仅算一次，论文中说到这样的好处是可以允许模型在不同的表示子空间里学习到相关的信息。这里的设计类似于 CNN 的多个卷积核。</p>
+<h2 id="Self-Attention"><a href="#Self-Attention" class="headerlink" title="Self Attention"></a>Self Attention</h2><p>所谓Self Attention，其实就是$Attention(X,X,X)$，$X$就是前面说的输入序列。也就是说，在序列内部做Attention，寻找序列内部的联系。更准确来说，Google所用的是Self Multi-Head Attention：</p>
+<script type="math/tex; mode=display">\boldsymbol{Y}=MultiHead(\boldsymbol{X},\boldsymbol{X},\boldsymbol{X})</script><h2 id="Position-Embedding"><a href="#Position-Embedding" class="headerlink" title="Position Embedding"></a>Position Embedding</h2><p>但是这样的模型并不能捕捉<strong>序列的顺序</strong>！换句话说，如果将$K,V$按行打乱顺序（相当于句子中的词序打乱），那么Attention的结果还是一样的。这就表明了，到目前为止，Attention模型顶多是一个非常精妙的“词袋模型”而已。</p>
+<p>于是Google再又提出了Position Embedding，也就是“位置向量”，将每个位置编号，然后每个编号对应一个向量，通过结合位置向量和词向量，就给每个词都引入了一定的位置信息，这样Attention就可以分辨出不同位置的词了。</p>
+<p>在以往的Position Embedding中，基本都是根据任务训练出来的向量。而Google直接给出了一个构造Position Embedding的公式:</p>
+<script type="math/tex; mode=display">\left\{\begin{aligned}&PE_{2i}(p)=\sin\Big(p/10000^{2i/{d_{pos}}}\Big)\\ 
+&PE_{2i+1}(p)=\cos\Big(p/10000^{2i/{d_{pos}}}\Big) 
+\end{aligned}\right.</script><p>将id为$p$的位置映射为一个$d_{pos}$维的位置向量，这个向量的第$i$个元素的数值就是$PE_i(p)$。</p>
+<p>结合位置向量和词向量有几个可选方案，可以把它们拼接起来作为一个新向量，也可以把位置向量定义为跟词向量一样大小，然后两者加起来。FaceBook的论文和Google论文中用的都是后者。</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="attention-2"><a href="#attention-2" class="headerlink" title="attention:"></a>attention:</h2><h3 id="Keras"><a href="#Keras" class="headerlink" title="Keras:"></a>Keras:</h3><p><a href="https://github.com/fuliucansheng/360/blob/master/models/deepzoo.py" target="_blank" rel="noopener">https://github.com/fuliucansheng/360/blob/master/models/deepzoo.py</a></p>
+<h2 id="self-attention-1"><a href="#self-attention-1" class="headerlink" title="self-attention:"></a>self-attention:</h2><h3 id="tf的实现："><a href="#tf的实现：" class="headerlink" title="tf的实现："></a>tf的实现：</h3><p><a href="https://github.com/bojone/attention/blob/master/attention_tf.py" target="_blank" rel="noopener">https://github.com/bojone/attention/blob/master/attention_tf.py</a></p>
+<h3 id="Keras版"><a href="#Keras版" class="headerlink" title="Keras版:"></a>Keras版:</h3><p><a href="https://github.com/bojone/attention/blob/master/attention_keras.py" target="_blank" rel="noopener">https://github.com/bojone/attention/blob/master/attention_keras.py</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/attention/" rel="tag"># attention</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/10/创建第一个Fabric应用中各文件作用/" rel="next" title="创建第一个Fabric应用中各文件作用">
+                <i class="fa fa-chevron-left"></i> 创建第一个Fabric应用中各文件作用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KaiQiang Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#attention-的发展趋势"><span class="nav-number">1.</span> <span class="nav-text">attention 的发展趋势</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NLP-中的序列编码"><span class="nav-number">2.</span> <span class="nav-text">NLP 中的序列编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN"><span class="nav-number">2.1.</span> <span class="nav-text">RNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN"><span class="nav-number">2.2.</span> <span class="nav-text">CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#attention"><span class="nav-number">2.3.</span> <span class="nav-text">attention</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#attention-1"><span class="nav-number">3.</span> <span class="nav-text">attention</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#attention计算过程"><span class="nav-number">3.1.</span> <span class="nav-text">attention计算过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#self-attention"><span class="nav-number">4.</span> <span class="nav-text">self-attention</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#scaled-dot-Product-attention"><span class="nav-number">4.1.</span> <span class="nav-text">scaled dot-Product attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-Head-Attention"><span class="nav-number">4.2.</span> <span class="nav-text">Multi-Head Attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Self-Attention"><span class="nav-number">4.3.</span> <span class="nav-text">Self Attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Position-Embedding"><span class="nav-number">4.4.</span> <span class="nav-text">Position Embedding</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">5.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#attention-2"><span class="nav-number">5.1.</span> <span class="nav-text">attention:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Keras"><span class="nav-number">5.1.1.</span> <span class="nav-text">Keras:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#self-attention-1"><span class="nav-number">5.2.</span> <span class="nav-text">self-attention:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tf的实现："><span class="nav-number">5.2.1.</span> <span class="nav-text">tf的实现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Keras版"><span class="nav-number">5.2.2.</span> <span class="nav-text">Keras版:</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KaiQiang Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
