@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-15T04:37:13.085Z</updated>
+  <updated>2018-11-29T12:11:02.443Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,16 +21,13 @@
     <link href="http://yoursite.com/2018/10/15/2017-360-%E4%BA%BA%E6%9C%BA%E5%A4%A7%E6%88%98%E6%AF%94%E8%B5%9B%E8%AE%B0%E5%BD%95/"/>
     <id>http://yoursite.com/2018/10/15/2017-360-人机大战比赛记录/</id>
     <published>2018-10-15T01:50:06.000Z</published>
-    <updated>2018-10-15T04:37:13.085Z</updated>
+    <updated>2018-11-29T12:11:02.443Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="比赛简介"><a href="#比赛简介" class="headerlink" title="比赛简介"></a>比赛简介</h1><p>CCF 大数据与计算智能大赛（BDCI）<br>【赛题四】360搜索-AlphaGo之后“人机大战”Round 2 ——机器写作与人类写作的巅峰对决<br>比赛时间2017.10-2017.12</p><h1 id="赛事背景"><a href="#赛事背景" class="headerlink" title="赛事背景"></a>赛事背景</h1><p>如果说AlphaGo和人类棋手的对决拉响了“人机大战”的序曲，在人类更为通识的写作领域，即将上演更为精彩的机器写作和人类写作的对决。人类拥有数万年的书写历史，人类写作蕴藏无穷的信息、情感和思想。但随着深度学习、自然语言处理等人工智能技术发展，机器写作在语言组织、语法和逻辑处理方面几乎可以接近人类水平。360搜索智能写作助手也在此背景下应运而生。<br>本次CCF大数据和人工智能大赛上，360搜索智能写作助手（机器写作）和人类写作将狭路相逢，如何辨别出一篇文章是通过庞大数据算法训练出来的机器写作的，还是浸染漫长书写历史的人类创作的？我们拭目以待！<br>本次赛题任务：挑战者能够设计出优良的算法模型从海量的文章中区分出文章是机器写作还是人类写作。</p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><h2 id="传统文本分类"><a href="#传统文本分类" class="headerlink" title="传统文本分类"></a>传统文本分类</h2><p>文本分类问题算是自然语言处理领域中一个非常经典的问题，目前形成了一套经典算法，这个阶段的主要是人工特征工程+浅层分类模型。训练文本分类器过程见下图：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/人机大战1.png" alt="人机大战1"></p><h2 id="深度学习方法"><a href="#深度学习方法" class="headerlink" title="深度学习方法"></a>深度学习方法</h2><h3 id="CNN-方法"><a href="#CNN-方法" class="headerlink" title="CNN 方法"></a>CNN 方法</h3><p>我们首先设计了基于词项和字符的卷积神经网络模型 (Char-CNN、Word-CNN、WordChar-CNN) 来提取局部感受野的特征。根据观察，词序级别的错误或颠倒是负样本中出现次数最多的问题，而卷积神经网络中的卷积+池化操作能够很好的捕获这种 N-Gram 的错误。Char-CNN 首先对单个字进行向量表示，随后输入 三通道的卷积神经网络通过池化层提取特征，最后进行二分类的 softmax 得到每一类的概率。Word-CNN 和 WordChar-CNN 的模型与 Char-CNN 类似，只是在输入数据上，Word-CNN 读取的是分词后的词向量表示而 WordChar-CNN 综合考虑了词项和字符的特征，相当于前两个模型的集成。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/人机大战3.png" alt="人机大战3"></p><h3 id="RNN-Attention方法"><a href="#RNN-Attention方法" class="headerlink" title="RNN + Attention方法"></a>RNN + Attention方法</h3><p>除了上述词序问题，负样本还有很多语句重复或语句不连贯的问题。而带有 Attention 机制的循环神经网络模型十分适合提取这样的特征，因此我们针对此类样本设计了加入注意力机 制的循环神经网络模型 (Word-HAN) 模型，首先对分词后的词项进行向量表示，随后通过双向 GRU 来提取句子每个时序的特征，使用 Attention 机制来提取更大视野窗又的不连贯特征以及缓解长距离依赖问题，这样就可以得到句子的向量表示，最后再使用相同的方法获得文章的向量表示并进行二分类操作。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/人机大战4.png" alt="人机大战4"></p><h3 id="CNN-RNN-Attention-方法"><a href="#CNN-RNN-Attention-方法" class="headerlink" title="CNN + RNN + Attention 方法"></a>CNN + RNN + Attention 方法</h3><p>我们还思考了如何在不过分牺牲训练时间的同时尽可能地提高循环神经网络的表现性能。我们认为，传统的 LSTM、GRU 模型对句子语义较为敏感，能够很好的保留句子的语义。但是对感知相邻句子之间的错误并不敏感，如果能让它结合卷积神经网络的优点，就可以增强模型的特征提取能力。基于这种想法，我们设计了 Word-HCNN 模型，结构如图所示。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/人机大战5.png" alt="人机大战5"></p><p>Word-HCNN 综合了 Word-HANN 的和 Word-CNN 的网络结构。首先通过双向 GRU+Attention 的方法将每个句子表示成为向量，再通过多通道卷积提取相邻句子之间特征，这是句子级别的”N-Gram”，模型的输出层依旧是一个 2 分类的 softmax。</p><h1 id="样本数据分析"><a href="#样本数据分析" class="headerlink" title="样本数据分析"></a>样本数据分析</h1><p>因为分类问题中类别平衡与否对最终的分类结果会产生很大的影响，所以我们首先统计了类别分布情况。两类样本大致平衡。<br>与此同时，我们还对文章长度分布进行了统计，总体来看，几乎所有文章的长度都在 1500 个词以内，这符合我们的正常认知。</p><p><img src="http://p5vuwy2ht.bkt.clouddn.com/人机大战2.png" alt="人机大战2"></p><h1 id="数据预处理与模型初始参数"><a href="#数据预处理与模型初始参数" class="headerlink" title="数据预处理与模型初始参数"></a>数据预处理与模型初始参数</h1><p>考虑到卷积神经网络只能处理固定维度的输入数据，所以我们对于长度为 $n$ 的文章，首先对文章进行截断或者补齐到固定长度 $T$，如果 $n &gt; T$，则只保留前 $T$ 个 单词，如果 $n &lt; T$，则在文章末尾添加 padding 来补齐长度。预处理之后，每篇文章都包含 T 个词。</p><p>尽管 RNN 能够处理变长的时序数据，但是考虑到矩阵操作的便利，我们依然需要固定输入的维度对数据进行预处理，与卷积神经网络不同的是，循环神经网络是以句子作为处理单元，而不是把文章中的所有词都拼在一起。对于包含 $s$ 个句子的文章，首先进行句子级别的截断或者补齐到固定数目 $S$ ，如果 $s &gt; S$ ，则只保留前 $S$ 个句子，如果 s &lt; S，则添加 padding 补齐句子数目。同样的操作也作用于每个句子，对于长度为 $n$ 的句子，首先对句子进行截断或者补齐到固定长度 $T$ ， 如果$n&gt;T$，则只保留前 $T$ 个单词，如果$n&lt;T$，则在句子末尾添加 padding 补齐长度。预处理之后，每篇文章都被包含 $S$ 个句子，每个句子都包含 $T$ 个词。</p><p>将数据集按照 6:2:2 的比例拆分成训练集，验证集和测试集三部分。文章截断 补齐句子数为 45，句子截断补齐词个数为 48，分词工具使用 jieba，输入层使用 wiki 语料通过 word2vec 预训练得到的 100 维向量，只保留频率最高的前 10000 个单词，其他单词均映射为 <unk>，Batch size 为 64。三通道卷积层使用 1 维卷积，卷积核尺寸分别为 3、4、5，每种卷积核的滤波器数目均为 256，在最大池化层之后加入 0.2 的 Dropout，GRU 的隐藏层维数为 128，Attention 的权重矩阵 $W$ 的维度是 128 × 128。输出层使用了包含 256 个神经元的单隐层全连接神经网络，并且进行了 Batch Normalization，模型所有参数的初始化都从 $[−0.1, 0.1]$ 中均匀采样，使用 adam 优化模型，损失函数为多类交叉熵损失，迭代 15 轮。</unk></p>]]></content>
+    <content type="html"><![CDATA[<p>CCF 大数据与计算智能大赛（BDCI）<br>【赛题四】360搜索-AlphaGo之后“人机大战”Round 2 ——机器写作与人类写作的巅峰对决<br>比赛时间2017.10-2017.12<br><a id="more"></a></p><h1 id="赛事背景"><a href="#赛事背景" class="headerlink" title="赛事背景"></a>赛事背景</h1><p>如果说AlphaGo和人类棋手的对决拉响了“人机大战”的序曲，在人类更为通识的写作领域，即将上演更为精彩的机器写作和人类写作的对决。人类拥有数万年的书写历史，人类写作蕴藏无穷的信息、情感和思想。但随着深度学习、自然语言处理等人工智能技术发展，机器写作在语言组织、语法和逻辑处理方面几乎可以接近人类水平。360搜索智能写作助手也在此背景下应运而生。<br>本次CCF大数据和人工智能大赛上，360搜索智能写作助手（机器写作）和人类写作将狭路相逢，如何辨别出一篇文章是通过庞大数据算法训练出来的机器写作的，还是浸染漫长书写历史的人类创作的？我们拭目以待！<br>本次赛题任务：挑战者能够设计出优良的算法模型从海量的文章中区分出文章是机器写作还是人类写作。</p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><h2 id="传统文本分类"><a href="#传统文本分类" class="headerlink" title="传统文本分类"></a>传统文本分类</h2><p>文本分类问题算是自然语言处理领域中一个非常经典的问题，目前形成了一套经典算法，这个阶段的主要是人工特征工程+浅层分类模型。训练文本分类器过程见下图：<br><img src="/2018/10/15/2017-360-人机大战比赛记录/人机大战1.png" alt="人机大战1"></p><h2 id="深度学习方法"><a href="#深度学习方法" class="headerlink" title="深度学习方法"></a>深度学习方法</h2><h3 id="CNN-方法"><a href="#CNN-方法" class="headerlink" title="CNN 方法"></a>CNN 方法</h3><p>我们首先设计了基于词项和字符的卷积神经网络模型 (Char-CNN、Word-CNN、WordChar-CNN) 来提取局部感受野的特征。根据观察，词序级别的错误或颠倒是负样本中出现次数最多的问题，而卷积神经网络中的卷积+池化操作能够很好的捕获这种 N-Gram 的错误。Char-CNN 首先对单个字进行向量表示，随后输入 三通道的卷积神经网络通过池化层提取特征，最后进行二分类的 softmax 得到每一类的概率。Word-CNN 和 WordChar-CNN 的模型与 Char-CNN 类似，只是在输入数据上，Word-CNN 读取的是分词后的词向量表示而 WordChar-CNN 综合考虑了词项和字符的特征，相当于前两个模型的集成。<br><img src="/2018/10/15/2017-360-人机大战比赛记录/人机大战3.png" alt="人机大战3"></p><h3 id="RNN-Attention方法"><a href="#RNN-Attention方法" class="headerlink" title="RNN + Attention方法"></a>RNN + Attention方法</h3><p>除了上述词序问题，负样本还有很多语句重复或语句不连贯的问题。而带有 Attention 机制的循环神经网络模型十分适合提取这样的特征，因此我们针对此类样本设计了加入注意力机 制的循环神经网络模型 (Word-HAN) 模型，首先对分词后的词项进行向量表示，随后通过双向 GRU 来提取句子每个时序的特征，使用 Attention 机制来提取更大视野窗又的不连贯特征以及缓解长距离依赖问题，这样就可以得到句子的向量表示，最后再使用相同的方法获得文章的向量表示并进行二分类操作。<br><img src="/2018/10/15/2017-360-人机大战比赛记录/人机大战4.png" alt="人机大战4"></p><h3 id="CNN-RNN-Attention-方法"><a href="#CNN-RNN-Attention-方法" class="headerlink" title="CNN + RNN + Attention 方法"></a>CNN + RNN + Attention 方法</h3><p>我们还思考了如何在不过分牺牲训练时间的同时尽可能地提高循环神经网络的表现性能。我们认为，传统的 LSTM、GRU 模型对句子语义较为敏感，能够很好的保留句子的语义。但是对感知相邻句子之间的错误并不敏感，如果能让它结合卷积神经网络的优点，就可以增强模型的特征提取能力。基于这种想法，我们设计了 Word-HCNN 模型，结构如图所示。<br><img src="/2018/10/15/2017-360-人机大战比赛记录/人机大战5.png" alt="人机大战5"></p><p>Word-HCNN 综合了 Word-HANN 的和 Word-CNN 的网络结构。首先通过双向 GRU+Attention 的方法将每个句子表示成为向量，再通过多通道卷积提取相邻句子之间特征，这是句子级别的”N-Gram”，模型的输出层依旧是一个 2 分类的 softmax。</p><h1 id="样本数据分析"><a href="#样本数据分析" class="headerlink" title="样本数据分析"></a>样本数据分析</h1><p>因为分类问题中类别平衡与否对最终的分类结果会产生很大的影响，所以我们首先统计了类别分布情况。两类样本大致平衡。<br>与此同时，我们还对文章长度分布进行了统计，总体来看，几乎所有文章的长度都在 1500 个词以内，这符合我们的正常认知。<br><img src="/2018/10/15/2017-360-人机大战比赛记录/人机大战2.png" alt="人机大战2"></p><h1 id="数据预处理与模型初始参数"><a href="#数据预处理与模型初始参数" class="headerlink" title="数据预处理与模型初始参数"></a>数据预处理与模型初始参数</h1><p>考虑到卷积神经网络只能处理固定维度的输入数据，所以我们对于长度为 $n$ 的文章，首先对文章进行截断或者补齐到固定长度 $T$，如果 $n &gt; T$，则只保留前 $T$ 个 单词，如果 $n &lt; T$，则在文章末尾添加 padding 来补齐长度。预处理之后，每篇文章都包含 T 个词。</p><p>尽管 RNN 能够处理变长的时序数据，但是考虑到矩阵操作的便利，我们依然需要固定输入的维度对数据进行预处理，与卷积神经网络不同的是，循环神经网络是以句子作为处理单元，而不是把文章中的所有词都拼在一起。对于包含 $s$ 个句子的文章，首先进行句子级别的截断或者补齐到固定数目 $S$ ，如果 $s &gt; S$ ，则只保留前 $S$ 个句子，如果 s &lt; S，则添加 padding 补齐句子数目。同样的操作也作用于每个句子，对于长度为 $n$ 的句子，首先对句子进行截断或者补齐到固定长度 $T$ ， 如果$n&gt;T$，则只保留前 $T$ 个单词，如果$n&lt;T$，则在句子末尾添加 padding 补齐长度。预处理之后，每篇文章都被包含 $S$ 个句子，每个句子都包含 $T$ 个词。</p><p>将数据集按照 6:2:2 的比例拆分成训练集，验证集和测试集三部分。文章截断 补齐句子数为 45，句子截断补齐词个数为 48，分词工具使用 jieba，输入层使用 wiki 语料通过 word2vec 预训练得到的 100 维向量，只保留频率最高的前 10000 个单词，其他单词均映射为 <unk>，Batch size 为 64。三通道卷积层使用 1 维卷积，卷积核尺寸分别为 3、4、5，每种卷积核的滤波器数目均为 256，在最大池化层之后加入 0.2 的 Dropout，GRU 的隐藏层维数为 128，Attention 的权重矩阵 $W$ 的维度是 128 × 128。输出层使用了包含 256 个神经元的单隐层全连接神经网络，并且进行了 Batch Normalization，模型所有参数的初始化都从 $[−0.1, 0.1]$ 中均匀采样，使用 adam 优化模型，损失函数为多类交叉熵损失，迭代 15 轮。</unk></p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;比赛简介&quot;&gt;&lt;a href=&quot;#比赛简介&quot; class=&quot;headerlink&quot; title=&quot;比赛简介&quot;&gt;&lt;/a&gt;比赛简介&lt;/h1&gt;&lt;p&gt;CCF 大数据与计算智能大赛（BDCI）&lt;br&gt;【赛题四】360搜索-AlphaGo之后“人机大战”Round 2 ——机器
-      
+      &lt;p&gt;CCF 大数据与计算智能大赛（BDCI）&lt;br&gt;【赛题四】360搜索-AlphaGo之后“人机大战”Round 2 ——机器写作与人类写作的巅峰对决&lt;br&gt;比赛时间2017.10-2017.12&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -460,6 +457,27 @@
   </entry>
   
   <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/07/04/MWeb%20init%20Library/docs/15294769775635/"/>
+    <id>http://yoursite.com/2018/07/04/MWeb init Library/docs/15294769775635/</id>
+    <published>2018-07-04T04:13:24.000Z</published>
+    <updated>2018-07-04T04:13:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="欢迎使用-MWeb"><a href="#欢迎使用-MWeb" class="headerlink" title="欢迎使用 MWeb"></a>欢迎使用 MWeb</h1><p>MWeb 是专业的 Markdown 写作、记笔记、静态博客生成软件，目前已支持 Mac，iPad 和 iPhone。MWeb 有以下特色：</p><h2 id="软件本身："><a href="#软件本身：" class="headerlink" title="软件本身："></a>软件本身：</h2><ul><li>使用原生的 macOS 技术打造，追求与系统的完美结合。</li><li>原则上，首先是追求界面简洁和高性能，然后才是强大易用，功能全面。</li></ul><h2 id="Markdown-语法："><a href="#Markdown-语法：" class="headerlink" title="Markdown 语法："></a>Markdown 语法：</h2><ul><li>使用 Github Flavored Markdown 语法，简称 GFM 语法。</li><li>支持表格、TOC、LaTeX、代码块、任务列表、脚注等。</li><li>画图库支持 mermaid, viz, echarts, plantuml, sequence, flow。</li></ul><h2 id="Markdown-辅助："><a href="#Markdown-辅助：" class="headerlink" title="Markdown 辅助："></a>Markdown 辅助：</h2><ul><li>支持截图并粘贴、复制并粘贴、拖拽等方式插入图片并直接显示在编辑器内。</li><li>在兼容 Markdown 语法的情况下支持设置图片宽度。</li><li>好用的表格插入和 LaTeX 书写辅助。</li></ul><h2 id="Markdown-输出："><a href="#Markdown-输出：" class="headerlink" title="Markdown 输出："></a>Markdown 输出：</h2><ul><li>支持导出为图片、HTML、Epub、PDF、RTF、Docx。</li><li>支持发布到 Wordrpess、支持 Metaweblog API 协议的服务、Wordpress.com、印象笔记（Evernote）、Blogger、Medium、Tumblr。</li><li>图片上传服务（图床）支持 Google Photos、Imgur、七牛云、又拍云和自定义的图床服务。</li></ul><h2 id="Markdown-笔记："><a href="#Markdown-笔记：" class="headerlink" title="Markdown 笔记："></a>Markdown 笔记：</h2><ul><li>强大的文档库支持分类树和标签管理文档，文档可归类于多个分类，可以把分类整个导出为 Epub、PDF 和生成静态网站。非常合适用于笔记、个人知识收集、管理和输出。</li><li>快速笔记：随意增加笔记及图片等素材，支持以天为单位把增加的素材组合在一个文档内，方便整理及记录历史收集情况。</li><li>快速搜索：目前已支持全局快捷键调出搜索。</li></ul><h2 id="外部-Markdown-文档："><a href="#外部-Markdown-文档：" class="headerlink" title="外部 Markdown 文档："></a>外部 Markdown 文档：</h2><ul><li>外部 Markdown 文档使用外部模式管理。外部模式使用目录树的方式编辑和管理你的 markdown 文档，还能很好的支持 gitbook、JekyII、hexo 等等编辑和图片插入。</li></ul><h2 id="MWeb-官网："><a href="#MWeb-官网：" class="headerlink" title="MWeb 官网："></a>MWeb 官网：</h2><p>如果要更详细了解 MWeb，建议你一定要去 <a href="https://zh.mweb.im/" target="_blank" rel="noopener">MWeb 官网首页</a> 看一下介绍视频，MWeb 官网也做了比较详细的帮助，建议你也看一下大概内容，帮助的网址为：<a href="https://zh.mweb.im/help.html" target="_blank" rel="noopener">https://zh.mweb.im/help.html</a>。</p><h2 id="帮助我们改进-MWeb"><a href="#帮助我们改进-MWeb" class="headerlink" title="帮助我们改进 MWeb"></a>帮助我们改进 MWeb</h2><p>如果你喜欢 MWeb，想让它变得更好，你可以：</p><ol><li>推荐 MWeb，让更多的人知道。</li><li>给我们发反馈和建议：<a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x63;&#x6f;&#x64;&#x65;&#x72;&#x66;&#x6f;&#x72;&#x61;&#114;&#116;&#43;&#50;&#51;&#x33;&#x33;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;">&#x63;&#x6f;&#x64;&#x65;&#x72;&#x66;&#x6f;&#x72;&#x61;&#114;&#116;&#43;&#50;&#51;&#x33;&#x33;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;</a></li><li>在 Mac App Store 上评价 （如果是在 MAS 上购买的话）。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;欢迎使用-MWeb&quot;&gt;&lt;a href=&quot;#欢迎使用-MWeb&quot; class=&quot;headerlink&quot; title=&quot;欢迎使用 MWeb&quot;&gt;&lt;/a&gt;欢迎使用 MWeb&lt;/h1&gt;&lt;p&gt;MWeb 是专业的 Markdown 写作、记笔记、静态博客生成软件，目前已支持 M
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>BP推导</title>
     <link href="http://yoursite.com/2018/06/07/BP%E6%8E%A8%E5%AF%BC/"/>
     <id>http://yoursite.com/2018/06/07/BP推导/</id>
@@ -480,36 +498,6 @@
       <category term="BP" scheme="http://yoursite.com/tags/BP/"/>
     
       <category term="深度学习" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer面试题4find</title>
-    <link href="http://yoursite.com/2018/05/14/%E5%89%91%E6%8C%87offer%E9%9D%A2%E8%AF%95%E9%A2%984find/"/>
-    <id>http://yoursite.com/2018/05/14/剑指offer面试题4find/</id>
-    <published>2018-05-14T13:29:36.000Z</published>
-    <updated>2018-05-14T13:35:03.084Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h2><p>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p><ul><li>1 2 8  9</li><li>2 4 9  12</li><li>4 7 10 13</li><li>6 8 11 15</li></ul><a id="more"></a><h3 id="解法："><a href="#解法：" class="headerlink" title="解法："></a>解法：</h3><p>可以发现右上角的数字是一行中最大的，又是这一列中最小的，那么我们可以从右上角开始查找。如果当前查找的数字小于目标整数，删除当前行；如果当前查找数字大于目标整数，则删除当前列。直到查找完整个矩阵。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">interview4</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[][] matrix,<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line"><span class="keyword">boolean</span> found=<span class="keyword">false</span>;</span><br><span class="line"><span class="keyword">int</span> rows=matrix.length;</span><br><span class="line"><span class="keyword">int</span> columns=matrix[<span class="number">0</span>].length;</span><br><span class="line"><span class="keyword">if</span> (matrix!=<span class="keyword">null</span> &amp;&amp; rows&gt;<span class="number">0</span> &amp;&amp; columns&gt;<span class="number">0</span>) &#123;</span><br><span class="line"><span class="keyword">int</span> row=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> column=columns-<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(row&lt;rows &amp;&amp; column&gt;<span class="number">1</span>) &#123;</span><br><span class="line"><span class="keyword">if</span>(matrix[row][column]==number) &#123;</span><br><span class="line">found=<span class="keyword">true</span>;</span><br><span class="line">System.out.println(<span class="string">"row:"</span>+row+<span class="string">" column:"</span>+column);</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(matrix[row][column]&gt;number)</span><br><span class="line">column--;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(matrix[row][column]&lt;number)</span><br><span class="line">row++;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> found;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"><span class="keyword">int</span>[][] matrix= &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">9</span>&#125;,&#123;<span class="number">2</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">12</span>&#125;,&#123;<span class="number">4</span>,<span class="number">7</span>,<span class="number">10</span>,<span class="number">13</span>&#125;,&#123;<span class="number">6</span>,<span class="number">8</span>,<span class="number">11</span>,<span class="number">15</span>&#125;&#125;;</span><br><span class="line">System.out.println(find(matrix,<span class="number">10</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;题目：&quot;&gt;&lt;a href=&quot;#题目：&quot; class=&quot;headerlink&quot; title=&quot;题目：&quot;&gt;&lt;/a&gt;题目：&lt;/h2&gt;&lt;p&gt;在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;1 2 8  9&lt;/li&gt;
-&lt;li&gt;2 4 9  12&lt;/li&gt;
-&lt;li&gt;4 7 10 13&lt;/li&gt;
-&lt;li&gt;6 8 11 15&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="剑指offer" scheme="http://yoursite.com/categories/%E5%89%91%E6%8C%87offer/"/>
-    
-    
-      <category term="剑指offer" scheme="http://yoursite.com/tags/%E5%89%91%E6%8C%87offer/"/>
-    
-      <category term="java" scheme="http://yoursite.com/tags/java/"/>
     
   </entry>
   
