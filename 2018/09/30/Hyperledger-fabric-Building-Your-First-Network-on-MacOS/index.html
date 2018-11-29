@@ -89,13 +89,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="本文主要基于 Hyperledger fabric 的官方文档和网上较新的博客，在一台MacOS上实现了Building Your First Network。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/byfn1.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/byfn2.png">
-<meta property="og:updated_time" content="2018-11-12T09:27:56.994Z">
+<meta property="og:image" content="http://yoursite.com/2018/09/30/Hyperledger-fabric-Building-Your-First-Network-on-MacOS/byfn1.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/30/Hyperledger-fabric-Building-Your-First-Network-on-MacOS/byfn2.png">
+<meta property="og:updated_time" content="2018-11-29T12:37:54.095Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hyperledger fabric Building Your First Network on MacOS">
 <meta name="twitter:description" content="本文主要基于 Hyperledger fabric 的官方文档和网上较新的博客，在一台MacOS上实现了Building Your First Network。">
-<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/byfn1.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/09/30/Hyperledger-fabric-Building-Your-First-Network-on-MacOS/byfn1.png">
 
 
 
@@ -367,10 +367,9 @@
 <p>然后执行，下载镜像（用华严的网一直无法下载，vpn也开了，晚上回到学校用的教育网下载没问题）：</p>
 <p><code>sh images.sh</code></p>
 <p>下载好之后，用以下命令来查看镜像是否都下载成功：</p>
-<p><code>docker images</code></p>
-<p><img src="http://p5vuwy2ht.bkt.clouddn.com/byfn1.png" alt="byfn1"></p>
+<p><code>docker images</code><br><img src="/2018/09/30/Hyperledger-fabric-Building-Your-First-Network-on-MacOS/byfn1.png" alt="byfn1"></p>
 <h2 id="下载Fabric-Samples源码"><a href="#下载Fabric-Samples源码" class="headerlink" title="下载Fabric-Samples源码"></a>下载Fabric-Samples源码</h2><p>从<a href="https://github.com/hyperledger/fabric-samples" target="_blank" rel="noopener">此处</a>下载。</p>
-<h2 id="示例运行"><a href="#示例运行" class="headerlink" title="示例运行"></a>示例运行</h2><p><code>cd first-network</code><br><code>./byfn.sh generate</code><br><code>./byfn.sh up</code><br><img src="http://p5vuwy2ht.bkt.clouddn.com/byfn2.png" alt="byfn2"><br>出现以下画面说明示例运行成功。<br><code>./byfn.sh down</code></p>
+<h2 id="示例运行"><a href="#示例运行" class="headerlink" title="示例运行"></a>示例运行</h2><p><code>cd first-network</code><br><code>./byfn.sh generate</code><br><code>./byfn.sh up</code><br><img src="/2018/09/30/Hyperledger-fabric-Building-Your-First-Network-on-MacOS/byfn2.png" alt="byfn2"><br>出现以下画面说明示例运行成功。<br><code>./byfn.sh down</code></p>
 <h2 id="examples-e2e-cli"><a href="#examples-e2e-cli" class="headerlink" title="examples/e2e_cli"></a>examples/e2e_cli</h2><p>参考 <a href="https://www.jianshu.com/p/e108cf655c0f" target="_blank" rel="noopener">https://www.jianshu.com/p/e108cf655c0f</a><br>从git上拉取Hyperledger Fabric:<br><code>git clone git@github.com:hyperledger/fabric.git</code><br>进入项目文件夹，查看 tag：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br><span class="line">baseimage-v0.0.11</span><br><span class="line">v0.6.0-preview</span><br><span class="line">v0.6.1-preview</span><br><span class="line">v1.0.0</span><br><span class="line">v1.0.0-alpha</span><br><span class="line">v1.0.0-alpha2</span><br><span class="line">v1.0.0-beta</span><br><span class="line">v1.0.0-rc1</span><br><span class="line">v1.0.1</span><br><span class="line">v1.0.2</span><br><span class="line">v1.0.3</span><br><span class="line">v1.0.4</span><br><span class="line">v1.0.5</span><br><span class="line">v1.0.6</span><br><span class="line">v1.1.0</span><br><span class="line">v1.1.0-alpha</span><br><span class="line">v1.1.0-preview</span><br><span class="line">v1.1.0-rc1</span><br></pre></td></tr></table></figure>
 <p>上面的tag表示相应的fabric项目的版本， fabric项目现在还处于早期发展阶段， 修改频繁且不一定能向下兼容， 所以在继续之前请先确定一个版本，避免后面踩坑。 笔者在这里使用v1.0.0。</p>
@@ -500,7 +499,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

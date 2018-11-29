@@ -89,15 +89,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="本文接着word2vec的那篇概述再推导一下word2vec中的公式，也是《word2vec Parameter Learning Explained》论文学习笔记，有一些细节的推导我写在了论文处。这篇论文详细地推导和解释了word2vec模型的参数更新公式，包括：CBOW（continuous bag-of-word）模型和SG（skip-gram）模型，以及两种参数优化技术：hierarchi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC1.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC2.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC3.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC4.png">
-<meta property="og:updated_time" content="2018-07-15T06:29:54.606Z">
+<meta property="og:image" content="http://yoursite.com/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC1.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC2.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC3.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC4.png">
+<meta property="og:updated_time" content="2018-11-29T15:14:25.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="word2vec公式推导">
 <meta name="twitter:description" content="本文接着word2vec的那篇概述再推导一下word2vec中的公式，也是《word2vec Parameter Learning Explained》论文学习笔记，有一些细节的推导我写在了论文处。这篇论文详细地推导和解释了word2vec模型的参数更新公式，包括：CBOW（continuous bag-of-word）模型和SG（skip-gram）模型，以及两种参数优化技术：hierarchi">
-<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC1.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC1.png">
 
 
 
@@ -350,7 +350,7 @@
 
       
         <p>本文接着word2vec的那篇概述再推导一下word2vec中的公式，也是《word2vec Parameter Learning Explained》论文学习笔记，有一些细节的推导我写在了论文处。<br>这篇论文详细地推导和解释了word2vec模型的参数更新公式，包括：<strong>CBOW</strong>（continuous bag-of-word）模型和<strong>SG</strong>（skip-gram）模型，以及两种参数优化技术：<strong>hierarchical softmax</strong> 和 <strong>negative sampling</strong>.<br><a id="more"></a></p>
-<h2 id="Continuous-Bag-of-Word-Model"><a href="#Continuous-Bag-of-Word-Model" class="headerlink" title="Continuous Bag-of-Word Model"></a>Continuous Bag-of-Word Model</h2><h3 id="One-word-context"><a href="#One-word-context" class="headerlink" title="One-word context"></a>One-word context</h3><p>我们从CBOW模型的最简单版本开始介绍——One-word context。即我们假定context（预测目标单词的上下文信息）只有一个单词，也就是说One-word context 模型是在只要一个上下文单词（one context word）的情况下来预测一个目标单词（one target word）的。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC1.png" alt="此处输入图片的描述"><br>如图1描述的就是One-word context定义之下的神经网络模型。这里我们假设文本词汇量的大小为V,隐藏层的大小为N，相邻层的神经元是全连接的。输入层是一个用one-hot方式编码的单词向量$x=(x_1,…,x_V)$，其中只有一个$x_i$为1，其余均为0。<br>从输入层到隐藏层的权重值可以用一个$V×N$维的矩阵$W$来表示，即 </p>
+<h2 id="Continuous-Bag-of-Word-Model"><a href="#Continuous-Bag-of-Word-Model" class="headerlink" title="Continuous Bag-of-Word Model"></a>Continuous Bag-of-Word Model</h2><h3 id="One-word-context"><a href="#One-word-context" class="headerlink" title="One-word context"></a>One-word context</h3><p>我们从CBOW模型的最简单版本开始介绍——One-word context。即我们假定context（预测目标单词的上下文信息）只有一个单词，也就是说One-word context 模型是在只要一个上下文单词（one context word）的情况下来预测一个目标单词（one target word）的。<br><img src="/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC1.png" alt="此处输入图片的描述"><br>如图1描述的就是One-word context定义之下的神经网络模型。这里我们假设文本词汇量的大小为V,隐藏层的大小为N，相邻层的神经元是全连接的。输入层是一个用one-hot方式编码的单词向量$x=(x_1,…,x_V)$，其中只有一个$x_i$为1，其余均为0。<br>从输入层到隐藏层的权重值可以用一个$V×N$维的矩阵$W$来表示，即 </p>
 <script type="math/tex; mode=display">W=
  \begin{pmatrix}
  \omega_{11}&\omega_{12}&...&\omega_{1N}\\
@@ -395,7 +395,7 @@
 </ul>
 <p>因此，上下文单词$ω_I$（context word ）的输入向量的更新取决于词汇表中所有单词的预测误差。预测误差越大，则该单词对于上下文单词的输入向量的更新过程影响越大。</p>
 <p>在介绍完One-word context的CBOW模型之后，我们接着介绍multi-word context下的CBOW模型。</p>
-<h3 id="Multi-word-context"><a href="#Multi-word-context" class="headerlink" title="Multi-word context"></a>Multi-word context</h3><p>根据字面意思我们就可以看出，基于multi-word context的CBOW模型就是利用多个上下文单词来推测中心单词target word的一种模型。其结构如图2所示：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC2.png" alt="此处输入图片的描述"></p>
+<h3 id="Multi-word-context"><a href="#Multi-word-context" class="headerlink" title="Multi-word context"></a>Multi-word context</h3><p>根据字面意思我们就可以看出，基于multi-word context的CBOW模型就是利用多个上下文单词来推测中心单词target word的一种模型。其结构如图2所示：<br><img src="/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC2.png" alt="此处输入图片的描述"></p>
 <p>其隐藏层的输出值的计算过程为：首先将输入的上下文单词（context words）的向量叠加起来并取其平均值，接着与input→hidden的权重矩阵相乘，作为最终的结果，公式如下：</p>
 <script type="math/tex; mode=display">\begin{align}
 & \mathbf h = \frac{1}{C} \mathbf W^T(\mathbf x_1 + \mathbf x_2 + \cdots +\mathbf x_C)\tag{17}\\
@@ -407,7 +407,7 @@
 & = - {\mathbf v_{\omega_O}'}^T \cdot \mathbf h + \log \sum_{j'=1}^{V} \exp({\mathbf v_{\omega_j}'}^T \cdot \mathbf h)\tag{21}
 \end{align}</script><p>同样，由hidden→output的权重更新公式与one-word-context模型下的一模一样，即类似于公式（11），我们直接写在下面：</p>
 <script type="math/tex; mode=display">{\mathbf v_{\omega_j}'}^{(new)}={\mathbf v_{\omega_j}'}^{(old)}-\eta \cdot e_j \cdot \mathbf h \space  \space  \space for \space \space  j=1,2,...,V\tag{22}</script><p> 由input→hidden 的权重矩阵更新公式与公式（16）类似，只不过现在我们需要对每一个上下文单词$ω_{I,c}$都执行如下更新公式：<br> $${\mathbf v_{\omega_{I,c}}}^{(new)}={\mathbf v_{\omega_{I,c}}}^{(old)} - \frac{1}{C}\cdot \eta \cdot EH^T \space \space for \space \space c=1,2,...,C.\tag{23}$$<br> 其中 ${\mathbf v_{\omega_{I,c}}}$为上下文context中第c 个单词的输入向量；$η$为正学习速率；$EH=\frac{\partial E}{\partial h_i}$由公式（12）给出。</p>
-<h2 id="Skip-Gram-Model"><a href="#Skip-Gram-Model" class="headerlink" title="Skip-Gram Model"></a>Skip-Gram Model</h2><p>与CBOW模型正好相反，Skip-Gram模型是根据中心单词（target word）来预测其上下文信息（context words）。如图3所示，为Skip-Gram模型的结构示意图。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC3.png" alt="此处输入图片的描述"><br>我们仍然使用$\mathbf v_{\omega_I}$来表示输入层上唯一的那个单词的<strong>输入向量</strong>，因此，我们对于隐藏层的输出值$h$的计算公式与第一节公式（1）相同，表示如下：</p>
+<h2 id="Skip-Gram-Model"><a href="#Skip-Gram-Model" class="headerlink" title="Skip-Gram Model"></a>Skip-Gram Model</h2><p>与CBOW模型正好相反，Skip-Gram模型是根据中心单词（target word）来预测其上下文信息（context words）。如图3所示，为Skip-Gram模型的结构示意图。<br><img src="/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC3.png" alt="此处输入图片的描述"><br>我们仍然使用$\mathbf v_{\omega_I}$来表示输入层上唯一的那个单词的<strong>输入向量</strong>，因此，我们对于隐藏层的输出值$h$的计算公式与第一节公式（1）相同，表示如下：</p>
 <script type="math/tex; mode=display">\mathbf h = {\mathbf W}_{(k,\bullet)}^T := \mathbf v_{\omega_I}\tag {24}</script><p> 公式（24）显示：$h$向量其实就是input-&gt;hidden权重矩阵$W$的某一行结合输入单词$ω_I$的向量拷贝。在输出层，与CBOW模型的输出为单个多项式分布不同的是，SG模型在输出层输出了C个多项式分布。每个输出都使用相同的hidden-&gt;output矩阵计算：</p>
 <script type="math/tex; mode=display">p\left( \omega _{c,j}=\omega _{O,c}|\omega _I \right) =y_{c,j}=\frac{\exp \left( \mu _{c,j} \right)}{\sum_{j'-1}^V{\exp \left( \mu '_j \right)}} \tag{25}</script><p>   其中，$\omega<em>{c,j}$表示输出层的第c个panel的第j个单词（何为panel?就是输出层的表示每个上下文单词的神经元的组合，图中一种有C个context words，所以总共有C个panel）；$\omega</em>{O,c}$实际上表示的是输出上下文单词（output context words）的第c个单词；$ω<em>I$是唯一的输入单词；$y</em>{c,j}$为输出层的第c个panel上的第j个神经单元的概率输出值；$\mu_{c,j}$表示的是输出层第c个panel的第j个神经元的输入值；<strong>由于输出层的所有panels共享同一权重矩阵</strong>$W′$,因此：</p>
 <script type="math/tex; mode=display">\mu_{c,j}=\mu_j={\mathbf v_{\omega_j}'}^T\cdot \mathbf h, \space for \space c=1,2,...,C\tag{26}</script><p> 其中，$\mathbf v_{\omega_j}’$为词汇表第j个单词$ω_j$的输出向量；同样，它也是取自于hidden→output权重矩阵$W′$的一列。<br> SG模型参数更新公式的推导过程与one-word-context 模型的推导过程大体上一样。这里我们将损失函数变为：</p>
@@ -423,7 +423,7 @@
 <script type="math/tex; mode=display">EH_i=\sum_{j=1}^V EI_j\cdot\omega_{ij}'\tag{36}</script><p> 公式（36）的直观理解与公式（16）类似，这里不作描述。</p>
 <h2 id="Optimizing-Computational-Efficiency"><a href="#Optimizing-Computational-Efficiency" class="headerlink" title="Optimizing Computational Efficiency"></a>Optimizing Computational Efficiency</h2><p>总结以上的模型介绍，我们发现所有模型的词汇表中的每个单词都存在两个向量表示形式：输入向量$v<em>ω$与输出向量$v′</em>ω$.对于输入向量的参数学习成本并不高，但对于输出向量的学习成本代价是非常昂贵的。根据更新公式（22）和（23），我们可以发现，为了更新输出向量$v′<em>ω$，对于每一个训练样例，我们必须迭代遍历词汇表中所有的单词$ω_j$，计算出它们的输入值$μ_j$、概率预测值$y_j$（或者SG模型中的$y</em>{c,j}$），预测误差$e<em>j$（或者SG模型的$EI_j$）。最终使用预测误差更新它们的输出向量$v′_j$.<br>显然，对于每一个训练样例都要对所有单词计算上述各值，其成本是昂贵的。特别是对于大型的词汇表，这种计算方式是不切实际的。因此为了解决这个问题，直观的方式是限制必须要更新的训练样例的输出向量的数目。一种有效的实现方式就是：hierarchical softmax（分层softmax），另一种实现通过采样的方式解决，我们在下个章节来讨论。<br>这两种方法都是通过只优化输出向量更新的计算过程来实现的。在我们的公式推导过程中，我们关心的有三个值：（1）$E$，新的目标函数；（2）$\frac{\partial E}{\partial \mathbf v</em>\omega’}$，新的关于输出向量的更新公式；（3）$\frac{\partial E}{\partial \mathbf h}$，为了更新输入向量反向传播的预测误差的加权和。</p>
 <h3 id="Hierarchical-Softmax"><a href="#Hierarchical-Softmax" class="headerlink" title="Hierarchical Softmax"></a>Hierarchical Softmax</h3><p>Hierarchical softmax 是一种有效的计算 softmax 的方式。该模型使用一棵二叉树来表示词汇表中的所有单词。所有的$V$个单词都在二叉树的叶节点上。非叶子节点一共有$V−1$个。对于每个叶子节点，从根节点root到该叶子节点只有一条路径；这条路径用来评估用该叶子节点代表该叶子节点上单词的概率值。二叉树的结构如图4所示：</p>
-<p> <img src="http://p5vuwy2ht.bkt.clouddn.com/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC4.png" alt="此处输入图片的描述"><br> 其中白色的树节点代表的是词汇表中的单词，灰色节点为内部节点。图中高亮显示的是一条从根节点到$ω<em>2$的路径。该条路径的长度为$L(\omega_2)=4$。$n(ω,j)$表示从根节点到单词$ω$的路径上的第j个节点。<br> 在hierarchical softmax模型中，所有的词汇单词没有输出向量表示形式。不同的是，二叉树的每一个内部节点都有一个输出向量${\mathbf v</em>{n(\omega,j)}’}$。因此一个单词作为输出单词的概率计算公式定义如下：</p>
+<p> <img src="/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC4.png" alt="此处输入图片的描述"><br> 其中白色的树节点代表的是词汇表中的单词，灰色节点为内部节点。图中高亮显示的是一条从根节点到$ω<em>2$的路径。该条路径的长度为$L(\omega_2)=4$。$n(ω,j)$表示从根节点到单词$ω$的路径上的第j个节点。<br> 在hierarchical softmax模型中，所有的词汇单词没有输出向量表示形式。不同的是，二叉树的每一个内部节点都有一个输出向量${\mathbf v</em>{n(\omega,j)}’}$。因此一个单词作为输出单词的概率计算公式定义如下：</p>
 <script type="math/tex; mode=display">p(\omega = \omega_O)=\prod_{j=1}^{L(\omega)-1}\sigma \bigg(\Big[\Big[n\big(\omega,j+1\big)=ch\big(n\small(\omega,j\small)\big)\Big]\Big]\cdot{\mathbf v_{n(w,j)}'}^T\mathbf h\bigg)\tag{37}</script><p> 其中，$ch(n)$为节点$n$的左孩子节点；$\mathbf v<em>{n(\omega,j)}’$是内部节点$n(\omega,j)$的向量表示（输出向量）；$h$是隐藏层的输出值（在SG模型中，$h=\mathbf v</em>{\omega<em>I}$;而在CBOW模型中，$\mathbf h=\frac{1}{C}\sum</em>{c=1}^C \mathbf v_{\omega_c}$;$[[x]]$是一种特殊的函数定义如下：</p>
 <script type="math/tex; mode=display">[[x]]=
 \begin{cases}
@@ -598,7 +598,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

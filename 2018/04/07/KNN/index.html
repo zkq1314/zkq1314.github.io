@@ -89,22 +89,22 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="K最近邻(k-Nearest Neighbor，KNN)分类算法，思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN1.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN2.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN3.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN4.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN5.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN11.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN6.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN7.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN8.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN9.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN10.png">
-<meta property="og:updated_time" content="2018-04-18T07:55:58.598Z">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN2.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN3.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN4.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN5.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN11.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN6.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN7.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN8.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN9.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/07/KNN/KNN10.png">
+<meta property="og:updated_time" content="2018-11-29T15:19:46.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KNN">
 <meta name="twitter:description" content="K最近邻(k-Nearest Neighbor，KNN)分类算法，思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。">
-<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/KNN1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/07/KNN/KNN1.jpg">
 
 
 
@@ -357,7 +357,7 @@
 
       
         <p>K最近邻(k-Nearest Neighbor，KNN)分类算法，思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。<br><a id="more"></a></p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>有两类不同的样本数据，分别用蓝色的小正方形和红色的小三角形表示，而图正中间的那个绿色的圆所标示的数据则是待分类的数据。也就是说，现在，我们不知道中间那个绿色的数据是从属于哪一类（蓝色小正方形or红色小三角形），下面，我们就要解决这个问题：给这个绿色的圆分类。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN1.jpg" alt="此处输入图片的描述"><br>我们常说，物以类聚，人以群分，判别一个人是一个什么样品质特征的人，常常可以从他/她身边的朋友入手，所谓观其友，而识其人。我们不是要判别上图中那个绿色的圆是属于哪一类数据么，好说，从它的邻居下手。但一次性看多少个邻居呢？从上图中，你还能看到：</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>有两类不同的样本数据，分别用蓝色的小正方形和红色的小三角形表示，而图正中间的那个绿色的圆所标示的数据则是待分类的数据。也就是说，现在，我们不知道中间那个绿色的数据是从属于哪一类（蓝色小正方形or红色小三角形），下面，我们就要解决这个问题：给这个绿色的圆分类。<br><img src="/2018/04/07/KNN/KNN1.jpg" alt="此处输入图片的描述"><br>我们常说，物以类聚，人以群分，判别一个人是一个什么样品质特征的人，常常可以从他/她身边的朋友入手，所谓观其友，而识其人。我们不是要判别上图中那个绿色的圆是属于哪一类数据么，好说，从它的邻居下手。但一次性看多少个邻居呢？从上图中，你还能看到：</p>
 <ul>
 <li>如果K=3，绿色圆点的最近的3个邻居是2个红色小三角形和1个蓝色小正方形，少数从属于多数，基于统计的方法，判定绿色的这个待分类点属于红色的三角形一类。</li>
 <li>如果K=5，绿色圆点的最近的5个邻居是2个红色三角形和3个蓝色的正方形，还是少数从属于多数，基于统计的方法，判定绿色的这个待分类点属于蓝色的正方形一类。</li>
@@ -379,7 +379,7 @@
 <ol>
 <li>样本分级分层为多个子集</li>
 <li>逐层搜出一个最优子集</li>
-<li>在最后的子集中局部找最近样本点<br><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN2.png" alt="此处输入图片的描述"><br><strong>算法规则1</strong>：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN3.png" alt="此处输入图片的描述"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN4.png" alt="此处输入图片的描述"><br><strong>算法规则2：</strong><br><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN5.png" alt="此处输入图片的描述"><br>也可以写作：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN11.png" alt="此处输入图片的描述"><br><strong>算法过程</strong><br>步骤1-5搜子集，步骤6搜样本。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN6.png" alt="此处输入图片的描述"><br>另外的优化算法还有剪辑近邻法，压缩近邻法。<h3 id="剪辑近邻法"><a href="#剪辑近邻法" class="headerlink" title="剪辑近邻法"></a>剪辑近邻法</h3><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN7.png" alt="此处输入图片的描述"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN8.png" alt="此处输入图片的描述"><h3 id="压缩近邻法"><a href="#压缩近邻法" class="headerlink" title="压缩近邻法"></a>压缩近邻法</h3><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN9.png" alt="此处输入图片的描述"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/KNN10.png" alt="此处输入图片的描述"></li>
+<li>在最后的子集中局部找最近样本点<br><img src="/2018/04/07/KNN/KNN2.png" alt="此处输入图片的描述"><br><strong>算法规则1</strong>：<br><img src="/2018/04/07/KNN/KNN3.png" alt="此处输入图片的描述"><br><img src="/2018/04/07/KNN/KNN4.png" alt="此处输入图片的描述"><br><strong>算法规则2：</strong><br><img src="/2018/04/07/KNN/KNN5.png" alt="此处输入图片的描述"><br>也可以写作：<br><img src="/2018/04/07/KNN/KNN11.png" alt="此处输入图片的描述"><br><strong>算法过程</strong><br>步骤1-5搜子集，步骤6搜样本。<br><img src="/2018/04/07/KNN/KNN6.png" alt="此处输入图片的描述"><br>另外的优化算法还有剪辑近邻法，压缩近邻法。<h3 id="剪辑近邻法"><a href="#剪辑近邻法" class="headerlink" title="剪辑近邻法"></a>剪辑近邻法</h3><img src="/2018/04/07/KNN/KNN7.png" alt="此处输入图片的描述"><br><img src="/2018/04/07/KNN/KNN8.png" alt="此处输入图片的描述"><h3 id="压缩近邻法"><a href="#压缩近邻法" class="headerlink" title="压缩近邻法"></a>压缩近邻法</h3><img src="/2018/04/07/KNN/KNN9.png" alt="此处输入图片的描述"><br><img src="/2018/04/07/KNN/KNN10.png" alt="此处输入图片的描述"></li>
 </ol>
 
       
@@ -502,7 +502,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="本文总结了论文CWE：Joint Learning of Character and Word Embeddings中的核心思想。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/CWE1.png">
-<meta property="og:updated_time" content="2018-07-15T06:30:06.374Z">
+<meta property="og:image" content="http://yoursite.com/2018/07/14/Character-and-Word-Embedding读书报告/CWE1.png">
+<meta property="og:updated_time" content="2018-11-29T15:21:20.090Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Character and Word Embedding读书报告">
 <meta name="twitter:description" content="本文总结了论文CWE：Joint Learning of Character and Word Embeddings中的核心思想。">
-<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/CWE1.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/14/Character-and-Word-Embedding读书报告/CWE1.png">
 
 
 
@@ -348,7 +348,7 @@
       
         <p>本文总结了论文CWE：Joint Learning of Character and Word Embeddings中的核心思想。<br><a id="more"></a></p>
 <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>论文《Joint Learning of Character and Word Embeddings》是刘知远老师团队2015年在顶会Ijcai上发表的，在词向量生成部分进行了改进，引入了单个汉字的信息（论文主要针对的是中文），提升了词向量生成的质量。因为模型名称叫做“character-enhanced word embeddding model”，故模型简称为CWE。<br>从论文的题目可以看出，这篇paper在进行词向量训练的时候，把组成词语的汉字单独抽取出来，和词语一起进行训练。这样就使那些共享汉字的词语之间产生了联系，因为paper的假设是<strong>“semantically compositional”</strong>的词语中的汉字对词语的意思具有一定的表征作用，比方说词语“智能”。但是在汉语中并不是所有的词语都是semantically compositional，比方说一些<strong>音译词</strong>“巧克力”，“沙发”，再比方说一些实体的名称，比方说一些人名、地名和国家名。在这些词语中，单个汉字的意思可能和本来这个词语要表达的意思是完全没有关系的。在本篇paper中，作者做了大量的工作去把这些没有semantically compositional性质的词语全部人工的挑选出来，对于这些词语不去进行单个字的拆分处理。</p>
-<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/CWE1.png" alt="此处输入图片的描述"><br>这篇文章提出的模型是在word2vec的CBOW模型基础上改进而来，模型的优化函数：</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p><img src="/2018/07/14/Character-and-Word-Embedding读书报告/CWE1.png" alt="此处输入图片的描述"><br>这篇文章提出的模型是在word2vec的CBOW模型基础上改进而来，模型的优化函数：</p>
 <script type="math/tex; mode=display">\frac{1}{M}\sum_{i=k}^{N-k}logPr(x_i|x_{i-k},....,x_{i+k})\tag{1}</script><p>其中，</p>
 <script type="math/tex; mode=display">Pr(x_i|x_{i-k},....,x_{i+k})=\frac{exp(x_o\cdot x_i)}{\sum_{x_j'\in{Dictionary}}exp(x_o\cdot x_j')}\tag{2}</script><p>在CBOW模型中，context的表示是$w_i$前后窗口内的词向量的相加求均值。</p>
 <script type="math/tex; mode=display">x_o=\frac{1}{2k}\sum_{j=i-k,....i+k}x_j\tag{3}</script><p>而在CWE模型中，对于context中的词语的表征，一方面来自于词向量，还有一部分在自于这些词语中的字的向量，具体的计算方式如下：</p>
@@ -482,7 +482,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

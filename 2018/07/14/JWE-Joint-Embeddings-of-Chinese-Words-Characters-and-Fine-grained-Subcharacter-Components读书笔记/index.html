@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="本文总结了论文JWE：Joint Embeddings of Chinese Words, Characters, and Fine-grained Subcharacter Components中的核心思想。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/JWE.png">
-<meta property="og:updated_time" content="2018-07-15T06:30:13.801Z">
+<meta property="og:image" content="http://yoursite.com/2018/07/14/JWE-Joint-Embeddings-of-Chinese-Words-Characters-and-Fine-grained-Subcharacter-Components读书笔记/JWE.png">
+<meta property="og:updated_time" content="2018-11-29T15:33:15.630Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JWE:Joint Embeddings of Chinese Words,Characters,and Fine-grained Subcharacter Components">
 <meta name="twitter:description" content="本文总结了论文JWE：Joint Embeddings of Chinese Words, Characters, and Fine-grained Subcharacter Components中的核心思想。">
-<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/JWE.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/14/JWE-Joint-Embeddings-of-Chinese-Words-Characters-and-Fine-grained-Subcharacter-Components读书笔记/JWE.png">
 
 
 
@@ -348,7 +348,7 @@
       
         <p>本文总结了论文JWE：Joint Embeddings of Chinese Words, Characters, and Fine-grained Subcharacter Components中的核心思想。<br><a id="more"></a></p>
 <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>论文《Joint Embeddings of Chinese Words, Characters, and Fine-grained Subcharacter Components》是香港科技大学2017年在EMNLP发表的，同样是在词向量生成部分进行了改进，引入了人工总结的<strong>“字件信息”</strong>，提升了词向量的质量。</p>
-<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p><img src="http://p5vuwy2ht.bkt.clouddn.com/JWE.png" alt="此处输入图片的描述"><br>根据人工总结的“字件”，将汉字拆成一个一个的小模块，把词、汉字和字件一起联合学习词向量。其中$w<em>i$是目标词，$w</em>{i-1}$是目标词左边的词，$w<em>{i+1}$是目标词右边的词；$c</em>{i-1}$是目标词左边的词中的单字，$c<em>{i+1}$是目标词右边的词中的单字；$s</em>{i-1}$是目标词左边的词拆分的字件，$s_{i+1}$是目标词右边的词拆分的字件,$s_i$是目标词的字件；<br>模型的目标是最大化以下对数似然：</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p><img src="/2018/07/14/JWE-Joint-Embeddings-of-Chinese-Words-Characters-and-Fine-grained-Subcharacter-Components读书笔记/JWE.png" alt="此处输入图片的描述"><br>根据人工总结的“字件”，将汉字拆成一个一个的小模块，把词、汉字和字件一起联合学习词向量。其中$w<em>i$是目标词，$w</em>{i-1}$是目标词左边的词，$w<em>{i+1}$是目标词右边的词；$c</em>{i-1}$是目标词左边的词中的单字，$c<em>{i+1}$是目标词右边的词中的单字；$s</em>{i-1}$是目标词左边的词拆分的字件，$s_{i+1}$是目标词右边的词拆分的字件,$s_i$是目标词的字件；<br>模型的目标是最大化以下对数似然：</p>
 <script type="math/tex; mode=display">L\left( w_i \right)=\sum_{k=1}^3{\log P\left( w_i|h_{i_k} \right)}\tag1</script><p>其中,$h<em>{i_1}$,$h</em>{i<em>2}$,$h</em>{i_3}$分别为上下文单词、单字、组件的组合。</p>
 <script type="math/tex; mode=display">P\left( w_i|h_{i_k} \right) =\frac{\exp \left( h_{i_k}^{T}\hat{v}_{w_i} \right)}{\sum_{j=1}^N{\exp \left( h_{i_k}^{T}\hat{v}_{w_j} \right)}}\tag2</script><script type="math/tex; mode=display">h_{i_1}=\frac{1}{2T}\sum_{-T\leqslant j\leqslant T,j\ne 0}{v_{w_{i+j}}}\tag3</script><p>在以上3个公式中，$v<em>{w_i}$,$v</em>{c<em>i}$,$v</em>{s<em>i}$分别为上下文、单字、字件的<strong>“输入向量”</strong>，$\hat{v}</em>{w<em>j}$是<strong>“输出向量”</strong>；$h</em>{i<em>1}$为上下文“输入向量”的均值，同理，$h</em>{i<em>2}$为上下文单字“输入向量”的均值，$h</em>{i_3}$为上下文字件“输入向量”的均值。<br>给定语料$D$,模型的目标是最大化：</p>
 <script type="math/tex; mode=display">L(D)=\sum_{w_i \in D}{L(w_i)}</script><h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>文章在word similarity evaluation和word analogy tasks两个任务上对比JWE与之前词向量模型。<br>发现在word analogy tasks任务上取得了显著提高。</p>
@@ -475,7 +475,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

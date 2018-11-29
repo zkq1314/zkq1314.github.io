@@ -89,18 +89,18 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="AdaBoost1. AdaBoost算法Boosting是一种常用的统计学习方法，应用广泛且有效，在分类问题中，它通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类的性能。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/adaboost1.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/adaboost2.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/adaboost3.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/adaboost4.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/adaboost5.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/adaboost6.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/adaboost7.png">
-<meta property="og:updated_time" content="2018-04-19T06:43:48.884Z">
+<meta property="og:image" content="http://yoursite.com/2018/04/19/AdaBoost/adaboost1.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/19/AdaBoost/adaboost2.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/19/AdaBoost/adaboost3.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/19/AdaBoost/adaboost4.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/19/AdaBoost/adaboost5.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/19/AdaBoost/adaboost6.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/19/AdaBoost/adaboost7.png">
+<meta property="og:updated_time" content="2018-11-29T15:08:55.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AdaBoost">
 <meta name="twitter:description" content="AdaBoost1. AdaBoost算法Boosting是一种常用的统计学习方法，应用广泛且有效，在分类问题中，它通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类的性能。">
-<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/adaboost1.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/19/AdaBoost/adaboost1.png">
 
 
 
@@ -374,7 +374,7 @@
 <li>对异常样本敏感，异常样本在迭代中可能会获得较高的权重，影响最终的强学习器的预测准确性。</li>
 </ul>
 <p>现在叙述AdaBoost算法，假设给定一个二类分类的训练数据集</p>
-<script type="math/tex; mode=display">T = \{(\pmb{x}_1,y_1), (\pmb{x}_2,y_2), \cdots, (\pmb{x}_N,y_N)\}</script><p>其中，每个样例点由实例和标记组成，实例$\pmb{x}_i \in \mathbf{R}^n$，标记$y_i \in {-1,+1}$，AdaBoost算法如下：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/adaboost1.png" alt="此处输入图片的描述"></p>
+<script type="math/tex; mode=display">T = \{(\pmb{x}_1,y_1), (\pmb{x}_2,y_2), \cdots, (\pmb{x}_N,y_N)\}</script><p>其中，每个样例点由实例和标记组成，实例$\pmb{x}_i \in \mathbf{R}^n$，标记$y_i \in {-1,+1}$，AdaBoost算法如下：<br><img src="/2018/04/19/AdaBoost/adaboost1.png" alt="此处输入图片的描述"></p>
 <p>对AdaBoost算法作如下说明：<br>步骤（1）假设训练数据集具有均匀的权值分布，即每个训练样本在基分类器的学习中作用相同，这一假设保证第1步能够在原始数据上学习基本分类器$G_1(\pmb{x})$。<br>步骤（2）AdaBoost反复学习基本分类器，在每一轮$m=1,2,\cdots,M$顺次地执行下列操作：<br>（i）使用当前分布$D_m$加权的训练数据集，学习基本分类器$D_m(\pmb{x})$；<br>（ii）计算基本分类器$G_m (\pmb{x})$在加权训练数据集上的分类错误率：</p>
 <script type="math/tex; mode=display">e_m = \sum_{i=1}^N P(G_m(\pmb{x}_i) \neq y_i) = \sum_{G_m(\pmb{x}_i) \neq y_i} w_{mi} \tag{8.8}</script><p>$w<em>{mi}$表示第$m$轮中第$i$个实例的权值，$\sum</em>{i=1}^N w_{mi} = 1$。这表明，$G_m(\pmb{x})$在加权的训练数据集上的分类误差率是被$G_m(\pmb{x})$误分类样本的权值和。<br>（iii）计算基本分类器$G_m(\pmb{x})$的系数$\alpha_m$。$\alpha_m$表示$G_m(\pmb{x})$在最终分类器中的重要性。由式（8.2）可知，当$e_m \leq \frac{1}{2}$时，$\alpha_m \geq 0$，并且$\alpha_m$随着$e_m$的减小而增大，所以分类误差率越小的基本分类器在最终分类器中的作用越大。<br>（iiii）更新训练数据的权值分布为下一轮做准备。式（8.4）可以写成：</p>
 <script type="math/tex; mode=display">w_{m+1,i} = 
@@ -411,7 +411,7 @@
 <h3 id="3-1-前向分步算法"><a href="#3-1-前向分步算法" class="headerlink" title="3.1. 前向分步算法"></a>3.1. 前向分步算法</h3><p>考虑加法模型（additive model）</p>
 <script type="math/tex; mode=display">f(\pmb{x}) = \sum_{i=1}^M \beta_m b(\pmb{x};\gamma_m)</script><p>其中，$b(\pmb{x};\gamma_m)$为基函数，$\gamma_m$为基函数的参数，$\beta_m$为基函数的系数。<br>在给定训练数据及损失函数$L(y,f(\pmb{x}))$的条件下，学习算法模型$f(\pmb{x})$称为经验风险最小化即损失函数极小化问题：</p>
 <script type="math/tex; mode=display">\min_{\beta_m,\gamma_m} \sum_{i=1}^N L(y_i, \sum_{m=1}^M \beta_m b(\pmb{x}_i;\gamma_m))</script><p>通常这是一个复杂的优化问题。前向分步算法（forward stagewise algorithm）求解这一优化问题的想法：因为学习的是加法模型，如果能够从前向后，每一步只学习一个基函数及其系数，逐步逼近优化目标函数式，那么就可以简化优化的复杂度。<br>具体地，每步只需要优化如下损失函数：</p>
-<script type="math/tex; mode=display">\min_{\beta,\gamma} \sum_{i=1}^N L(y_i,\beta b(\pmb{x}_i;\gamma))</script><p>给定训练数据集$T={(\pmb{x}_1,y_1),(\pmb{x}_2,y_2),\cdots, (\pmb{x}_N,y_N)}$，$\pmb{x} \in \mathbf{R}^n$，$y_i \in {-1,+1}$，损失函数$L(y,f(\pmb{x}))$和基函数的集合${b(\pmb{x};\gamma)}$，学习加法模型$f(\pmb{x})$的前向分步算法如下：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/adaboost2.png" alt="此处输入图片的描述"></p>
+<script type="math/tex; mode=display">\min_{\beta,\gamma} \sum_{i=1}^N L(y_i,\beta b(\pmb{x}_i;\gamma))</script><p>给定训练数据集$T={(\pmb{x}_1,y_1),(\pmb{x}_2,y_2),\cdots, (\pmb{x}_N,y_N)}$，$\pmb{x} \in \mathbf{R}^n$，$y_i \in {-1,+1}$，损失函数$L(y,f(\pmb{x}))$和基函数的集合${b(\pmb{x};\gamma)}$，学习加法模型$f(\pmb{x})$的前向分步算法如下：<br><img src="/2018/04/19/AdaBoost/adaboost2.png" alt="此处输入图片的描述"></p>
 <p>这样，前向分步算法将同时求解从$m=1$到$M$所有的参数$\beta_m,\gamma_m$的优化问题简化为逐次求解各个$\beta_m,\gamma_m$的优化问题。  </p>
 <h3 id="3-2-前向分步算法与AdaBoost"><a href="#3-2-前向分步算法与AdaBoost" class="headerlink" title="3.2. 前向分步算法与AdaBoost"></a>3.2. 前向分步算法与AdaBoost</h3><p><strong>定理</strong>：AdaBoost算法是前向分步加法算法的特例。模型是由基本分类器组成的加法模型，损失函数是指数函数。<br><strong>证明</strong>：前向分步算法学习的是加法模型，当基函数为基本分类器时，该加法模型等价于AdaBoost的最终分类器</p>
 <script type="math/tex; mode=display">f(\pmb{x}) = \sum_{i=1}^M \alpha_m G_m(\pmb{x})</script><p>由基本分类器$G_m(\pmb{x})$及其系数$\alpha_m$组成，$m=1,2,\cdots,M$。前向分步算法逐一学习基函数，这一过程与AdaBoost算法注意学习基本分类器的过程一致。<br>下面证明前向分步算法的损失函数是指数损失函数</p>
@@ -442,7 +442,7 @@
 <script type="math/tex; mode=display">\bar{w}_{m+1,i} = \bar{w}_{m,i} \exp[-y_i \alpha_m G_m(\pmb{x})]</script><p>这里与AdaBoost算法第2（d）步的样本权值更新只相差规范化因子，因而等价。 </p>
 <h2 id="4-AdaBoost多分类和回归"><a href="#4-AdaBoost多分类和回归" class="headerlink" title="4. AdaBoost多分类和回归"></a>4. AdaBoost多分类和回归</h2><h3 id="4-1-多分类"><a href="#4-1-多分类" class="headerlink" title="4.1. 多分类"></a>4.1. 多分类</h3><p>原始的AdaBoost算法是针对二分类问题的，多分类问题采用的也是将其分解为多个二分类问题。而SAMME和SAMME.R算法不采用这种思路，只是二分类的推广，也是加法模型，指数损失函数和前向分步算法，而且每个弱分类器的正确率只要大于0.5即可。<br>假设训练集$T = {(\pmb{x}<em>1,y_1),(\pmb{x}_2,y_2),\cdots,(\pmb{x}_n,y_n)}$，训练集在第$k$个弱分类器上的样本权重是$(w</em>{k1},w<em>{k2},\cdots,w</em>{kn}),w_{1i} = \frac{1}{n},i=1,2,\cdots,n$，输出$y_i \in {1,2,\cdots,K}$，$K$是类别个数。  </p>
 <p><strong>SAMME</strong></p>
-<p><img src="http://p5vuwy2ht.bkt.clouddn.com/adaboost3.png" alt="此处输入图片的描述"><br><strong>SAMME.R</strong><br><img src="http://p5vuwy2ht.bkt.clouddn.com/adaboost4.png" alt="此处输入图片的描述"><br>参考文献：Zhu J, Zou H, Rosset S, et al. Multi-class AdaBoost[J]. Statistics &amp; Its Interface, 2006, 2(3):349-360.</p>
+<p><img src="/2018/04/19/AdaBoost/adaboost3.png" alt="此处输入图片的描述"><br><strong>SAMME.R</strong><br><img src="/2018/04/19/AdaBoost/adaboost4.png" alt="此处输入图片的描述"><br>参考文献：Zhu J, Zou H, Rosset S, et al. Multi-class AdaBoost[J]. Statistics &amp; Its Interface, 2006, 2(3):349-360.</p>
 <h3 id="4-2-回归"><a href="#4-2-回归" class="headerlink" title="4.2. 回归"></a>4.2. 回归</h3><p>假设训练集为$T={(\pmb{x}_1,y_1),(\pmb{x}_2,y_2),\cdots,(\pmb{x}_N,y_N)}$。<br>输入：训练数据集，弱学习算法和弱学习器个数T<br>输出：最终的强学习器$G(\pmb{x})$  </p>
 <ol>
 <li>初始化样本权重$D<em>1 = (w</em>{11},w<em>{12},\cdots,w</em>{1n}),\quad w_{1i}=\frac{1}{n},\quad i=1,2,\cdots,N$。   </li>
@@ -458,8 +458,8 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sklearn</span>.<span class="title">ensemble</span>.<span class="title">AdaboostClassifier</span><span class="params">(base_estimator=None, n_estimators=<span class="number">50</span>, learning_rate=<span class="number">1.0</span>, algorithm=<span class="string">'SAMME.R'</span>, random_state=None)</span></span></span><br></pre></td></tr></table></figure>
 <p>AdaBoostRegressor:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sklearn</span>.<span class="title">ensemble</span>.<span class="title">AdaBoostRegressor</span><span class="params">(base_estimator=None, n_estimators=<span class="number">50</span>, learning_rate=<span class="number">1.0</span>, loss=’linear’, random_state=None)</span></span></span><br></pre></td></tr></table></figure>
-<p><strong>框架参数</strong><br><img src="http://p5vuwy2ht.bkt.clouddn.com/adaboost5.png" alt="此处输入图片的描述"><br><strong>algorithm</strong>：AdaBoostClassifier中有一个algorithm参数，而在AdaBoostRegressor中没有。这是因为sklearn中实现了两种AdaBoost分类算法，SAMME和SAMME.R。两者的主要区别是弱学习器权重的度量，SAMME使用的是上文介绍过的二分类AdaBoost算法的扩展，即用对样本集分类效果作为弱学习器的权重。而SAMME.R使用了概率度量的连续值，迭代一般比SAMME快，因此AdaBoostClassifier的默认算法algorithm的值为SAMME.R。如果使用SAMME.R，则弱分类学习器base_estimator必须限制使用支持概率预测的分类器，而SAMME算法则没有这个限制。  </p>
-<p><strong>函数</strong><br><img src="http://p5vuwy2ht.bkt.clouddn.com/adaboost6.png" alt="此处输入图片的描述"><br><strong>属性</strong><br><img src="http://p5vuwy2ht.bkt.clouddn.com/adaboost7.png" alt="此处输入图片的描述"></p>
+<p><strong>框架参数</strong><br><img src="/2018/04/19/AdaBoost/adaboost5.png" alt="此处输入图片的描述"><br><strong>algorithm</strong>：AdaBoostClassifier中有一个algorithm参数，而在AdaBoostRegressor中没有。这是因为sklearn中实现了两种AdaBoost分类算法，SAMME和SAMME.R。两者的主要区别是弱学习器权重的度量，SAMME使用的是上文介绍过的二分类AdaBoost算法的扩展，即用对样本集分类效果作为弱学习器的权重。而SAMME.R使用了概率度量的连续值，迭代一般比SAMME快，因此AdaBoostClassifier的默认算法algorithm的值为SAMME.R。如果使用SAMME.R，则弱分类学习器base_estimator必须限制使用支持概率预测的分类器，而SAMME算法则没有这个限制。  </p>
+<p><strong>函数</strong><br><img src="/2018/04/19/AdaBoost/adaboost6.png" alt="此处输入图片的描述"><br><strong>属性</strong><br><img src="/2018/04/19/AdaBoost/adaboost7.png" alt="此处输入图片的描述"></p>
 
       
     </div>
@@ -583,7 +583,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

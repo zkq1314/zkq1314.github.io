@@ -89,21 +89,21 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="本文主要基于 Hyperledger fabric 的官方文档来搭建其实验环境，但官方文档对于很多步骤都有省略，结合网上比较新的博客，在一台 Ubuntu 14.04 机器(没用通过测试，换成了16.04的虚拟机)上来安装部署 fabric 的环境。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署1.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署2.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署3.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署4.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署5.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署6.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署7.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署8.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署9.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署10.png">
-<meta property="og:updated_time" content="2018-09-30T06:26:29.815Z">
+<meta property="og:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署1.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署2.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署3.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署4.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署5.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署6.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署7.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署8.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署9.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署10.png">
+<meta property="og:updated_time" content="2018-11-29T14:51:07.298Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hyperledger fabric v1.0.0 环境部署过程">
 <meta name="twitter:description" content="本文主要基于 Hyperledger fabric 的官方文档来搭建其实验环境，但官方文档对于很多步骤都有省略，结合网上比较新的博客，在一台 Ubuntu 14.04 机器(没用通过测试，换成了16.04的虚拟机)上来安装部署 fabric 的环境。">
-<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署1.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署1.png">
 
 
 
@@ -355,11 +355,11 @@
       
 
       
-        <p>本文主要基于 Hyperledger fabric 的官方文档来搭建其实验环境，但官方文档对于很多步骤都有省略，结合网上比较新的博客，在一台 Ubuntu 14.04 机器(没用通过测试，换成了16.04的虚拟机)上来安装部署 fabric 的环境。<br><a id="more"></a><br>查看系统版本<br><code>$ cat /proc/version</code><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署1.png" alt="Fabric环境部署1"><br>切换至root用户<br><code>sudo -i</code></p>
+        <p>本文主要基于 Hyperledger fabric 的官方文档来搭建其实验环境，但官方文档对于很多步骤都有省略，结合网上比较新的博客，在一台 Ubuntu 14.04 机器(没用通过测试，换成了16.04的虚拟机)上来安装部署 fabric 的环境。<br><a id="more"></a><br>查看系统版本<br><code>$ cat /proc/version</code><br><img src="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署1.png" alt="Fabric环境部署1"><br>切换至root用户<br><code>sudo -i</code></p>
 <h2 id="更换-apt-源"><a href="#更换-apt-源" class="headerlink" title="更换 apt 源"></a>更换 apt 源</h2><p>先备份 sources.list 文件：<br><code>$ sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code><br>再修改 sources.list 文件(全部替换即可)，换成阿里云的国内源：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/apt/sources.list</span><br><span class="line">deb-src http://archive.ubuntu.com/ubuntu xenial main restricted #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted multiverse universe #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted multiverse universe #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial universe</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse #Added by software-properties</span><br><span class="line">deb http://archive.canonical.com/ubuntu xenial partner</span><br><span class="line">deb-src http://archive.canonical.com/ubuntu xenial partner</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted multiverse universe #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security multiverse</span><br></pre></td></tr></table></figure></p>
 <p>最后更新一下源：<br><code>$ sudo apt-get update</code></p>
 <h2 id="安装-curl"><a href="#安装-curl" class="headerlink" title="安装 curl"></a>安装 curl</h2><p>Ubuntu一般默认是安装了 curl 的，可以通过以下命令验证：</p>
-<p><code>$ curl -V</code><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署2.png" alt="Fabric环境部署2"></p>
+<p><code>$ curl -V</code><br><img src="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署2.png" alt="Fabric环境部署2"></p>
 <p>如果没有安装，则通过 apt-get 安装：</p>
 <p><code>$ sudo apt-get install curl</code></p>
 <h2 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h2><ul>
@@ -376,7 +376,7 @@
 <p>  <code>$ sudo apt-get update</code><br>  <code>$ sudo apt-get install docker-ce</code></p>
 </li>
 <li><p>查看 Docker 版本：</p>
-<p>  <code>$ docker -v</code><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署3.png" alt="Fabric环境部署3"></p>
+<p>  <code>$ docker -v</code><br><img src="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署3.png" alt="Fabric环境部署3"></p>
 <p>  满足官方文档中 Docker version 17.06.2-ce or greater is required 的要求。</p>
 </li>
 <li><p>启动 Docker CE<br>Ubuntu 16.04 使用：<br><code>$ sudo systemctl enable docker</code><br><code>$ sudo systemctl start docker</code></p>
@@ -389,7 +389,7 @@
 <p>  <code>$ sudo usermod -aG docker $USER</code><br>下次登录时即可方便的使用 docker 命令。</p>
 </li>
 <li><p>测试 Docker 是否安装正确</p>
-<p>  <code>$ docker run hello-world</code><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署4.png" alt="Fabric环境部署4"></p>
+<p>  <code>$ docker run hello-world</code><br><img src="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署4.png" alt="Fabric环境部署4"></p>
 </li>
 <li><p>配置镜像加速器</p>
 <p>  国内从 Docker Hub 拉取镜像有时会遇到困难，此时可以配置镜像加速器。Docker 官方和国内很多云服务商都提供了国内加速器服务，例如：</p>
@@ -415,7 +415,7 @@
 `$ sudo chmod +x /usr/local/bin/docker-compose`
 </code></pre><ul>
 <li><p>查看 Docker compose 版本</p>
-<p>  <code>$ docker-compose --version</code><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署5.png" alt="Fabric环境部署5"></p>
+<p>  <code>$ docker-compose --version</code><br><img src="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署5.png" alt="Fabric环境部署5"></p>
 <p>  满足官方文档中 Docker Compose version 1.14.0 or greater 的要求。</p>
 </li>
 </ul>
@@ -441,8 +441,8 @@
 <p>  <code>$ vi hello.go</code></p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	fmt.Printf(&quot;hello world\n&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>  <code>$ go build hello.go</code></p>
-<p>  <code>$ ./hello</code><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署6.png" alt="Fabric环境部署6"></p>
-<p>  在这里遇到一个问题（在虚拟机上没遇到这个问题）：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署7.png" alt="Fabric环境部署7"><br>在网上查到的解决办法是：<a href="https://stackoverflow.com/questions/21510714/go-cannot-find-package-fmt-error" target="_blank" rel="noopener">解决办法</a><br><code>$ unset GOROOT</code></p>
+<p>  <code>$ ./hello</code><br><img src="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署6.png" alt="Fabric环境部署6"></p>
+<p>  在这里遇到一个问题（在虚拟机上没遇到这个问题）：<br><img src="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署7.png" alt="Fabric环境部署7"><br>在网上查到的解决办法是：<a href="https://stackoverflow.com/questions/21510714/go-cannot-find-package-fmt-error" target="_blank" rel="noopener">解决办法</a><br><code>$ unset GOROOT</code></p>
 </li>
 </ul>
 <h2 id="Fabric-源码下载"><a href="#Fabric-源码下载" class="headerlink" title="Fabric 源码下载"></a>Fabric 源码下载</h2><ul>
@@ -458,11 +458,11 @@
 </li>
 <li>release-1.2<br><code>$ git checkout v1.0.0</code><br>由于在 release-1.2 版本中碰到没有解决的问题，所以先切换到 v1.0.0 来完成搭建并测试的过程。</li>
 </ul>
-<p><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署8.png" alt="Fabric环境部署8"></p>
+<p><img src="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署8.png" alt="Fabric环境部署8"></p>
 <h2 id="Fabric-Docker-镜像下载"><a href="#Fabric-Docker-镜像下载" class="headerlink" title="Fabric Docker 镜像下载"></a>Fabric Docker 镜像下载</h2><p>进入 ~/go/src/github.com/hyperledger/fabrci/examples/e2e_cli/ 目录，完成镜像下载，执行命令：</p>
-<p><code>$ cd ~/go/src/github.com/hyperledger/fabrci/examples/e2e_cli/</code><br><code>$ ls</code><br><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署9.png" alt="Fabric环境部署9"></p>
+<p><code>$ cd ~/go/src/github.com/hyperledger/fabrci/examples/e2e_cli/</code><br><code>$ ls</code><br><img src="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署9.png" alt="Fabric环境部署9"></p>
 <p><code>$ source download-dockerimages.sh -c x86_64-1.0.0 -f x86_64-1.0.0</code>  (时间较久，耐心等待)<br><code>$ docker image list</code></p>
-<p><img src="http://p5vuwy2ht.bkt.clouddn.com/Fabric环境部署10.png" alt="Fabric环境部署10"></p>
+<p><img src="/2018/09/27/Hyperledger-fabric-v1-0-0-环境部署过程/Fabric环境部署10.png" alt="Fabric环境部署10"></p>
 <h2 id="启动-fabric-网络并完成-chaincode-测试"><a href="#启动-fabric-网络并完成-chaincode-测试" class="headerlink" title="启动 fabric 网络并完成 chaincode 测试"></a>启动 fabric 网络并完成 chaincode 测试</h2><p>还是在刚刚的 e2e_cli 文件加下，执行：</p>
 <p><code>$ ./network_setup.sh up</code></p>
 <p>最后出现上面字符说明 fabric 网络已经启动并完成了 chaincode 的测试。这一步没有成功，所以上面图片暂时没有。</p>
@@ -585,7 +585,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

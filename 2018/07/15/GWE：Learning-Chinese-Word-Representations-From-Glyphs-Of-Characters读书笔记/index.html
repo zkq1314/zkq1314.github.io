@@ -89,16 +89,16 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="本文总结了论文GWE:Learning Chinese Word Representations From Glyphs Of Characters中的核心思想。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/GWE1.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/GWE2.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/GWE3.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/GWE4.png">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/GWE5.png">
-<meta property="og:updated_time" content="2018-07-15T08:04:52.027Z">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE1.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE2.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE3.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE4.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE5.png">
+<meta property="og:updated_time" content="2018-11-29T15:01:56.097Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GWE:Learning Chinese Word Representations From Glyphs Of Characters读书笔记">
 <meta name="twitter:description" content="本文总结了论文GWE:Learning Chinese Word Representations From Glyphs Of Characters中的核心思想。">
-<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/GWE1.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE1.png">
 
 
 
@@ -353,13 +353,13 @@
         <p>本文总结了论文GWE:Learning Chinese Word Representations From <strong>Glyphs</strong> Of Characters中的核心思想。<br><a id="more"></a></p>
 <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>论文《Learning Chinese Word Representations From Glyphs Of Characters》是国立台湾大学2017年在EMNLP发表的，在词向量中引入了convolutional auto-encoder（convAE），提取字的信息，提升了词向量的质量。<br>论文中第二部分关于词向量在汉字领域的相关工作研究做的比较充分，在写论文的时候可以适当参考引用。</p>
 <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>模型主要有两部分，分别是特征提取器和词向量训练模型。</p>
-<h3 id="Character-Bitmap-Feature-Extraction"><a href="#Character-Bitmap-Feature-Extraction" class="headerlink" title="Character Bitmap Feature Extraction"></a>Character Bitmap Feature Extraction</h3><p>本文使用的是Masci等在2011年提出的convAE，结构图如下：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/GWE1.png" alt="此处输入图片的描述"><br>得到字的glyph特征。</p>
+<h3 id="Character-Bitmap-Feature-Extraction"><a href="#Character-Bitmap-Feature-Extraction" class="headerlink" title="Character Bitmap Feature Extraction"></a>Character Bitmap Feature Extraction</h3><p>本文使用的是Masci等在2011年提出的convAE，结构图如下：<br><img src="/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE1.png" alt="此处输入图片的描述"><br>得到字的glyph特征。</p>
 <h3 id="词向量训练"><a href="#词向量训练" class="headerlink" title="词向量训练"></a>词向量训练</h3><p>针对词向量训练，作者提出了四种不同的模型。</p>
-<h4 id="Enhanced-by-ContextWord-Glyphs"><a href="#Enhanced-by-ContextWord-Glyphs" class="headerlink" title="Enhanced by ContextWord Glyphs"></a>Enhanced by ContextWord Glyphs</h4><p><img src="http://p5vuwy2ht.bkt.clouddn.com/GWE2.png" alt="此处输入图片的描述"><br>这种模型是在CWE的基础上改进而来，词$w_i$的词向量表示为：</p>
+<h4 id="Enhanced-by-ContextWord-Glyphs"><a href="#Enhanced-by-ContextWord-Glyphs" class="headerlink" title="Enhanced by ContextWord Glyphs"></a>Enhanced by ContextWord Glyphs</h4><p><img src="/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE2.png" alt="此处输入图片的描述"><br>这种模型是在CWE的基础上改进而来，词$w_i$的词向量表示为：</p>
 <script type="math/tex; mode=display">\vec{w}_{i}^{ctxG}=\vec{w}_i+\frac{1}{\left| C\left( i \right) \right|}\sum_{c_j\in C\left( i \right)}{\left( \vec{c}_j+\vec{g}_j \right)}</script><p>其中$\vec{g}_j$是由特征提取器提取出的特征。</p>
-<h4 id="Enhanced-by-TargetWord-Glyphs"><a href="#Enhanced-by-TargetWord-Glyphs" class="headerlink" title="Enhanced by TargetWord Glyphs"></a>Enhanced by TargetWord Glyphs</h4><p><img src="http://p5vuwy2ht.bkt.clouddn.com/GWE3.png" alt="此处输入图片的描述"><br>这种模型将当前词中字的特征与上下文结合，一起预测当前词。</p>
-<h4 id="RNN-Skipgram"><a href="#RNN-Skipgram" class="headerlink" title="RNN-Skipgram"></a>RNN-Skipgram</h4><p>以下两种模型直接从特征中学习词向量，没有使用上下文信息。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/GWE4.png" alt="此处输入图片的描述"><br>在Skip-gram的基础上，以特征作为输入，两层GRU，两层全连接ELU，预测当前词的上下文。</p>
-<h4 id="RNN-GloVe"><a href="#RNN-GloVe" class="headerlink" title="RNN-GloVe"></a>RNN-GloVe</h4><p><img src="http://p5vuwy2ht.bkt.clouddn.com/GWE5.png" alt="此处输入图片的描述"><br>类似于GloVe模型，将原模型中词向量部分改写为当前词的特征。</p>
+<h4 id="Enhanced-by-TargetWord-Glyphs"><a href="#Enhanced-by-TargetWord-Glyphs" class="headerlink" title="Enhanced by TargetWord Glyphs"></a>Enhanced by TargetWord Glyphs</h4><p><img src="/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE3.png" alt="此处输入图片的描述"><br>这种模型将当前词中字的特征与上下文结合，一起预测当前词。</p>
+<h4 id="RNN-Skipgram"><a href="#RNN-Skipgram" class="headerlink" title="RNN-Skipgram"></a>RNN-Skipgram</h4><p>以下两种模型直接从特征中学习词向量，没有使用上下文信息。<br><img src="/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE4.png" alt="此处输入图片的描述"><br>在Skip-gram的基础上，以特征作为输入，两层GRU，两层全连接ELU，预测当前词的上下文。</p>
+<h4 id="RNN-GloVe"><a href="#RNN-GloVe" class="headerlink" title="RNN-GloVe"></a>RNN-GloVe</h4><p><img src="/2018/07/15/GWE：Learning-Chinese-Word-Representations-From-Glyphs-Of-Characters读书笔记/GWE5.png" alt="此处输入图片的描述"><br>类似于GloVe模型，将原模型中词向量部分改写为当前词的特征。</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>实验从Word Similarity、Word Analogy、Case Study三方面对比GWE与其他模型的优劣。其中在有的语料上的表现并不如之前的模型。作者将这种情况归结为“If character in iformation does not play a role in learning word representations, character glyphs may not be useful.”说明不要管模型复杂与否，适合应用场景的才是最好的。</p>
 
       
@@ -484,7 +484,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

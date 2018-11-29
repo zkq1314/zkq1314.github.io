@@ -89,26 +89,26 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="本文总结了论文cw2vec: Learning Chinese Word Embeddings with Stroke n-gram Information中的核心思想。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec1.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec2.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec3.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec4.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec5.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec6.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec7.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec8.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec9.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec10.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec11.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec12.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec13.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec14.jpg">
-<meta property="og:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec15.jpg">
-<meta property="og:updated_time" content="2018-07-15T06:29:28.786Z">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec2.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec3.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec4.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec5.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec6.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec7.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec8.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec9.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec10.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec11.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec12.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec13.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec14.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec15.jpg">
+<meta property="og:updated_time" content="2018-11-29T15:31:59.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cw2vec">
 <meta name="twitter:description" content="本文总结了论文cw2vec: Learning Chinese Word Embeddings with Stroke n-gram Information中的核心思想。">
-<meta name="twitter:image" content="http://p5vuwy2ht.bkt.clouddn.com/cw2vec1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/09/cw2vec/cw2vec1.jpg">
 
 
 
@@ -362,13 +362,13 @@
       
         <p>本文总结了论文cw2vec: Learning Chinese Word Embeddings with Stroke n-gram Information中的核心思想。<br><a id="more"></a></p>
 <h2 id="导语："><a href="#导语：" class="headerlink" title="导语："></a>导语：</h2><p><strong>词向量</strong>算法是自然语言处理领域的基础算法，在序列标注、问答系统和机器翻译等诸多任务中都发挥了重要作用。词向量算法最早由谷歌在2013年提出的 <strong>word2vec</strong>，在接下来的几年里，该算法也经历不断的改进，但大多是仅适用于拉丁字符构成的单词（比如英文、西班牙语、德语等），结合中文语言特性的词向量研究相对较少。<br>中文经过几千年的发展和演变，是一种<strong>强表意</strong>文字，对于我们而言，即使某个字不认识，都或许可以猜到其含义，机器却很难理解这些。比如，“蘒”这个字我们很可能不认识，但里面有“艹”字头，和“禾”木旁，那它也许就是长得像该字右下角部分的某种植物吧。我们可以总结出中文词语一般包含很少的中文字符（我理解为<strong>笔画</strong>），但是中文字符内部包含了很强的语义信息。<br>本文介绍了蚂蚁金服人工智能部与新加坡科技大学一项最新的合作成果：cw2vec——基于汉字笔画信息的中文词向量算法研究，用科学的方法揭示隐藏在一笔一划之间的秘密。此论文在第32届AAAI大会上被高分录用（其中一位审稿人给出了满分，剩下两位也给出了接近满分的评价）。</p>
-<h2 id="相关工作："><a href="#相关工作：" class="headerlink" title="相关工作："></a>相关工作：</h2><p>早在1954年，语言学家Harris提出“Distributional Hypothesis[‘1’] <strong>（分布式假设</strong>）”：语义相似的单词往往会出现在相似的上下文中。这一假设奠定了后续各种词向量的语言学基础，即用数学模型去刻画单词和其上下文的语义相似度。<br>Bengio et al., 2003 [‘2’] 提出了NNLM（基于神经网络的语言模型），由于每次softmax的计算量很大（分母项的计算时间复杂度$O(V)$，$V$是全词表），相继出现了很多快速近似计算策略。<br>为了解决上述问题，谷歌提出了word2vec [‘3,4’] 算法，其中包含了两种策略，一种叫做Negative Sampling（<strong>负采样</strong>），另一种是hierarchical softmax（<strong>层次softmax</strong>）。Negative Sampling的核心思想：每次softmax计算所有单词太慢，那就随机的选几个算一算好了，当然，训练语料中出现次数越多的单词，也就越容易被选中；而Hierarchical Softmax，简单来说，就是建一棵树状的结构，每次自上而下的从根计算到叶子节点，那么就只有对数时间复杂度了！如何构建这棵树可以使得让树的高度尽量小呢？哈夫曼树。<br>词向量模型的核心是构造单词与其上下文的相似度函数，word2vec工具包里面有两种实现方式，分别是<strong>skipgram</strong>（由当前词预测上下文词）和<strong>cbow</strong>（由上下文词预测当前词）。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec1.jpg" alt="此处输入图片的描述"><br>假设当前单词w是“cat”，而上下文单词c是“sat”，算法的目标是给定w最大化c出现概率(skipgram)。在这个算法中，每个单词都被当作一个整体，利用外部的上下文结构信息去学习得到词向量。<br>那么是否可以充分结合单词内部结构的（<strong>亚词</strong>）信息，将其拆分成更细粒度的结构去增强词向量？英文中每个单词所包含的character（字母）较多，每个字母并没有实际的语义表达能力。对于中文词语而言，中文词语可以拆解成character（汉字）。<br>Chen et al., 2015 [‘5’] 提出了CWE模型，思路是把一个中文词语拆分成若干汉字，然后把原词语的向量表示和其中的每一个汉字的向量表示做平均，然后作为新的词语向量。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec2.jpg" alt="此处输入图片的描述"><br>在该算法中，“智能”是一个上下文词语，先拆解成两个汉字“智”和“能”，然后计算出新的词语向量表示；同理，上下文词语“到来”也得到重新计算。CWE保持当前词语不拆分，这里“时代”保持不变。<br>不难想到，将汉字拆分成<strong>偏旁</strong>或许是一种不错的方式，Sun et al., 2014 [‘6’]和Li et al., 2015 [‘7’] 做过相关的研究。<br>然而偏旁只是汉字的一部分，Yu et al., 2017 [‘8’] 提出了更加细化的拆分（JWE），根据人工总结的“字件”，将汉字拆成一个一个的小模块，把词、汉字和字件一起进行联合学习：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec3.jpg" alt="此处输入图片的描述"><br>其中，$w$,$c$和$s$分别表示词语、汉字和字件模块。字件粒度的拆分也取得了超过仅仅利用偏旁信息的方法。<br>此外，Su and Lee, 2017 [‘9’] 提出了GWE模型，尝试从汉字的图片中利用<strong>卷积</strong>自动编码器来提取特征：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec4.jpg" alt="此处输入图片的描述"><br>从汉字图片提取出特征之后，再结合上下文结构信息学习中文词向量。很遗憾的是，根据其原文的描述，这种方式得到的特征基本没有提升，不过这确实是非常有意思的一次试探。</p>
-<h2 id="问题场景："><a href="#问题场景：" class="headerlink" title="问题场景："></a>问题场景：</h2><p>在中文词向量场景下，将中文词语拆解到汉字粒度，虽然会一定程度上提高中文词向量的质量，但是否仍然存在汉字粒度不能刻画的情况？<br><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec5.jpg" alt="此处输入图片的描述"><br>可以看出，“木材”和“森林”是两个语义很相关的词语，但是当我们拆解到汉字粒度的时候，“木”和“材”这两个字对比“森”和“材”没有一个是相同的（一般会用一个下标去存储一个词语或汉字），因此对于这个例子而言，汉字粒度拆解是不够的。我们所希望得到的是：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec6.jpg" alt="此处输入图片的描述"><br>“木”和“材”可以分别拆解出“木”和“木”（来源于“材”的左半边）结构，而“森”和“林”分别拆解得到多个“木”的相同结构。此外，可以进一步将汉字拆解成偏旁、字件，对于以上例子可以有效提取出语义结构信息，不过我们也分析到：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec7.jpg" alt="此处输入图片的描述"><br>可以看出，“智”的偏旁恰好是“日”，而“日”不能表达出“智”的语义信息。实际上，偏旁的设计是为了方便在字典中查询汉字，因此结构简单、出现频率高变成了首要原则，并不一定恰好能够表达出该汉字的语义信息。此外，将“智”拆分到字件粒度，将会得到“失”，“口”和“日”三个，很不巧的是，这三个字件也均不能表达其汉字语义。我们需要设计出一种新的方法，来重新定义出词语（或汉字）具有语义的结构：<br><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec8.jpg" alt="此处输入图片的描述"><br>这里，“知”是可以表达出“智”语义的模块，如何得到这样的亚词结构，并结合句子上下文设计模型的优化目标，生成出更好的中文词向量，将是后文要探索的内容。</p>
+<h2 id="相关工作："><a href="#相关工作：" class="headerlink" title="相关工作："></a>相关工作：</h2><p>早在1954年，语言学家Harris提出“Distributional Hypothesis[‘1’] <strong>（分布式假设</strong>）”：语义相似的单词往往会出现在相似的上下文中。这一假设奠定了后续各种词向量的语言学基础，即用数学模型去刻画单词和其上下文的语义相似度。<br>Bengio et al., 2003 [‘2’] 提出了NNLM（基于神经网络的语言模型），由于每次softmax的计算量很大（分母项的计算时间复杂度$O(V)$，$V$是全词表），相继出现了很多快速近似计算策略。<br>为了解决上述问题，谷歌提出了word2vec [‘3,4’] 算法，其中包含了两种策略，一种叫做Negative Sampling（<strong>负采样</strong>），另一种是hierarchical softmax（<strong>层次softmax</strong>）。Negative Sampling的核心思想：每次softmax计算所有单词太慢，那就随机的选几个算一算好了，当然，训练语料中出现次数越多的单词，也就越容易被选中；而Hierarchical Softmax，简单来说，就是建一棵树状的结构，每次自上而下的从根计算到叶子节点，那么就只有对数时间复杂度了！如何构建这棵树可以使得让树的高度尽量小呢？哈夫曼树。<br>词向量模型的核心是构造单词与其上下文的相似度函数，word2vec工具包里面有两种实现方式，分别是<strong>skipgram</strong>（由当前词预测上下文词）和<strong>cbow</strong>（由上下文词预测当前词）。<br><img src="/2018/07/09/cw2vec/cw2vec1.jpg" alt="此处输入图片的描述"><br>假设当前单词w是“cat”，而上下文单词c是“sat”，算法的目标是给定w最大化c出现概率(skipgram)。在这个算法中，每个单词都被当作一个整体，利用外部的上下文结构信息去学习得到词向量。<br>那么是否可以充分结合单词内部结构的（<strong>亚词</strong>）信息，将其拆分成更细粒度的结构去增强词向量？英文中每个单词所包含的character（字母）较多，每个字母并没有实际的语义表达能力。对于中文词语而言，中文词语可以拆解成character（汉字）。<br>Chen et al., 2015 [‘5’] 提出了CWE模型，思路是把一个中文词语拆分成若干汉字，然后把原词语的向量表示和其中的每一个汉字的向量表示做平均，然后作为新的词语向量。<br><img src="/2018/07/09/cw2vec/cw2vec2.jpg" alt="此处输入图片的描述"><br>在该算法中，“智能”是一个上下文词语，先拆解成两个汉字“智”和“能”，然后计算出新的词语向量表示；同理，上下文词语“到来”也得到重新计算。CWE保持当前词语不拆分，这里“时代”保持不变。<br>不难想到，将汉字拆分成<strong>偏旁</strong>或许是一种不错的方式，Sun et al., 2014 [‘6’]和Li et al., 2015 [‘7’] 做过相关的研究。<br>然而偏旁只是汉字的一部分，Yu et al., 2017 [‘8’] 提出了更加细化的拆分（JWE），根据人工总结的“字件”，将汉字拆成一个一个的小模块，把词、汉字和字件一起进行联合学习：<br><img src="/2018/07/09/cw2vec/cw2vec3.jpg" alt="此处输入图片的描述"><br>其中，$w$,$c$和$s$分别表示词语、汉字和字件模块。字件粒度的拆分也取得了超过仅仅利用偏旁信息的方法。<br>此外，Su and Lee, 2017 [‘9’] 提出了GWE模型，尝试从汉字的图片中利用<strong>卷积</strong>自动编码器来提取特征：<br><img src="/2018/07/09/cw2vec/cw2vec4.jpg" alt="此处输入图片的描述"><br>从汉字图片提取出特征之后，再结合上下文结构信息学习中文词向量。很遗憾的是，根据其原文的描述，这种方式得到的特征基本没有提升，不过这确实是非常有意思的一次试探。</p>
+<h2 id="问题场景："><a href="#问题场景：" class="headerlink" title="问题场景："></a>问题场景：</h2><p>在中文词向量场景下，将中文词语拆解到汉字粒度，虽然会一定程度上提高中文词向量的质量，但是否仍然存在汉字粒度不能刻画的情况？<br><img src="/2018/07/09/cw2vec/cw2vec5.jpg" alt="此处输入图片的描述"><br>可以看出，“木材”和“森林”是两个语义很相关的词语，但是当我们拆解到汉字粒度的时候，“木”和“材”这两个字对比“森”和“材”没有一个是相同的（一般会用一个下标去存储一个词语或汉字），因此对于这个例子而言，汉字粒度拆解是不够的。我们所希望得到的是：<br><img src="/2018/07/09/cw2vec/cw2vec6.jpg" alt="此处输入图片的描述"><br>“木”和“材”可以分别拆解出“木”和“木”（来源于“材”的左半边）结构，而“森”和“林”分别拆解得到多个“木”的相同结构。此外，可以进一步将汉字拆解成偏旁、字件，对于以上例子可以有效提取出语义结构信息，不过我们也分析到：<br><img src="/2018/07/09/cw2vec/cw2vec7.jpg" alt="此处输入图片的描述"><br>可以看出，“智”的偏旁恰好是“日”，而“日”不能表达出“智”的语义信息。实际上，偏旁的设计是为了方便在字典中查询汉字，因此结构简单、出现频率高变成了首要原则，并不一定恰好能够表达出该汉字的语义信息。此外，将“智”拆分到字件粒度，将会得到“失”，“口”和“日”三个，很不巧的是，这三个字件也均不能表达其汉字语义。我们需要设计出一种新的方法，来重新定义出词语（或汉字）具有语义的结构：<br><img src="/2018/07/09/cw2vec/cw2vec8.jpg" alt="此处输入图片的描述"><br>这里，“知”是可以表达出“智”语义的模块，如何得到这样的亚词结构，并结合句子上下文设计模型的优化目标，生成出更好的中文词向量，将是后文要探索的内容。</p>
 <h2 id="模型设计："><a href="#模型设计：" class="headerlink" title="模型设计："></a>模型设计：</h2><pre><code>此论文提出了“n元笔画”的概念。所谓“n元笔画”，即就是中文词语（或汉字）连续的n个笔画构成的语义结构。
-</code></pre><p><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec9.jpg" alt="此处输入图片的描述"><br><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec10.jpg" alt="此处输入图片的描述"><br>如上图，n元笔画的生成共有四个步骤。比如说，“大人”这个词语，可以拆开为两个汉字“大”和“人”，然后将这两个汉字拆分成笔画，再将笔画映射到数字编号，进而利用窗口滑动产生n元笔画。其中，n是一个范围，在上述例子中，我们将n取值为3, 4和5。<br>    在论文中提出了一种基于n元笔画的新型的损失函数：</p>
+</code></pre><p><img src="/2018/07/09/cw2vec/cw2vec9.jpg" alt="此处输入图片的描述"><br><img src="/2018/07/09/cw2vec/cw2vec10.jpg" alt="此处输入图片的描述"><br>如上图，n元笔画的生成共有四个步骤。比如说，“大人”这个词语，可以拆开为两个汉字“大”和“人”，然后将这两个汉字拆分成笔画，再将笔画映射到数字编号，进而利用窗口滑动产生n元笔画。其中，n是一个范围，在上述例子中，我们将n取值为3, 4和5。<br>    在论文中提出了一种基于n元笔画的新型的损失函数：</p>
 <script type="math/tex; mode=display">\mathbb{L}=\sum_{w\in D}{\sum_{c\in T\left( w \right)}{\log \sigma \left( sim\left( w,c \right) \right) +\lambda \mathbb{E}_{c'~P}\left[ \log \sigma \left( -sim\left( w,c \right) \right) \right]}}</script><p>其中，$w$和$c$分别为当前词语和上下文词语，$ \sigma  $ 是sigmoid函数， $ T\left( w \right)  $ 是当前词语划窗内的所有词语集合， $D$是训练语料的全部文本。为了避免传统softmax带来的巨大计算量，我们也采用了负采样的方式。 $ c’ $ 为随机选取的词语，称为“负样例”， $ \lambda  $ 是负样例的个数，而$  \mathbb{E}_{c’~P\left( D \right)}\left[ \cdot \right]  $ 则表示负样例 按照词频分布进行的采样，其中语料中出现次数越多的词语越容易被采样到。相似性函数$ sim\left( \cdot ,\cdot \right)  $  被按照如下构造：</p>
-<script type="math/tex; mode=display">sim\left( w,c \right) =\sum_{q\in S\left( w \right)}{\vec{q}\cdot \vec{c}}</script><p>其中，$ \vec{q} $ 为当前词语对应的一个n元笔画向量，而 是其对应的上下文词语的词向量。我们将当前词语拆解为其对应的n元笔画，但保留每一个上下文词语不进行拆解。$ S\left( w \right)  $ 为词语$w$ 所对应的n元笔画的集合。在算法执行前，我们先扫描每一个词语，生成n元笔画集合，针对每一个n元笔画，都有对应的一个n元笔画向量，在算法开始之前做随机初始化，其向量维度和词向量的维度相同。<br><img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec11.jpg" alt="此处输入图片的描述"><br>如上图所示，对于“治理 雾霾 刻不容缓”这句话，假设此刻当前词语恰好是“雾霾”，上下文词语是“治理”和“刻不容缓”。首先我们将当前词语“雾霾”拆解成n元笔画并映射成数字编码，然后划窗得到所有的n元笔画，根据我们设计的损失函数，计算每一个n元笔画和上下文词语的相似度，进而根据损失函数求梯度并对上下文词向量和n元笔画向量进行更新。</p>
-<h2 id="实验分析："><a href="#实验分析：" class="headerlink" title="实验分析："></a>实验分析：</h2><p>为了验证cw2vec算法的效果，我们在公开数据集上，与业界最优的几个词向量算法做了对比:<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec12.jpg" alt="此处输入图片的描述"><br>上图中包括2013年谷歌提出的word2vec [‘2,3’] 的两个模型skipgram和cbow，2014年斯坦福提出的GloVe算法 <a href="http://p5vuwy2ht.bkt.clouddn.com/cw2vec10.jpg" target="_blank" rel="noopener">10</a>，2015年清华大学提出的基于汉字的CWE模型 <a href="http://p5vuwy2ht.bkt.clouddn.com/cw2vec5.jpg" target="_blank" rel="noopener">5</a>，以及2017年最新发表的基于像素和字件的中文词向量算法 [‘8,9’]，可以看出cw2vec在word similarity，word analogy，以及文本分类和命名实体识别的任务中均取得了一致性的提升。同时，我们也展示了不同词向量维度下的实验效果：<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec13.jpg" alt="此处输入图片的描述"><br>上图为不同维度下在word analogy测试集上的实验结果，左侧为3cosadd，右侧为3cosmul的测试方法。可以看出我们的算法在不同维度的设置下均取得了不错的效果。此外，我们也在小规模语料上进行了测试：<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec14.jpg" alt="此处输入图片的描述"><br>上图是仅选取20%中文维基百科训练语料，在word similarity下测试的结果，skipgram, cbow和GloVe算法由于没有利用中文的特性信息进行加强，所以在小语料上表现较差，而其余四个算法取得了不错的效果，其中我们的算法在两个数据集上均取得的了最优效果。<br> <img src="http://p5vuwy2ht.bkt.clouddn.com/cw2vec15.jpg" alt="此处输入图片的描述"><br>为了更好的探究不同算法的实际效果，我们专门选取了两个词语做案例分析。第一个是环境相关的“水污染”，然后根据词向量利用向量夹角余弦找到与其语义最接近的词语。GWE找到了一些和“污”字相关的词语，比如“污泥”，“污渍”和“污垢”，而JWE则更加强调后两个字“污染”GloVe找到了一些奇怪的相近词语，比如“循环系统”，“神经系统”。CWE找到的相近词语均包含“水”和“污”这两个字，我们猜测是由于其利用汉字信息直接进行词向量加强的原因。此外，只有cw2vec找到了“水质”这个相关词语，我们认为是由于n元笔画和上下文信息对词向量共同作用的结果。第二个例子，我们特别选择了“孙悟空”这个词语，该角色出现在中国的名著《西游记》和知名日本动漫《七龙珠》中，cw2vec找到的均为相关的角色或著作名称。</p>
+<script type="math/tex; mode=display">sim\left( w,c \right) =\sum_{q\in S\left( w \right)}{\vec{q}\cdot \vec{c}}</script><p>其中，$ \vec{q} $ 为当前词语对应的一个n元笔画向量，而 是其对应的上下文词语的词向量。我们将当前词语拆解为其对应的n元笔画，但保留每一个上下文词语不进行拆解。$ S\left( w \right)  $ 为词语$w$ 所对应的n元笔画的集合。在算法执行前，我们先扫描每一个词语，生成n元笔画集合，针对每一个n元笔画，都有对应的一个n元笔画向量，在算法开始之前做随机初始化，其向量维度和词向量的维度相同。<br><img src="/2018/07/09/cw2vec/cw2vec11.jpg" alt="此处输入图片的描述"><br>如上图所示，对于“治理 雾霾 刻不容缓”这句话，假设此刻当前词语恰好是“雾霾”，上下文词语是“治理”和“刻不容缓”。首先我们将当前词语“雾霾”拆解成n元笔画并映射成数字编码，然后划窗得到所有的n元笔画，根据我们设计的损失函数，计算每一个n元笔画和上下文词语的相似度，进而根据损失函数求梯度并对上下文词向量和n元笔画向量进行更新。</p>
+<h2 id="实验分析："><a href="#实验分析：" class="headerlink" title="实验分析："></a>实验分析：</h2><p>为了验证cw2vec算法的效果，我们在公开数据集上，与业界最优的几个词向量算法做了对比:<br> <img src="/2018/07/09/cw2vec/cw2vec12.jpg" alt="此处输入图片的描述"><br>上图中包括2013年谷歌提出的word2vec [‘2,3’] 的两个模型skipgram和cbow，2014年斯坦福提出的GloVe算法 <a href="cw2vec/cw2vec10.jpg">10</a>，2015年清华大学提出的基于汉字的CWE模型 <a href="cw2vec/cw2vec5.jpg">5</a>，以及2017年最新发表的基于像素和字件的中文词向量算法 [‘8,9’]，可以看出cw2vec在word similarity，word analogy，以及文本分类和命名实体识别的任务中均取得了一致性的提升。同时，我们也展示了不同词向量维度下的实验效果：<br> <img src="/2018/07/09/cw2vec/cw2vec13.jpg" alt="此处输入图片的描述"><br>上图为不同维度下在word analogy测试集上的实验结果，左侧为3cosadd，右侧为3cosmul的测试方法。可以看出我们的算法在不同维度的设置下均取得了不错的效果。此外，我们也在小规模语料上进行了测试：<br> <img src="/2018/07/09/cw2vec/cw2vec14.jpg" alt="此处输入图片的描述"><br>上图是仅选取20%中文维基百科训练语料，在word similarity下测试的结果，skipgram, cbow和GloVe算法由于没有利用中文的特性信息进行加强，所以在小语料上表现较差，而其余四个算法取得了不错的效果，其中我们的算法在两个数据集上均取得的了最优效果。<br> <img src="/2018/07/09/cw2vec/cw2vec15.jpg" alt="此处输入图片的描述"><br>为了更好的探究不同算法的实际效果，我们专门选取了两个词语做案例分析。第一个是环境相关的“水污染”，然后根据词向量利用向量夹角余弦找到与其语义最接近的词语。GWE找到了一些和“污”字相关的词语，比如“污泥”，“污渍”和“污垢”，而JWE则更加强调后两个字“污染”GloVe找到了一些奇怪的相近词语，比如“循环系统”，“神经系统”。CWE找到的相近词语均包含“水”和“污”这两个字，我们猜测是由于其利用汉字信息直接进行词向量加强的原因。此外，只有cw2vec找到了“水质”这个相关词语，我们认为是由于n元笔画和上下文信息对词向量共同作用的结果。第二个例子，我们特别选择了“孙悟空”这个词语，该角色出现在中国的名著《西游记》和知名日本动漫《七龙珠》中，cw2vec找到的均为相关的角色或著作名称。</p>
 <h2 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h2><ol>
 <li>Harris, Zellig S. “Distributional structure.” Word 1954.</li>
 <li>Bengio, Yoshua, et al. “A neural probabilistic language model.” JMLR 2003.</li>
@@ -415,8 +415,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/09/论文阅读/" rel="next" title="论文阅读">
-                <i class="fa fa-chevron-left"></i> 论文阅读
+              <a href="/2018/07/04/MWeb init Library/docs/15294769775635/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -504,7 +504,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
