@@ -251,6 +251,297 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/scipy-stats-spearmanr用法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/13/scipy-stats-spearmanr用法/" itemprop="url">scipy.stats.spearmanr用法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T16:26:00+08:00">
+                2018-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/词向量/" itemprop="url" rel="index">
+                    <span itemprop="name">词向量</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>计算<strong>Spearman秩相关系数</strong>和<strong>P值</strong>（非相关性检验）。<br>在计算word similarity时用到的。具体用法是数据集中每行有一对词和人工标注的相关性，如(李白 诗 9.2)。程序先从词向量中读取两个词的向量，求得两个向量的余弦相似性，再用spearmanr求得相关系数和P值。最后的实验分析用的是相关系数。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/keras中的embedding层/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/08/keras中的embedding层/" itemprop="url">keras中的embedding层</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T09:23:20+08:00">
+                2018-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文本分类/" itemprop="url" rel="index">
+                    <span itemprop="name">文本分类</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="keras中的Embedding层"><a href="#keras中的Embedding层" class="headerlink" title="keras中的Embedding层"></a>keras中的Embedding层</h2><p>将索引映射为固定维度的稠密向量，如[[4],[20]]-&gt;[[0.25,0.1],[0.6,-0.2]]。<br>Embedding层只能作为模型的第一层。</p>
+<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><ol>
+<li>从头训练<br>就像word2vec一样, 这一层是可学习的, 用随机数initialize , 通过BP去调整.</li>
+<li>pre-trained + fine tuning<br>用其他网络(如 word2vec) 训练好的现成的词向量, 作为初始化参数, 然后继续学习.</li>
+<li>pre-trained + static<br>用其他网络(如 word2vec) 训练好的现成的词向量, 作为初始化参数, 并且这些参数保持固定, 不参与网络的学习.<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keras.layers.embeddings.Embedding(input_dim, output_dim, embeddings_initializer=<span class="string">'uniform'</span>, embeddings_regularizer=<span class="keyword">None</span>, activity_regularizer=<span class="keyword">None</span>, embeddings_constraint=<span class="keyword">None</span>, mask_zero=<span class="keyword">False</span>, input_length=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>input_dim：大或等于0的整数，字典长度（词汇量），即输入数据最大下标+1<br>output_dim：大于0的整数，代表词向量的维度<br>embeddings_initializer: 初始化方法<br>embeddings_regularizer: 嵌入矩阵的正则项，为Regularizer对象<br>embeddings_constraint: 嵌入矩阵的约束项，为Constraints对象<br>mask_zero：布尔值，确定是否将输入中的‘0’看作是应该被忽略的‘填充’（padding）值，该参数在使用递归层处理变长输入时有用。设置为True的话，模型中后续的层必须都支持masking，否则会抛出异常。如果该值为True，则下标0在字典中不可用，input_dim应设置为$|vocabulary| + 1$。<br>input_length：当输入序列的长度固定时，该值为其长度。如果要在该层后接Flatten层，然后接Dense层，则必须指定该参数，否则Dense层的输出维度无法自动推断。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/文本分类综述/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1376,7 +1667,7 @@
 <h2 id="帮助我们改进-MWeb"><a href="#帮助我们改进-MWeb" class="headerlink" title="帮助我们改进 MWeb"></a>帮助我们改进 MWeb</h2><p>如果你喜欢 MWeb，想让它变得更好，你可以：</p>
 <ol>
 <li>推荐 MWeb，让更多的人知道。</li>
-<li>给我们发反馈和建议：<a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x63;&#x6f;&#x64;&#x65;&#114;&#x66;&#111;&#x72;&#x61;&#x72;&#x74;&#43;&#50;&#x33;&#x33;&#51;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x63;&#x6f;&#x64;&#x65;&#114;&#x66;&#111;&#x72;&#x61;&#x72;&#x74;&#43;&#50;&#x33;&#x33;&#51;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></li>
+<li>给我们发反馈和建议：<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#x3a;&#99;&#x6f;&#x64;&#x65;&#x72;&#102;&#x6f;&#114;&#97;&#114;&#116;&#x2b;&#x32;&#x33;&#x33;&#x33;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#99;&#x6f;&#x64;&#x65;&#x72;&#102;&#x6f;&#114;&#97;&#114;&#116;&#x2b;&#x32;&#x33;&#x33;&#x33;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></li>
 <li>在 Mac App Store 上评价 （如果是在 MAS 上购买的话）。</li>
 </ol>
 
@@ -1414,303 +1705,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/07/BP推导/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KaiQiang Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/07/BP推导/" itemprop="url">BP推导</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T09:32:39+08:00">
-                2018-06-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>整理一下BP推导过程，以备查验。<br></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/07/BP推导/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/03/word2vec/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KaiQiang Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/03/word2vec/" itemprop="url">word2vec</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T17:39:25+08:00">
-                2018-05-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/词向量/" itemprop="url" rel="index">
-                    <span itemprop="name">词向量</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Word2Vec是从大量文本语料中以无监督的方式学习语义知识的一种模型，它被大量地用在自然语言处理（NLP）中。<br></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/03/word2vec/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1756,7 +1755,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

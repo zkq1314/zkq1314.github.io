@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC2.png">
 <meta property="og:image" content="http://yoursite.com/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC3.png">
 <meta property="og:image" content="http://yoursite.com/2018/07/10/word2vec公式推导/word2vec%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC4.png">
-<meta property="og:updated_time" content="2018-11-29T15:14:25.922Z">
+<meta property="og:updated_time" content="2018-12-03T02:32:49.502Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="word2vec公式推导">
 <meta name="twitter:description" content="本文接着word2vec的那篇概述再推导一下word2vec中的公式，也是《word2vec Parameter Learning Explained》论文学习笔记，有一些细节的推导我写在了论文处。这篇论文详细地推导和解释了word2vec模型的参数更新公式，包括：CBOW（continuous bag-of-word）模型和SG（skip-gram）模型，以及两种参数优化技术：hierarchi">
@@ -369,7 +369,7 @@
 <script type="math/tex; mode=display">\mu_j=\mathbf {v_{\omega_j}'}^T\mathbf h\tag{2}</script><p> 其中，${v_{\omega_j}’}$即为矩阵$W′$的第j列向量（也是N维向量，其实就是单词w的输出向量，我们后面会提到）。<br> 经过以上讨论之后，我们可以使用一种对数-线性分类模型softmax函数来计算单词的后验分布（是多项式分布）</p>
 <script type="math/tex; mode=display">p(\omega_j|\omega_I)=y_j=\frac{\exp(\mu_j)}{\sum_{j'=1}^V\exp(\mu_{j'})}\tag{3}</script><p> 其中， $y_j$表示输出层第j个神经单元的输出值。将（1）式和（2）式代入（3）式我们可以得到：</p>
 <script type="math/tex; mode=display">p(\omega_j|\omega_I)=\frac{\exp({\mathbf v_{\omega_j}'}^T \mathbf v_{\omega_I})}{\sum_{j'=1}^V\exp({\mathbf v_{\omega_j}'}^T \mathbf v_{\omega_I})}\tag{4}</script><p> 注意：正如前文所述，$v<em>ω$和$v′</em>ω$是单词的两种向量表示形式。其中$v<em>ω$实际上是权重矩阵$W$（input-&gt;hidden）的某一行向量，$v′</em>ω$则是权重矩阵$W′$（hidden-&gt;output）的某一列向量。我们将$v<em>ω$和$v′</em>ω$分别称为“输入向量（input vector）”和“输出向量（output vector）”（二者均为N维向量）。</p>
-<h4 id="Update-equation-for-hidden→output-weights"><a href="#Update-equation-for-hidden→output-weights" class="headerlink" title="Update equation for hidden→output weights"></a>Update equation for hidden→output weights</h4><p> 在我们推导hidden→output权重的更新公式的过程中，需要用到哦神经网络的反向传播算法，对这部分内容不熟悉的读者可以参考附录A的内容。<br>由以上描述可知，该模型训练的目标就是求公式（4）的最大值。公式（4）代表的就是给定上下文信息（这里为一个单词$ω_I$）以及其权重矩阵的情况下，预测其实际输出单词（即上下文信息的中心词$ω_O$）的条件概率。</p>
+<h4 id="Update-equation-for-hidden→output-weights"><a href="#Update-equation-for-hidden→output-weights" class="headerlink" title="Update equation for hidden→output weights"></a>Update equation for hidden→output weights</h4><p> 在我们推导hidden→output权重的更新公式的过程中，需要用到神经网络的反向传播算法，对这部分内容不熟悉的读者可以参考附录A的内容。<br>由以上描述可知，该模型训练的目标就是求公式（4）的最大值。公式（4）代表的就是给定上下文信息（这里为一个单词$ω_I$）以及其权重矩阵的情况下，预测其实际输出单词（即上下文信息的中心词$ω_O$）的条件概率。</p>
 <script type="math/tex; mode=display">\begin{align}
 & \max p(\omega_O|\omega_I)=\max y_{j^*}\tag{5}\\
 &=\max \log y_{j^*}\tag{6}\\
@@ -598,7 +598,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
