@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="先由所有基模型对训练集进行预测，使用交叉验证或者留一法生成新的训练集，再由次级学习器（多使用线性回归）训练。一个例子：XGB模型，把train分train1~train5,共5份，用其中4份预测剩下的那份,同时预测test数据，这样的过程做5次,生成5份train（原train样本数/5）数据和5份test数据。然后把5份预测的train数据纵向叠起来，把test预测的结果取平均。 RF模型和XG">
+<meta name="description" content="先由所有基模型对训练集进行预测，使用交叉验证或者留一法生成新的训练集，再由次级学习器（多使用线性回归）训练。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="stacking原理">
 <meta property="og:url" content="http://yoursite.com/2018/12/12/stacking原理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="先由所有基模型对训练集进行预测，使用交叉验证或者留一法生成新的训练集，再由次级学习器（多使用线性回归）训练。一个例子：XGB模型，把train分train1~train5,共5份，用其中4份预测剩下的那份,同时预测test数据，这样的过程做5次,生成5份train（原train样本数/5）数据和5份test数据。然后把5份预测的train数据纵向叠起来，把test预测的结果取平均。 RF模型和XG">
+<meta property="og:description" content="先由所有基模型对训练集进行预测，使用交叉验证或者留一法生成新的训练集，再由次级学习器（多使用线性回归）训练。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/12/12/stacking原理/stacking.png">
-<meta property="og:updated_time" content="2018-12-12T06:55:25.717Z">
+<meta property="og:updated_time" content="2018-12-12T08:13:20.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="stacking原理">
-<meta name="twitter:description" content="先由所有基模型对训练集进行预测，使用交叉验证或者留一法生成新的训练集，再由次级学习器（多使用线性回归）训练。一个例子：XGB模型，把train分train1~train5,共5份，用其中4份预测剩下的那份,同时预测test数据，这样的过程做5次,生成5份train（原train样本数/5）数据和5份test数据。然后把5份预测的train数据纵向叠起来，把test预测的结果取平均。 RF模型和XG">
+<meta name="twitter:description" content="先由所有基模型对训练集进行预测，使用交叉验证或者留一法生成新的训练集，再由次级学习器（多使用线性回归）训练。">
 <meta name="twitter:image" content="http://yoursite.com/2018/12/12/stacking原理/stacking.png">
 
 
@@ -323,7 +323,7 @@
       
 
       
-        <p>先由所有基模型对训练集进行预测，使用交叉验证或者留一法生成新的训练集，再由次级学习器（多使用线性回归）训练。<br>一个例子：<br><img src="/2018/12/12/stacking原理/stacking.png" alt="stacking 例子"><br>XGB模型，把train分train1~train5,共5份，用其中4份预测剩下的那份,同时预测test数据，这样的过程做5次,生成5份train（原train样本数/5）数据和5份test数据。然后把5份预测的train数据纵向叠起来，把test预测的结果取平均。</p>
+        <p>先由所有基模型对训练集进行预测，使用交叉验证或者留一法生成新的训练集，再由次级学习器（多使用线性回归）训练。<br><a id="more"></a><br>一个例子：<br><img src="/2018/12/12/stacking原理/stacking.png" alt="stacking 例子"><br>XGB模型，把train分train1~train5,共5份，用其中4份预测剩下的那份,同时预测test数据，这样的过程做5次,生成5份train（原train样本数/5）数据和5份test数据。然后把5份预测的train数据纵向叠起来，把test预测的结果取平均。</p>
 <p>RF模型和XGB模型一样，再来一次。这样就生成了2份train数据和2份test数据（XGB重新表达的数据和RF重新表达的数据），将它们并列合并。然后用LR模型，进一步做融合，得到最终的预测结果。</p>
 
       
@@ -358,6 +358,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/12/从决策树到GBDT/" rel="prev" title=" 从决策树到GBDT">
+                 从决策树到GBDT <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -425,7 +429,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
