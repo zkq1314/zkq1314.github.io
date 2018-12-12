@@ -94,7 +94,8 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/07/机器学习知识点汇总/机器学习知识点2.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/机器学习知识点汇总/机器学习知识点5.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/机器学习知识点汇总/机器学习知识点6.jpg">
-<meta property="og:updated_time" content="2018-12-12T11:18:16.938Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/07/机器学习知识点汇总/机器学习知识点7.png">
+<meta property="og:updated_time" content="2018-12-12T11:34:34.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习知识点汇总">
 <meta name="twitter:description" content="机器学习模型感知机k 近邻朴素贝叶斯决策树逻辑回归损失函数(交叉熵损失函数)$L=\sum_{i=1}^Ny^{(i)}log\ \hat y^{(i)}+(1-y^{(i)})log\ (1-\hat y^{(i)})$ LR 怎么处理非线性1.特征离散+特征交叉2.核函数，不同于SVM，LR中所有样本都会参与运算，计算量过大。3.LR之前加入神经网络，将神经网络看做特征提取 能否用核函数加L">
@@ -386,7 +387,7 @@
 <ol>
 <li>给定训练样本集S，其中X和Y分别对应于正例样本和负例样本； T为训练的最大循环次数；</li>
 <li>初始化样本权重为1/n ，即为训练样本的初始概率分布；</li>
-<li>第一次迭代：<br>(1) 训练样本的概率分布相当下，训练弱分类器；<br>(2) 计算弱分类器的错误率；<br>(3) 计算弱分类器的权重；<br>(4) 更新样本权重；<br>经T次循环后，得到T个弱分类器，按更新的权重叠加，最终得到的强分类器。</li>
+<li>第一次迭代：<br>(1) 训练弱分类器；<br>(2) 计算弱分类器的错误率；<br>(3) 计算弱分类器的权重；<br>(4) 更新样本权重；<br>经T次循环后，得到T个弱分类器，按更新的权重叠加，最终得到的强分类器。</li>
 </ol>
 <h3 id="bagging"><a href="#bagging" class="headerlink" title="bagging"></a>bagging</h3><p>1）从原始样本集中抽取训练集.每轮从原始样本集中使用Bootstraping的方法抽取n个训练样本（在训练集中，有些样本可能被多次抽取到，而有些样本可能一次都没有被抽中）.共进行k轮抽取，得到k个训练集.（k个训练集相互独立）<br>2）每次使用一个训练集得到一个模型，k个训练集共得到k个模型.（注：根据具体问题采用不同的分类或回归方法，如决策树、神经网络等）<br>3）对分类问题：将上步得到的k个模型采用投票的方式得到分类结果；对回归问题，计算上述模型的均值作为最后的结果.</p>
 <h3 id="两者不同"><a href="#两者不同" class="headerlink" title="两者不同"></a>两者不同</h3><p>Bagging + 决策树 = 随机森林<br>AdaBoost + 决策树 = 提升树<br>Gradient Boosting + 决策树 = GBDT</p>
@@ -395,13 +396,7 @@
 <p>3）预测函数：<br>Bagging：所有预测函数的权重相等.<br>Boosting：每个弱分类器都有相应的权重，对于分类误差小的分类器会有更大的权重.</p>
 <p>4）并行计算：<br>Bagging：各个预测函数可以并行生成<br>Boosting：各个预测函数只能顺序生成，因为后一个模型参数需要前一轮模型的结果.</p>
 <h3 id="为什么说bagging是减少方差variance，而boosting是减少偏差bias"><a href="#为什么说bagging是减少方差variance，而boosting是减少偏差bias" class="headerlink" title="为什么说bagging是减少方差variance，而boosting是减少偏差bias"></a>为什么说bagging是减少方差variance，而boosting是减少偏差bias</h3><p><a href="https://www.zhihu.com/question/45487317" target="_blank" rel="noopener">https://www.zhihu.com/question/45487317</a><br>其实就机器学习算法来说，其泛化误差可以分解为两部分，偏差（bias)和方差(variance)。这个可由下图的式子导出（这里用到了概率论公式$D(X)=E(X^2)-[E(X)]^2$。<strong>偏差指的是算法的期望预测与真实预测之间的偏差程度，反应了模型本身的拟合能力；方差度量了同等大小的训练集的变动导致学习性能的变化，刻画了数据扰动所导致的影响</strong>。</p>
-<script type="math/tex; mode=display">Err(h) = E[(h-f)^2]
-=E[((h-E[h])-(f-E[h]))^2]
-=E[(h-E[h])^2]-2E[(h-E[h])(f-E[h])]+E[(f-E[h])^2]
-=var -2E[b(h-E[h]) +b^2 
-=var-2b(E[h]-E[E[h]]) +b^2 
-=var -2b*0+b^2
-=var+b^2</script><p>boosting是把许多弱的分类器组合成一个强的分类器。弱的分类器bias高，而强的分类器bias低，所以说boosting起到了降低bias的作用。variance不是boosting的主要考虑因素。<br>bagging是对许多强（甚至过强）的分类器求平均。在这里，每个单独的分类器的bias都是低的，平均之后bias依然低；而每个单独的分类器都强到可能产生overfitting的程度，也就是variance高，求平均的操作起到的作用就是降低这个variance。</p>
+<script type="math/tex; mode=display">Err(h) = E[(h-f)^2]=E[((h-E[h])-(f-E[h]))^2]$$$$=E[(h-E[h])^2]-2E[(h-E[h])(f-E[h])]+E[(f-E[h])^2]$$$$=var-2E[b(h-E[h]) +b^2=var-2b(E[h]-E[E[h]]) +b^2$$$$=var -2b*0+b^2=var+b^2</script><p>如下图所示，当模型越复杂时，拟合的程度就越高，模型的训练偏差就越小。但此时如果换一组数据可能模型的变化就会很大，即模型的方差很大。所以模型过于复杂的时候会导致过拟合。当模型越简单时，即使我们再换一组数据，最后得出的学习器和之前的学习器的差别就不那么大，模型的方差很小。还是因为模型简单，所以偏差会很大。<br><img src="/2018/12/07/机器学习知识点汇总/机器学习知识点7.png" alt="机器学习知识点7"><br>也就是说，当我们训练一个模型时，偏差和方差都得照顾到，漏掉一个都不行。对于Bagging算法来说，由于我们会并行地训练很多不同的分类器的目的就是降低这个方差(variance)$E[(h-E[h])]$ ,因为采用了相互独立的基分类器多了以后，h的值自然就会靠近$E[h]$.所以对于每个基分类器来说，目标就是如何降低这个偏差（bias),所以我们会采用深度很深甚至不剪枝的决策树。对于Boosting来说，每一步我们都会在上一轮的基础上更加拟合原数据，所以可以保证偏差（bias）,所以对于每个基分类器来说，问题就在于如何选择variance更小的分类器，即更简单的分类器，所以我们选择了深度很浅的决策树。</p>
 <h3 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h3><p>随机森林的集成学习方法是bagging ，但是和bagging 不同的是bagging只使用bootstrap有放回的采样样本，但随机森林既随机采样样本，也<strong>随机选择特征</strong>，因此防止过拟合能力更强，降低方差。<br>如果有M个输入变量，每个节点都将随机选择m($m&lt;M$)个特定的变量，然后运用这m个变量来确定最佳的分裂点。在决策树的生成过程中，m的值是保持不变的。m一般取$log_2 M$</p>
 <h3 id="stacking"><a href="#stacking" class="headerlink" title="stacking"></a>stacking</h3><p><a href="https://blog.csdn.net/qq_18916311/article/details/78557722" target="_blank" rel="noopener">https://blog.csdn.net/qq_18916311/article/details/78557722</a></p>
 <h3 id="gbdt"><a href="#gbdt" class="headerlink" title="gbdt"></a>gbdt</h3><p>用损失函数的负梯度来拟合本轮损失的近似值，进而拟合出一个CART回归树。</p>
