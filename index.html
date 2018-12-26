@@ -251,6 +251,130 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/从WordEmbedding到Bert模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KaiQiang Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/26/从WordEmbedding到Bert模型/" itemprop="url">从WordEmbedding到Bert模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T17:00:34+08:00">
+                2018-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>转载自张俊林的知乎专栏。主要说明 Word2Vec 之后的词向量技术，关注 ELMO，GPT，Bert 三个模型。<br></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/26/从WordEmbedding到Bert模型/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/Boosting学习笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -878,7 +1002,9 @@
 <h2 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h2><h3 id="对比-Attention-和-CNN-RNN"><a href="#对比-Attention-和-CNN-RNN" class="headerlink" title="对比 Attention 和 CNN RNN"></a>对比 Attention 和 CNN RNN</h3><p>RNN的方案很简单，递归式进行：<br>$\boldsymbol{y}<em>t = f(\boldsymbol{y}</em>{t-1},\boldsymbol{x}_t)$<br>无法并行，速度较慢<br>输入序列不论长短都会被编码成一个固定长度的向量表示，而解码则受限于该固定长度的向量表示。<br>CNN 则需要通过层叠来扩大感受野</p>
 <h3 id="长度需要填充的文本怎么避免填充值影响后续计算"><a href="#长度需要填充的文本怎么避免填充值影响后续计算" class="headerlink" title="长度需要填充的文本怎么避免填充值影响后续计算"></a>长度需要填充的文本怎么避免填充值影响后续计算</h3><p><a href="https://blog.csdn.net/stupid_3/article/details/83184691" target="_blank" rel="noopener">https://blog.csdn.net/stupid_3/article/details/83184691</a><br><a href="https://blog.csdn.net/mijiaoxiaosan/article/details/74909076" target="_blank" rel="noopener">https://blog.csdn.net/mijiaoxiaosan/article/details/74909076</a><br>给在较短的序列后面填充0。因为这些填充的位置，其实是没什么意义的，所以我们的attention机制不应该把注意力放在这些位置上，所以我们需要进行一些处理。<br>具体的做法是，把这些位置的值加上一个非常大的负数(可以是负无穷)，这样的话，经过softmax，这些位置的概率就会接近0！</p>
 <h1 id="机器学习算法"><a href="#机器学习算法" class="headerlink" title="机器学习算法"></a>机器学习算法</h1><h2 id="最优化算法"><a href="#最优化算法" class="headerlink" title="最优化算法"></a>最优化算法</h2><p>迭代尺度法<br>梯度下降法<br>牛顿法或拟牛顿法</p>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h2><h3 id="过拟合-1"><a href="#过拟合-1" class="headerlink" title="过拟合"></a>过拟合</h3><p>当我们提高在训练数据上的表现时，在测试数据上反而下降。<br>过拟合发生的本质原因，是由于监督学习问题的不适定：在高中数学我们知道，从n个（线性无关）方程可以解n个变量，解n+1个变量就会解不出。在监督学习中，往往数据（对应了方程）远远少于模型空间（对应了变量）。因此过拟合现象的发生，可以分解成以下三点：</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="评价方法"><a href="#评价方法" class="headerlink" title="评价方法"></a>评价方法</h2><h3 id="分类评价方法"><a href="#分类评价方法" class="headerlink" title="分类评价方法"></a>分类评价方法</h3><p>准确率<br>召回率<br>F值<br>P-R 曲线<br>ROC 曲线和 AUC 曲线</p>
+<h3 id="回归评价方法"><a href="#回归评价方法" class="headerlink" title="回归评价方法"></a>回归评价方法</h3><p>平均绝对误差<br>均方误差 MSE</p>
+<h2 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h2><h3 id="过拟合-1"><a href="#过拟合-1" class="headerlink" title="过拟合"></a>过拟合</h3><p>当我们提高在训练数据上的表现时，在测试数据上反而下降。<br>过拟合发生的本质原因，是由于监督学习问题的不适定：在高中数学我们知道，从n个（线性无关）方程可以解n个变量，解n+1个变量就会解不出。在监督学习中，往往数据（对应了方程）远远少于模型空间（对应了变量）。因此过拟合现象的发生，可以分解成以下三点：</p>
 <p>1.<strong>有限的训练数据</strong>不能完全反映出一个模型的好坏，然而我们却不得不在这有限的数据上挑选模型，因此我们完全有可能挑选到在训练数据上表现很好而在测试数据上表现很差的模型，因为我们完全无法知道模型在测试数据上的表现。<br>2.如果模型空间很大，也就是有很多很多模型可以给我们挑选，那么挑到对的模型的机会就会很小。<br>3.与此同时，如果我们要在训练数据上表现良好，最为直接的方法就是要在足够大的模型空间中挑选模型，否则如果模型空间很小，就不存在能够拟合数据很好的模型。</p>
 <p>由上3点可见，要拟合训练数据，就要足够大的模型空间；用了足够大的模型空间，挑选到测试性能好的模型的概率就会下降。因此，就会出现训练数据拟合越好，测试性能越差的过拟合现象。</p>
 <h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>在<strong>经验风险</strong>的上加一个正则化项或罚项，是<strong>结构风险</strong>最小化策略的实现。正则化项一般是模型复杂度的单点递增函数，模型越复杂，正则项就越大。<br>正则化的作用是选择经验风险与模型复杂度同时较小的模型。</p>
@@ -1505,152 +1631,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/30/Hyperledger-fabric-Building-Your-First-Network-on-MacOS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KaiQiang Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/30/Hyperledger-fabric-Building-Your-First-Network-on-MacOS/" itemprop="url">Hyperledger fabric Building Your First Network on MacOS</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-30T11:26:04+08:00">
-                2018-09-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/区块链/" itemprop="url" rel="index">
-                    <span itemprop="name">区块链</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>本文主要基于 Hyperledger fabric 的官方文档和网上较新的博客，在一台MacOS上实现了Building Your First Network。<br></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/30/Hyperledger-fabric-Building-Your-First-Network-on-MacOS/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1701,7 +1681,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
